@@ -67,10 +67,7 @@ const HanwhaEagles = () => {
               <span className="text-white hover:text-orange-500 transition-colors cursor-pointer">SHOP</span>
             </div>
             <div className="flex items-center space-x-4">
-              {/* 한화 이글스 로고 */}
-              <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-lg">🦅</span>
-              </div>
+              
               {/* 오른쪽 아이콘들 */}
               <div className="text-white hover:text-orange-500 transition-colors cursor-pointer">📱</div>
               <div className="text-white hover:text-orange-500 transition-colors cursor-pointer">👤</div>
