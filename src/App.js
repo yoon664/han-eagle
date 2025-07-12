@@ -1,13 +1,15 @@
 import React from 'react';
 import './App.css';
-import HanwhaEagles from './views/HanwhaEagles'; 
+import Home from './views/Home';
+
 
 function App() {
   return (
     <>
-      <HanwhaEagles /> 
+      <Home /> 
     </>
   );
 }
 
 export default App;
+
