@@ -69,7 +69,7 @@ const HanwhaEagles = () => {
             <div className="flex items-center space-x-4">
               
               {/* 오른쪽 아이콘들 */}
-              <div className="text-white hover:text-orange-500 transition-colors cursor-pointer">📱</div>
+              <div className="text-white hover:text-orange-500 transition-colors cursor-pointer">🎫</div>
               <div className="text-white hover:text-orange-500 transition-colors cursor-pointer">👤</div>
             </div>
           </div>
