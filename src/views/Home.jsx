@@ -11,8 +11,8 @@ export default function Home() {
   return (
     <>
       <Header />
-      <HeroSection />
       <MatchSchedule />
+      <HeroSection />      
       {/* <MainBanner /> */}
       <PlayersCarousel />
       <VideoSection />
