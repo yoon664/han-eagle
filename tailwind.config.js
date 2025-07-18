@@ -5,7 +5,11 @@ export default {
     "./public/index.html"
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'alumni': ['Alumni Sans', 'sans-serif'],
+      }
+    },
   },
   plugins: [],
 }

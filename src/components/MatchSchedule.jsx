@@ -59,13 +59,13 @@ export default function MatchSchedule() {
                 <div className="absolute inset-0 flex">
                   {/* 왼쪽 경기 정보 */}
                   <div className="flex-1 p-4 text-left">
-                    <div className="text-gray-600 text-xs font-medium mb-1">
+                    <div className="text-gray-400 text-xs font-medium mb-1">
                       {game.location}
                     </div>
-                    <div className="text-gray-800 text-sm font-bold mb-1">
+                    <div className="text-gray-500 text-sm font-bold mb-1">
                       {game.date}
                     </div>
-                    <div className="text-gray-600 text-xs mb-2">
+                    <div className="text-gray-500 text-xs mb-2">
                       {game.time}
                     </div>
                     <div className="text-orange-600 text-xs font-medium cursor-pointer hover:text-orange-700 transition-colors">
@@ -73,11 +73,8 @@ export default function MatchSchedule() {
                     </div>
                   </div>
 
-                  {/* 가운데 점선 */}
-                  <div className="w-px border-l-2 border-dashed border-gray-400 my-2"></div>
-
                   {/* 오른쪽 팀 로고 */}
-                  <div className="w-20 flex items-center justify-center p-2 ">
+                  <div className="w-24 flex items-center justify-center p-2 ">
                     <img 
                       src={`/img/${game.teamLogo}`} 
                       alt="Team Logo" 
@@ -87,9 +84,6 @@ export default function MatchSchedule() {
                         e.target.nextSibling.style.display = 'block';
                       }}
                     />
-                    <div className="hidden w-12 h-12 bg-gray-300 rounded flex items-center justify-center text-xs text-gray-600">
-                      LOGO
-                    </div>
                   </div>
                 </div>
 
