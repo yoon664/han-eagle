@@ -28,22 +28,22 @@ export default function Header() {
                 onMouseEnter={() => setHoveredMenu('eagles')}
                 onMouseLeave={() => setHoveredMenu(null)}
               >
-                <a href="#" className={`relative text-white font-medium text-xl font-alumni transition-colors duration-300 ${hoveredMenu === 'eagles' ? 'text-orange-400' : 'hover:text-orange-400'}`}>
+                <a href="#" className={`relative text-white hover:text-[#DF6D21] font-medium text-xl font-alumni transition-colors duration-300 ${hoveredMenu === 'eagles' ? 'text-orange-400' : 'hover:text-orange-400'}`}>
                   EAGLES
                   {/* 밑줄 효과 */}
-                  <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-orange-400 transform transition-transform duration-300 ${hoveredMenu === 'eagles' ? 'scale-x-100' : 'scale-x-0'}`}></span>
+                  <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-[#DF6D21] transform transition-transform duration-300 ${hoveredMenu === 'eagles' ? 'scale-x-100' : 'scale-x-0'}`}></span>
                 </a>
                 
                 {/* EAGLES 드롭다운 메뉴 */}
                 {hoveredMenu === 'eagles' && (
                   <div className="absolute top-full left-0 pt-2">
-                    <a href="#" className="block text-orange-400 font-medium text-xl font-alumni hover:text-orange-300 transition-colors py-2">
+                    <a href="#" className="block text-[#DF6D21] font-semibold text-xl font-alumni hover:text-orange-300 transition-colors py-2">
                       ABOUT
                     </a>
-                    <a href="#" className="block text-orange-400 font-medium text-xl font-alumni hover:text-orange-300 transition-colors py-2">
+                    <a href="#" className="block text-[#DF6D21] font-semibold text-xl font-alumni hover:text-orange-300 transition-colors py-2">
                       HISTORY
                     </a>
-                    <a href="#" className="block text-orange-400 font-medium text-[13px] font-alumni hover:text-orange-300 transition-colors py-2">
+                    <a href="#" className="block text-[#DF6D21] font-semibold text-[13px] font-alumni hover:text-orange-300 transition-colors py-2">
                       사회공헌
                     </a>
                   </div>
