@@ -10,12 +10,12 @@ export default function Instagram() {
 
   return (
     <section className="relative py-16" style={{backgroundColor: '#222222'}}>
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="min-w-7xl mx-auto overflow-hidden">
         
-        {/* 인스타그램 지그재그 그리드 */}
+        {/* 인스타그램 */}
         <div className="flex justify-center items-start space-x-6">
           
-          {/* 첫 번째 컬럼 - 위 */}
+          {/* 1 */}
           <div className="relative group cursor-pointer overflow-hidden" style={{marginTop: '0px'}}>
             <img 
               src={`/img/${images[0].src}`} 
@@ -31,7 +31,7 @@ export default function Instagram() {
               Instagram Post
             </div>
             
-            {/* 호버 오버레이 */}
+            {/* 호버 */}
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
               <img 
                 src="/img/inslogo.png" 
@@ -41,7 +41,7 @@ export default function Instagram() {
             </div>
           </div>
 
-          {/* 두 번째 컬럼 - 아래 */}
+          {/* 2 */}
           <div className="relative group cursor-pointer overflow-hidden" style={{marginTop: '100px'}}>
             <img 
               src={`/img/${images[1].src}`} 
@@ -57,7 +57,7 @@ export default function Instagram() {
               Instagram Post
             </div>
             
-            {/* 호버 오버레이 */}
+            {/* 호버 */}
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
               <img 
                 src="/img/inslogo.png" 
@@ -67,7 +67,7 @@ export default function Instagram() {
             </div>
           </div>
 
-          {/* 세 번째 컬럼 - 위 */}
+          {/* 3 */}
           <div className="relative group cursor-pointer overflow-hidden" style={{marginTop: '0px'}}>
             <img 
               src={`/img/${images[2].src}`} 
@@ -83,7 +83,7 @@ export default function Instagram() {
               Instagram Post
             </div>
             
-            {/* 호버 오버레이 */}
+            {/* 호버 */}
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
               <img 
                 src="/img/inslogo.png" 
@@ -93,7 +93,7 @@ export default function Instagram() {
             </div>
           </div>
 
-          {/* 네 번째 컬럼 - 아래 */}
+          {/* 4 */}
           <div className="relative group cursor-pointer overflow-hidden" style={{marginTop: '100px'}}>
             <img 
               src={`/img/${images[3].src}`} 
@@ -109,7 +109,7 @@ export default function Instagram() {
               Instagram Post
             </div>
             
-            {/* 호버 오버레이 */}
+            {/* 호버 */}
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
               <img 
                 src="/img/inslogo.png" 
@@ -119,7 +119,7 @@ export default function Instagram() {
             </div>
           </div>
 
-          {/* 다섯 번째 컬럼 - 위 */}
+          {/* 5 */}
           <div className="relative group cursor-pointer overflow-hidden" style={{marginTop: '0px'}}>
             <img 
               src={`/img/${images[4].src}`} 
@@ -135,7 +135,7 @@ export default function Instagram() {
               Instagram Post
             </div>
             
-            {/* 호버 오버레이 */}
+            {/* 호버 */}
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
               <img 
                 src="/img/inslogo.png" 
@@ -145,7 +145,7 @@ export default function Instagram() {
             </div>
           </div>
 
-          {/* 여섯 번째 컬럼 - 아래 */}
+          {/* 6 */}
           <div className="relative group cursor-pointer overflow-hidden" style={{marginTop: '100px'}}>
             <img 
               src={`/img/${images[5].src}`} 
@@ -161,7 +161,7 @@ export default function Instagram() {
               Instagram Post
             </div>
             
-            {/* 호버 오버레이 */}
+            {/* 호버 */}
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
               <img 
                 src="/img/inslogo.png" 

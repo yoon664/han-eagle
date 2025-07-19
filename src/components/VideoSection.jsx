@@ -25,15 +25,11 @@ export default function VideoSection() {
                 <div 
                   className="absolute inset-0 bg-cover bg-center"
                   style={{
-                    backgroundImage: "url('/img/video-thumbnail.jpg')" // 썸네일 이미지
+                    backgroundImage: "url('/img/Thum.png')" // 썸네일 이미지
                   }}
                 >
                 </div>
 
-                {/* 8연승 텍스트 오버레이 */}
-                <div className="absolute top-8 left-8 z-10">
-                  <div className="text-white text-6xl font-bold">썸네일추가</div>
-                </div>
 
                 {/* 플레이 버튼 */}
                 <div className="absolute inset-0 flex items-center justify-center z-10">
