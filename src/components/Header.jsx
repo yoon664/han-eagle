@@ -1,4 +1,8 @@
+import { useState } from 'react';
+
 export default function Header() {
+  const [hoveredMenu, setHoveredMenu] = useState(null);
+
   return (
     <>
       {/* 배경 영상 - 전체 화면 */}
@@ -18,16 +22,41 @@ export default function Header() {
           <div className="flex justify-between items-center">
             {/* 왼쪽 네비게이션 */}
             <nav className="flex space-x-8">
-              <a href="#" className="text-white font-medium hover:text-orange-400 transition-colors duration-300">
-                EAGLES
-              </a>
-              <a href="#" className="text-white font-medium hover:text-orange-400 transition-colors duration-300">
+              {/* EAGLES 메뉴 */}
+              <div 
+                className="relative"
+                onMouseEnter={() => setHoveredMenu('eagles')}
+                onMouseLeave={() => setHoveredMenu(null)}
+              >
+                <a href="#" className={`relative text-white font-medium font-alumni transition-colors duration-300 ${hoveredMenu === 'eagles' ? 'text-orange-400' : 'hover:text-orange-400'}`}>
+                  EAGLES
+                  {/* 밑줄 효과 */}
+                  <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-orange-400 transform transition-transform duration-300 ${hoveredMenu === 'eagles' ? 'scale-x-100' : 'scale-x-0'}`}></span>
+                </a>
+                
+                {/* EAGLES 드롭다운 메뉴 */}
+                {hoveredMenu === 'eagles' && (
+                  <div className="absolute top-full left-0 pt-2">
+                    <a href="#" className="block text-orange-400 font-medium font-alumni hover:text-orange-300 transition-colors py-2">
+                      ABOUT
+                    </a>
+                    <a href="#" className="block text-orange-400 font-medium font-alumni hover:text-orange-300 transition-colors py-2">
+                      HISTORY
+                    </a>
+                    <a href="#" className="block text-orange-400 font-medium font-alumni hover:text-orange-300 transition-colors py-2">
+                      사회공헌
+                    </a>
+                  </div>
+                )}
+              </div>
+
+              <a href="#" className="text-white font-medium font-alumni hover:text-orange-400 transition-colors duration-300">
                 PLAYERS
               </a>
-              <a href="#" className="text-white font-medium hover:text-[#DF6D21] transition-colors duration-300">
+              <a href="#" className="text-white font-medium font-alumni hover:text-[#DF6D21] transition-colors duration-300">
                 GAME
               </a>
-              <a href="#" className="text-white font-medium hover:text-[#DF6D21] transition-colors duration-300">
+              <a href="#" className="text-white font-medium font-alumni hover:text-[#DF6D21] transition-colors duration-300">
                 SHOP
               </a>
             </nav>
