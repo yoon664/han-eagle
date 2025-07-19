@@ -33,6 +33,9 @@ export default function HeroSection() {
         </h1>
 
         {/* 버튼 */}
+        <svg xmlns="http://www.w3.org/2000/svg" width="326" height="96" viewBox="0 0 326 96" fill="none">
+<path d="M1 95V1H325V63.3654L298 95H1Z" stroke="white"/>
+</svg>
         <div className="flex justify-center">
           <button className="border-2 border-white px-8 py-4 text-white font-medium hover:bg-[#DF6D21] hover:border-[#DF6D21] transition-all duration-300 tracking-wider">
             VIEW ALL ABOUT
