@@ -6,7 +6,7 @@ const gameSchedule = [
     team: 'T', 
     opponent: 'vs NC 다이노스', 
     link: '결과 보러가기',
-    teamLogo: 'samsung.png'
+    teamLogo: 'lglogo.png'
   },
   { 
     location: '대전(신)', 
@@ -15,7 +15,7 @@ const gameSchedule = [
     team: 'T', 
     opponent: 'vs NC 다이노스', 
     link: '예매 바로가기',
-    teamLogo: 'samsung.png'
+    teamLogo: 'lglogo.png'
   },
   { 
     location: '대전(신)', 
@@ -24,7 +24,7 @@ const gameSchedule = [
     team: 'T', 
     opponent: 'vs NC 다이노스', 
     link: '예매 바로가기',
-    teamLogo: 'samsung.png'
+    teamLogo: 'lglogo.png'
   },
   { 
     location: '대전(신)', 
