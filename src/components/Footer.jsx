@@ -30,6 +30,16 @@ export default function Footer() {
           </div>
           
           {/* 오른쪽 스크롤 투 탑 버튼 */}
+
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="89" viewBox="0 0 85 89" fill="none">
+<path d="M0 89V0H85V75.5754L71.0819 89H0Z" fill="#DF6D21"/>
+</svg>
+
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="43" viewBox="0 0 16 43" fill="none">
+<path d="M8.7071 0.292892C8.31658 -0.0976296 7.68342 -0.0976295 7.29289 0.292892L0.928931 6.65685C0.538406 7.04738 0.538406 7.68054 0.928931 8.07107C1.31946 8.46159 1.95262 8.46159 2.34314 8.07107L8 2.41422L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 15.0711 6.65685L8.7071 0.292892ZM8 43L9 43L9 1L8 1L7 1L7 43L8 43Z" fill="white"/>
+</svg>
+
+
           <div className="ml-8">
             <button 
               className="bg-orange-500 text-white w-16 h-16 rounded hover:bg-orange-600 transition-colors flex items-center justify-center"
