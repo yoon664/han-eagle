@@ -8,8 +8,8 @@ export default function VideoSection() {
       <div className="max-w-7xl mx-auto px-4 py-16">
         
         {/* CONTENTS 타이틀 */}
-        <div className="text-center mb-16">
-          <h2 className="text-9xl font-bold text-white tracking-wider">CONTENTS</h2>
+        <div className="flex justify-center mb-16">
+          <h2 className="text-[300px] font-bold text-white tracking-wider leading-none">CONTENTS</h2>
         </div>
 
         {/* 비디오 영역 */}

@@ -5,6 +5,7 @@ import PlayersCarousel from '../components/PlayersCarousel';
 import VideoSection from '../components/VideoSection';
 import MdSection from '../components/MdSection';
 import NewsSection from '../components/NewsSection';
+import Instagram from '../components/Instagram';
 import Footer from '../components/Footer';
 
 export default function Home() {
@@ -13,11 +14,11 @@ export default function Home() {
       <Header />
       <MatchSchedule />
       <HeroSection />      
-      {/* <MainBanner /> */}
       <PlayersCarousel />
       <VideoSection />
       <MdSection />
       <NewsSection />
+      <Instagram />
       <Footer />
     </>
   );
