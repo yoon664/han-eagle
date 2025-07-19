@@ -34,7 +34,7 @@ export default function HeroSection() {
 
         {/* 버튼 */}
         <div className="flex justify-center">
-          <button className="border-2 border-white px-8 py-4 text-white font-medium hover:bg-white hover:text-black transition-all duration-300 tracking-wider">
+          <button className="border-2 border-white px-8 py-4 text-white font-medium hover:bg-[#DF6D21] hover:border-[#DF6D21] transition-all duration-300 tracking-wider">
             VIEW ALL ABOUT
           </button>
         </div>
