@@ -5,13 +5,13 @@ export default function Header() {
 
   return (
     <>
-      {/* 배경 영상 - 전체 화면 */}
+      {/* 배경 영상 */}
       <video
         // autoPlay
         loop
         muted
         playsInline
-        className="absolute top-0 left-0 w-full h-screen object-cover z-0 pointer-events-none"
+        className="absolute top-0 left-0 w-full h-[80vh] object-cover z-0 pointer-events-none"
       >
         <source src="/img/HanwhaEagles_BrandFilm.webm" type="video/webm" />
       </video>
