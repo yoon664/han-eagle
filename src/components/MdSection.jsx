@@ -1,80 +1,181 @@
 import { useState, useRef, useEffect } from 'react';
+import { motion, useSpring, useMotionValue } from "framer-motion";
+import { throttle } from "lodash";
 
 export default function MdSection() {
-  const [currentIndex, setCurrentIndex] = useState(2); // 가운데 카드를 기본으로
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [currentX, setCurrentX] = useState(0);
-  const containerRef = useRef(null);
+  const bgChangeRef = useRef();
+  const scrollRef = useRef();
+  const slideWrapRef = useRef();
+  const slideBoxRef = useRef();
+  const slideRef = useRef([]);
+
+  const [mousePosition, setMousePosition] = useState({ left: 0, top: 0 });
+  const [active, setActive] = useState(false);
+  const [isMouseDown, setIsMouseDown] = useState(false);
+  const [startPos, setStartPos] = useState(0);
+  const [endPos, setEndPos] = useState(0);
+  const [translateZ, setTranslateZ] = useState(0);
 
   const products = [
     { id: 1, name: '후디(ON)봉제인형', image: 'md1.png' },
     { id: 2, name: '2025 어센틱 유니폼', image: 'md2.png' },
     { id: 3, name: '2025 어센틱 유니폼', image: 'md3.png' },
     { id: 4, name: '2025 어센틱 유니폼', image: 'md4.png' },
-    { id: 5, name: '수리 캐릭터 후드', image: 'md5.png' }
+    { id: 5, name: '수리 캐릭터 후드', image: 'md5.png' },
+    { id: 6, name: '한화 이글스 모자', image: 'md1.png' },
+    { id: 7, name: '팀 키링', image: 'md2.png' },
+    { id: 8, name: '응원 타올', image: 'md3.png' },
+    { id: 9, name: '마스코트 인형', image: 'md4.png' },
+    { id: 10, name: '스포츠 백팩', image: 'md5.png' },
+    { id: 11, name: '팀 텀블러', image: 'md1.png' },
+    { id: 12, name: '이글스 티셔츠', image: 'md2.png' }
   ];
 
-  // 카드 클릭 핸들러
-  const handleCardClick = (index) => {
-    setCurrentIndex(index);
+  const handleMouseMove = throttle((e) => {
+    e.stopPropagation();
+    setEndPos(e.clientX);
+  }, 0);
+
+  const handleMouseDown = (e) => {
+    setIsMouseDown(true);
+    setStartPos(e.clientX);
   };
 
-  // 마우스/터치 드래그 시작
-  const handleStart = (clientX) => {
-    setIsDragging(true);
-    setStartX(clientX);
-    setCurrentX(clientX);
-  };
+  const motionVal = useMotionValue(0);
+  const slideScroll = useSpring(motionVal, {
+    bounce: 0,
+    damping: 25,
+    velocity: 2,
+  });
 
-  // 마우스/터치 드래그 중
-  const handleMove = (clientX) => {
-    if (!isDragging) return;
-    setCurrentX(clientX);
-  };
+  let allowWheel = true;
+  const handleScroll = throttle((e) => {
+    if (allowWheel) {
+      if (e.deltaY < 0) {
+        motionVal.set(motionVal.get() - Math.abs(e.deltaY) * 0.1);
+      } else if (e.deltaY > 0) {
+        motionVal.set(motionVal.get() + Math.abs(e.deltaY) * 0.1);
+      }
+    }
+  }, 0);
 
-  // 마우스/터치 드래그 끝
-  const handleEnd = () => {
-    if (!isDragging) return;
-    
-    const deltaX = currentX - startX;
-    const threshold = 50; // 최소 드래그 거리
-    
-    if (deltaX > threshold && currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    } else if (deltaX < -threshold && currentIndex < products.length - 1) {
-      setCurrentIndex(currentIndex + 1);
+  useEffect(() => {
+    function setSlide() {
+      const slide = slideRef.current.filter(el => el !== null);
+      if (slide.length === 0) return;
+      
+      const z = Math.round(
+        scrollRef.current.offsetHeight / 2 / Math.tan(Math.PI / slide.length)
+      );
+      setTranslateZ(z);
+      slide.forEach((el, idx) => {
+        if (el) {
+          el.style.transform =
+            "rotateY(" +
+            (360 / slide.length) * idx +
+            "deg) translateZ(" +
+            z +
+            "px)";
+        }
+      });
     }
     
-    setIsDragging(false);
-  };
+    // 컴포넌트 마운트 후 실행
+    const timer = setTimeout(() => {
+      setSlide();
+    }, 100);
+    
+    if (slideBoxRef.current) {
+      slideBoxRef.current.addEventListener("mousedown", handleMouseDown);
+    }
 
-  // 마우스 이벤트
-  const handleMouseDown = (e) => handleStart(e.clientX);
-  const handleMouseMove = (e) => handleMove(e.clientX);
-  const handleMouseUp = () => handleEnd();
+    window.addEventListener("resize", setSlide);
 
-  // 터치 이벤트
-  const handleTouchStart = (e) => handleStart(e.touches[0].clientX);
-  const handleTouchMove = (e) => handleMove(e.touches[0].clientX);
-  const handleTouchEnd = () => handleEnd();
+    const sectionObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          window.addEventListener("wheel", handleScroll);
+        } else {
+          window.removeEventListener("wheel", handleScroll);
+        }
+      },
+      { threshold: 0 }
+    );
+    
+    if (bgChangeRef.current) {
+      sectionObserver.observe(bgChangeRef.current);
+    }
 
-  // 키보드 네비게이션
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'ArrowLeft' && currentIndex > 0) {
-        setCurrentIndex(currentIndex - 1);
-      } else if (e.key === 'ArrowRight' && currentIndex < products.length - 1) {
-        setCurrentIndex(currentIndex + 1);
+    return () => {
+      clearTimeout(timer);
+      if (sectionObserver) sectionObserver.disconnect();
+      window.removeEventListener("wheel", handleScroll);
+      window.removeEventListener("resize", setSlide);
+      if (slideBoxRef.current) {
+        slideBoxRef.current.removeEventListener("mousedown", handleMouseDown);
       }
     };
+  }, []);
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentIndex, products.length]);
+  useEffect(() => {
+    let timer;
+    let mousePos = startPos - endPos;
+    clearTimeout(timer);
+    motionVal.set(motionVal.get() + mousePos * 0.05);
+
+    timer = setTimeout(() => {
+      const event = new MouseEvent("mouseup", {
+        view: window,
+        bubbles: true,
+        cancelable: true,
+      });
+      window.dispatchEvent(event);
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, [endPos]);
+
+  useEffect(() => {
+    const handleMouseUp = (e) => {
+      setIsMouseDown(false);
+      if (slideBoxRef.current) {
+        slideBoxRef.current.removeEventListener("mousemove", handleMouseMove);
+      }
+    };
+    
+    if (isMouseDown) {
+      if (slideBoxRef.current) {
+        slideBoxRef.current.addEventListener("mousemove", handleMouseMove);
+      }
+      window.addEventListener("mouseup", handleMouseUp);
+    }
+
+    return () => {
+      window.removeEventListener("mouseup", handleMouseUp);
+      if (slideBoxRef.current) {
+        slideBoxRef.current.removeEventListener("mousemove", handleMouseMove);
+      }
+    };
+  }, [isMouseDown]);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center py-16 overflow-hidden" style={{backgroundColor: '#222222'}}>
+    <motion.section
+      ref={bgChangeRef}
+      className="relative min-h-screen flex flex-col items-center justify-center py-16 overflow-hidden"
+      style={{ backgroundColor: '#222222' }}
+      onMouseMove={(e) => {
+        setActive(true);
+        if (bgChangeRef.current) {
+          const bounds = bgChangeRef.current.getBoundingClientRect();
+          const posX = e.clientX - bounds.left;
+          const posY = e.clientY - bounds.top;
+          setMousePosition({ left: posX, top: posY });
+        }
+      }}
+      onMouseLeave={() => {
+        setActive(false);
+      }}
+    >
       <div className="w-full">
         
         {/* MD 타이틀 */}
@@ -82,134 +183,83 @@ export default function MdSection() {
           <h2 className="text-[300px] font-bold text-white tracking-wider leading-none">MD</h2>
         </div>
 
-        {/* 파노라마 슬라이더 컨테이너 */}
-        <div className="relative mb-16 h-[500px]">
-          <div 
-            ref={containerRef}
-            className={`flex items-center justify-center h-full ${isDragging ? 'cursor-grabbing' : 'cursor-grab'} select-none`}
-            style={{ perspective: '1000px' }}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseUp}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
+        {/* 3D 슬라이드 컨테이너 */}
+        <div 
+          ref={slideBoxRef}
+          className="relative mb-16 h-[500px] flex items-center justify-center"
+          style={{ cursor: 'ew-resize' }}
+        >
+          <div
+            ref={scrollRef}
+            className="relative w-[535px] h-[535px] flex items-center justify-center"
+            style={{ 
+              perspective: translateZ * 1.98 + "px",
+              transform: 'rotate(6deg)'
+            }}
           >
-            {products.map((product, index) => {
-              const offset = index - currentIndex;
-              const absOffset = Math.abs(offset);
-              const isCenter = offset === 0;
-              
-              // 파노라마 변환 계산
-              const rotateY = offset * 45; // 회전각도
-              const translateZ = isCenter ? 50 : -absOffset * 100; // Z축 이동
-              const translateX = offset * 200; // X축 간격
-              const scale = isCenter ? 1.1 : 1 - absOffset * 0.2; // 크기
-              const opacity = absOffset > 2 ? 0 : 1 - absOffset * 0.3; // 투명도
-              
-              return (
-                <div
+            <motion.ul
+              ref={slideWrapRef}
+              className="relative w-full h-full"
+              style={{
+                transformStyle: 'preserve-3d',
+                rotateY: slideScroll,
+                willChange: 'transform'
+              }}
+            >
+              {products.map((product, idx) => (
+                <li
                   key={product.id}
-                  className="absolute transition-all duration-700 ease-in-out"
+                  ref={(el) => (slideRef.current[idx] = el)}
+                  className="absolute w-full h-full"
                   style={{
-                    transform: `
-                      translateX(${translateX}px)
-                      translateZ(${translateZ}px)
-                      rotateY(${rotateY}deg)
-                      scale(${scale})
-                    `,
-                    opacity: opacity,
-                    zIndex: isCenter ? 100 : 50 - absOffset,
-                    transformStyle: 'preserve-3d'
+                    padding: '17.5px',
+                    userSelect: 'none'
                   }}
-                  onClick={() => handleCardClick(index)}
                 >
-                  {/* 상품 카드 */}
-                  <div className={`
-                    w-80 h-96 rounded-2xl overflow-hidden shadow-2xl cursor-pointer
-                    transition-all duration-300 hover:shadow-3xl
-                    ${isCenter ? 'ring-4 ring-orange-500 ring-opacity-50' : ''}
-                  `}>
-                    <img 
-                      src={`/img/${product.image}`} 
-                      alt={product.name}
-                      className="w-full h-full object-cover"
-                      draggable="false"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.nextSibling.style.display = 'flex';
-                      }}
-                    />
-                    <div className="hidden w-full h-full bg-gray-600 flex items-center justify-center text-white text-xl">
+                  <div
+                    className="relative w-full h-full rounded-lg overflow-hidden shadow-2xl cursor-pointer group"
+                    style={{
+                      background: 'linear-gradient(-20deg, rgba(230,2,18,1) 0%, rgba(234,99,37,1) 100%)',
+                      border: '4px solid #ea6325',
+                      transform: 'scaleX(-1)' // 반전 효과
+                    }}
+                  >
+                    {/* 상품 이미지 */}
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[274px] pointer-events-none">
+                      <img 
+                        src={`/img/${product.image}`} 
+                        alt={product.name}
+                        className="w-full object-contain pointer-events-none"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'flex';
+                        }}
+                      />
+                      <div className="hidden w-full h-[200px] bg-gray-600 flex items-center justify-center text-white text-sm">
+                        {product.name}
+                      </div>
+                    </div>
+
+                    {/* 상품명 */}
+                    <div 
+                      className="absolute top-5 left-5 text-white font-bold text-sm"
+                      style={{ transform: 'scaleX(-1)' }} // 텍스트만 다시 반전
+                    >
                       {product.name}
                     </div>
+
+                    {/* 호버 효과 */}
+                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300" />
                   </div>
-                  
-                  {/* 상품명 */}
-                  <div className="text-center mt-6">
-                    <h3 className={`
-                      font-medium transition-all duration-300
-                      ${isCenter ? 'text-2xl text-white' : 'text-lg text-gray-400'}
-                    `}>
-                      {product.name}
-                    </h3>
-                  </div>
-                </div>
-              );
-            })}
+                </li>
+              ))}
+            </motion.ul>
           </div>
-        </div>
-
-        {/* 네비게이션 인디케이터 */}
-        <div className="flex justify-center space-x-3 mb-12">
-          {products.map((_, index) => (
-            <button
-              key={index}
-              className={`
-                w-3 h-3 rounded-full transition-all duration-300
-                ${index === currentIndex ? 'bg-orange-500 scale-125' : 'bg-gray-600 hover:bg-gray-400'}
-              `}
-              onClick={() => setCurrentIndex(index)}
-            />
-          ))}
-        </div>
-
-        {/* 네비게이션 화살표 */}
-        <div className="flex justify-center space-x-8 mb-12">
-          <button
-            className={`
-              w-12 h-12 rounded-full border-2 flex items-center justify-center
-              transition-all duration-300 text-2xl
-              ${currentIndex > 0 
-                ? 'border-white text-white hover:bg-white hover:text-black' 
-                : 'border-gray-600 text-gray-600 cursor-not-allowed'
-              }
-            `}
-            onClick={() => currentIndex > 0 && setCurrentIndex(currentIndex - 1)}
-            disabled={currentIndex === 0}
-          >
-            ←
-          </button>
-          <button
-            className={`
-              w-12 h-12 rounded-full border-2 flex items-center justify-center
-              transition-all duration-300 text-2xl
-              ${currentIndex < products.length - 1 
-                ? 'border-white text-white hover:bg-white hover:text-black' 
-                : 'border-gray-600 text-gray-600 cursor-not-allowed'
-              }
-            `}
-            onClick={() => currentIndex < products.length - 1 && setCurrentIndex(currentIndex + 1)}
-            disabled={currentIndex === products.length - 1}
-          >
-            →
-          </button>
         </div>
 
         {/* VIEW ALL MD 버튼 */}
         <div className="flex justify-center">
-          <button className="relative group cursor-pointer transition-all duration-300 ">
+          <button className="relative group cursor-pointer transition-all duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" width="326" height="96" viewBox="0 0 326 96" fill="none">
               <path d="M1 95V1H325V63.3654L298 95H1Z" 
                     stroke="white" 
@@ -218,14 +268,13 @@ export default function MdSection() {
                     className="group-hover:stroke-[#DF6D21] group-hover:fill-[#DF6D21] transition-all duration-300"/>
             </svg>
             
-            <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
-            text-white text-2xl font-bold tracking-wider whitespace-nowrap">
+            <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-2xl font-bold tracking-wider whitespace-nowrap">
               VIEW ALL MD
             </span>
           </button>
         </div>
 
       </div>
-    </section>
+    </motion.section>
   );
 }

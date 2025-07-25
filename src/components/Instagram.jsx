@@ -8,7 +8,7 @@ export default function Instagram() {
     { id: 6, src: 'in6.png' }
   ];
 
-  // 끊김 없는 스크롤을 위해 이미지 복제
+
   const duplicatedImages = [...images, ...images];
 
   return (
@@ -21,7 +21,7 @@ export default function Instagram() {
             className="flex"
             style={{
               animation: 'slide 25s linear infinite',
-              width: 'calc(310px * 12 + 24px * 12)' // 이미지 + 마진 계산
+              width: 'calc(310px * 12 + 24px * 12)' // 이미지랑 마진 계산
             }}
           >
             {duplicatedImages.map((image, index) => (
