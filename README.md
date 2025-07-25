@@ -2,6 +2,9 @@
 framer motion 받음
 lodash 필요?
 
+npm install lucide-react
+오픈소스 아이콘 라이브러리
+
 
 ## sanrio
 https://yoon664.github.io/sanrio_po/
