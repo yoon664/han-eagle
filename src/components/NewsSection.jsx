@@ -1,3 +1,5 @@
+import ScrollTitle from '../components/Bigtitle';
+
 export default function NewsSection() {
   const news = [
     { id: 1, title: '한화이글스, 창단 40주년 기념 레거시 유니폼 화보 공개', date: '2025.04.06' },
@@ -15,6 +17,8 @@ export default function NewsSection() {
         <div className="text-center mb-16">
           <h2 className="text-[300px] font-bold text-white tracking-wider leading-none">NEWS</h2>
         </div>
+
+        <ScrollTitle text="NEWS" />
 
         {/* 뉴스 리스트 */}
         <div>

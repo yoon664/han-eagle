@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, useSpring, useMotionValue } from "framer-motion";
 import { throttle } from "lodash";
+import ScrollTitle from '../components/Bigtitle';
 
 export default function MdSection() {
   const bgChangeRef = useRef();

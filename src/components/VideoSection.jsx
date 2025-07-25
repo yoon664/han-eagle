@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ScrollTitle from '../components/Bigtitle';
 
 export default function VideoSection() {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
