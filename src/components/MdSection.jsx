@@ -48,24 +48,13 @@ export default function MdSection() {
     velocity: 2,
   });
 
-  let allowWheel = true;
-  const handleScroll = throttle((e) => {
-    if (allowWheel) {
-      if (e.deltaY < 0) {
-        motionVal.set(motionVal.get() - Math.abs(e.deltaY) * 0.1);
-      } else if (e.deltaY > 0) {
-        motionVal.set(motionVal.get() + Math.abs(e.deltaY) * 0.1);
-      }
-    }
-  }, 0);
-
   useEffect(() => {
     function setSlide() {
       const slide = slideRef.current.filter(el => el !== null);
       if (slide.length === 0) return;
       
       const z = Math.round(
-        scrollRef.current.offsetHeight / 2 / Math.tan(Math.PI / slide.length)
+        scrollRef.current.offsetHeight / 2 / Math.tan(Math.PI / slide.length) 
       );
       setTranslateZ(z);
       slide.forEach((el, idx) => {
@@ -91,25 +80,8 @@ export default function MdSection() {
 
     window.addEventListener("resize", setSlide);
 
-    const sectionObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          window.addEventListener("wheel", handleScroll);
-        } else {
-          window.removeEventListener("wheel", handleScroll);
-        }
-      },
-      { threshold: 0 }
-    );
-    
-    if (bgChangeRef.current) {
-      sectionObserver.observe(bgChangeRef.current);
-    }
-
     return () => {
       clearTimeout(timer);
-      if (sectionObserver) sectionObserver.disconnect();
-      window.removeEventListener("wheel", handleScroll);
       window.removeEventListener("resize", setSlide);
       if (slideBoxRef.current) {
         slideBoxRef.current.removeEventListener("mousedown", handleMouseDown);
@@ -187,14 +159,27 @@ export default function MdSection() {
         <div 
           ref={slideBoxRef}
           className="relative mb-16 h-[500px] flex items-center justify-center"
-          style={{ cursor: 'ew-resize' }}
+          style={{ cursor: isMouseDown ? 'grabbing' : 'grab' }}
+          onTouchStart={(e) => {
+            setIsMouseDown(true);
+            setStartPos(e.touches[0].clientX);
+          }}
+          onTouchMove={(e) => {
+            if (isMouseDown) {
+              e.stopPropagation();
+              setEndPos(e.touches[0].clientX);
+            }
+          }}
+          onTouchEnd={() => {
+            setIsMouseDown(false);
+          }}
         >
           <div
             ref={scrollRef}
-            className="relative w-[535px] h-[535px] flex items-center justify-center"
+            className="relative w-[280px] h-[280px] flex items-center justify-center"
             style={{ 
               perspective: translateZ * 1.98 + "px",
-              transform: 'rotate(6deg)'
+              transform: 'rotate(0deg)'
             }}
           >
             <motion.ul
@@ -212,20 +197,19 @@ export default function MdSection() {
                   ref={(el) => (slideRef.current[idx] = el)}
                   className="absolute w-full h-full"
                   style={{
-                    padding: '17.5px',
+                    padding: '8px',
                     userSelect: 'none'
                   }}
                 >
                   <div
                     className="relative w-full h-full rounded-lg overflow-hidden shadow-2xl cursor-pointer group"
                     style={{
-                      background: 'linear-gradient(-20deg, rgba(230,2,18,1) 0%, rgba(234,99,37,1) 100%)',
-                      border: '4px solid #ea6325',
+                      background: '#454444',
                       transform: 'scaleX(-1)' // 반전 효과
                     }}
                   >
                     {/* 상품 이미지 */}
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[274px] pointer-events-none">
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[160px] pointer-events-none">
                       <img 
                         src={`/img/${product.image}`} 
                         alt={product.name}
@@ -242,7 +226,7 @@ export default function MdSection() {
 
                     {/* 상품명 */}
                     <div 
-                      className="absolute top-5 left-5 text-white font-bold text-sm"
+                      className="absolute top-3 left-3 text-white font-bold text-xs"
                       style={{ transform: 'scaleX(-1)' }} // 텍스트만 다시 반전
                     >
                       {product.name}
