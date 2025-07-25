@@ -18,7 +18,7 @@ export default function VideoSection() {
             {!isVideoPlaying ? (
               // 썸네일 + 플레이 버튼
               <div 
-                className="relative w-[800px] h-[450px] bg-gray-800 rounded-lg overflow-hidden cursor-pointer group"
+                className="relative w-[1200px] h-[675px] bg-gray-800 rounded-lg overflow-hidden cursor-pointer group"
                 onClick={() => setIsVideoPlaying(true)}
               >
                 {/* 썸네일 배경 이미지 */}
@@ -43,11 +43,11 @@ export default function VideoSection() {
                 </div>
 
                 {/* 하단 시간 표시 */}
-                <div className="absolute bottom-4 right-4 z-10">
+                {/* <div className="absolute bottom-4 right-4 z-10">
                   <div className="bg-black bg-opacity-70 text-white px-3 py-1 rounded text-sm">
                     16:44
                   </div>
-                </div>
+                </div> */}
               </div>
             ) : (
               // 실제 YouTube 비디오
@@ -67,7 +67,7 @@ export default function VideoSection() {
 
         {/* 비디오 설명 텍스트 */}
         <div className="text-center">
-          <div className="text-white text-2xl font-medium">
+          <div className="text-white text-4xl font-medium">
             8연승, 창단 최초 8경기 연속 선발승
           </div>
         </div>
