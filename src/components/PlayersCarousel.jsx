@@ -10,67 +10,33 @@ const players = [
   },
   { 
     id: 2, 
-    name: '김도연', 
-    number: 27, 
-    position: '내야수 우타좌투',
+    name: '이재원', 
+    number: 20, 
+    position: '투수 우투우타',
     image: 'player2.png'
   },
   { 
     id: 3, 
-    name: '최재훈', 
-    number: 15, 
-    position: '외야수 좌타좌투',
+    name: '김서현', 
+    number: 44, 
+    position: '투수 우투우타',
     image: 'player3.png'
   },
   { 
     id: 4, 
-    name: '박병호', 
-    number: 52, 
-    position: '내야수 좌타우투',
+    name: '최재훈', 
+    number: 13, 
+    position: '포수 우투우타',
     image: 'player4.png'
   },
   { 
     id: 5, 
-    name: '이원석', 
+    name: '노시환', 
     number: 8, 
-    position: '내야수 우타우투',
+    position: '내야수 우투우타',
     image: 'player5.png'
   },
-  { 
-    id: 6, 
-    name: '정우람', 
-    number: 21, 
-    position: '투수 우투우타',
-    image: 'player6.png'
-  },
-  { 
-    id: 7, 
-    name: '채은성', 
-    number: 1, 
-    position: '포수 우타우투',
-    image: 'player7.png'
-  },
-  { 
-    id: 8, 
-    name: '노시환', 
-    number: 31, 
-    position: '내야수 좌타우투',
-    image: 'player8.png'
-  },
-  { 
-    id: 9, 
-    name: '문현빈', 
-    number: 24, 
-    position: '외야수 좌타좌투',
-    image: 'player9.png'
-  },
-  { 
-    id: 10, 
-    name: '안치홍', 
-    number: 6, 
-    position: '내야수 우타우투',
-    image: 'player10.png'
-  }
+  
 ];
 
 export default function PlayersCarousel() {
