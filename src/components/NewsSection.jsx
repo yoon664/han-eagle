@@ -18,7 +18,7 @@ export default function NewsSection() {
           <h2 className="text-[300px] font-bold text-white tracking-wider leading-none">NEWS</h2>
         </div>
 
-        <ScrollTitle text="NEWS" />
+        {/* <ScrollTitle text="NEWS" /> */}
 
         {/* 뉴스 리스트 */}
         <div>
