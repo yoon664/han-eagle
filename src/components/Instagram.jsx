@@ -72,7 +72,7 @@ export default function Instagram() {
           }
         }
         
-        .hover\\:pause:hover {
+        .hover:pause:hover {
           animation-play-state: paused;
         }
       `}</style>

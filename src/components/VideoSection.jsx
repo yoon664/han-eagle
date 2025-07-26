@@ -1,36 +1,35 @@
 import { useState } from 'react';
-import ScrollTitle from '../components/Bigtitle';
 
 export default function VideoSection() {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center" style={{backgroundColor: '#222222'}}>
-      <div className="max-w-7xl mx-auto px-4 py-16">
+    <section className="relative min-h-screen flex flex-col items-center justify-center">
+      <div className="w-full px-4 py-16">
         
         {/* CONTENTS 타이틀 */}
-        <div className="flex justify-center mb-16">
-          <h2 className="text-[300px] font-bold text-white tracking-wider leading-none">CONTENTS</h2>
+        <div className="flex justify-center mb-12 md:mb-16">
+          <h2 className="text-[120px] md:text-[300px] font-bold text-white tracking-wider leading-none">
+            CONTENTS
+          </h2>
         </div>
 
-        {/* 비디오 영역 */}
-        <div className="flex justify-center mb-8">
+        {/* 비디오 영역  */}
+        <div className="flex justify-center mb-6 md:mb-8">
           <div className="relative">
             {!isVideoPlaying ? (
               // 썸네일 + 플레이 버튼
               <div 
-                className="relative w-[1200px] h-[675px] bg-gray-800 rounded-lg overflow-hidden cursor-pointer group"
+                className="relative w-[580px] h-[326px] md:w-[1200px] md:h-[675px] rounded-lg overflow-hidden cursor-pointer group"
                 onClick={() => setIsVideoPlaying(true)}
               >
                 {/* 썸네일 배경 이미지 */}
                 <div 
                   className="absolute inset-0 bg-cover bg-center"
                   style={{
-                    backgroundImage: "url('/img/Thum.png')" // 썸네일 이미지
+                    backgroundImage: "url('/img/Thum.png')"
                   }}
-                >
-                </div>
-
+                />
 
                 {/* 플레이 버튼 */}
                 <div className="absolute inset-0 flex items-center justify-center z-10">
@@ -38,21 +37,27 @@ export default function VideoSection() {
                     <img 
                       src="/img/mdi_youtube.png" 
                       alt="Play Video" 
-                      className="w-20 h-20 object-contain"
+                      className="w-12 h-12 md:w-20 md:h-20 object-contain"
+                      onError={(e) => {
+                        // 이미지 로딩 실패 시 기본 플레이 버튼 표시
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'flex';
+                      }}
                     />
+                    {/* 대체 플레이 버튼 */}
+                    <div className="hidden w-12 h-12 md:w-20 md:h-20 bg-red-600 rounded-full items-center justify-center">
+                      <svg className="w-6 h-6 md:w-8 md:h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </div>
                   </div>
                 </div>
 
-                {/* 하단 시간 표시 */}
-                {/* <div className="absolute bottom-4 right-4 z-10">
-                  <div className="bg-black bg-opacity-70 text-white px-3 py-1 rounded text-sm">
-                    16:44
-                  </div>
-                </div> */}
+
               </div>
             ) : (
-              // 실제 YouTube 비디오
-              <div className="w-[800px] h-[450px] rounded-lg overflow-hidden">
+              // 유툽 비디오
+              <div className="w-[580px] h-[326px] md:w-[1200px] md:h-[675px] rounded-lg overflow-hidden">
                 <iframe
                   className="w-full h-full"
                   src="https://www.youtube.com/embed/S7sT7M0rFpM?start=757&autoplay=1&rel=0&modestbranding=1"
@@ -60,18 +65,19 @@ export default function VideoSection() {
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
-                ></iframe>
+                />
               </div>
             )}
           </div>
         </div>
 
-        {/* 비디오 설명 텍스트 */}
         <div className="text-center">
-          <div className="text-white text-4xl font-medium">
+          <div className="text-white text-xl md:text-4xl font-medium">
             8연승, 창단 최초 8경기 연속 선발승
           </div>
         </div>
+
+
 
       </div>
     </section>

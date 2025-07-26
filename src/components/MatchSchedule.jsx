@@ -41,7 +41,7 @@ export default function MatchSchedule() {
   return (
     <>
       {/* 데스크탑4장 */}
-      <section className="hidden md:block absolute top-[715px] left-0 right-0 z-40 px-4">
+      <section className="hidden md:block absolute top-[73vh] left-0 right-0 z-40 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="flex justify-center space-x-4">
             {gameSchedule.map((game, index) => (

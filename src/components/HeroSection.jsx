@@ -2,7 +2,7 @@ export default function HeroSection() {
   return (
     <section
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{ backgroundColor: '#222222', marginTop: '100vh' }}
+      style={{marginTop: '100vh' }}
     >
       {/* 배경 이미지 */}
       <div className="absolute left-0 right-0 flex items-center justify-center top-[0%]">
