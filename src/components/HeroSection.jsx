@@ -83,7 +83,7 @@ export default function HeroSection() {
         
 
         {/* 메인 타이틀 */}
-        <h1 className="text-9xl font-black mb-6 font-alumni leading-[0.8]">
+        <h1 className="text-[180px] font-black mb-6 font-alumni leading-[0.8]">
           RIDE THE STORM
         </h1>
 

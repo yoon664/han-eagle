@@ -224,7 +224,7 @@ export default function ResponsivePlayersCarousel() {
                       fill="transparent"
                       className="group-hover:stroke-[#DF6D21] group-hover:fill-[#DF6D21] transition-all duration-300" />
               </svg>
-              <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-sm font-bold tracking-wider">
+              <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-[20px] font-bold tracking-wider whitespace-nowrap">
                 VIEW ALL PLAYER
               </span>
             </button>
