@@ -61,7 +61,7 @@ export default function Footer() {
       {/* 고정 스크롤 투 탑 버튼 */}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-40 right-60 z-50 transition-all duration-300 ${
+        className={`fixed bottom-10 right-10 z-50 transition-all duration-300 ${
           showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
         }`}
         aria-label="맨 위로 스크롤"

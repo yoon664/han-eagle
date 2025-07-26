@@ -61,7 +61,9 @@ export default function MatchSchedule() {
                       <div className="text-gray-500 text-sm font-bold mb-1">{game.date}</div>
                       <div className="text-gray-500 text-xs mb-2">{game.time}</div>
                       <div className="text-orange-600 text-xs font-medium cursor-pointer hover:text-orange-700 transition-colors">
-                        {game.link} →
+                        {game.link} <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16" fill="none">
+  <path d="M0.517945 8.013L18.379 8M11.5745 15L18.5908 8L11.5745 1" stroke="#DF6D21" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
                       </div>
                     </div>
                     <div className="w-24 flex items-center justify-center p-2">
