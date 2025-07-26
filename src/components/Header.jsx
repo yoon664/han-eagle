@@ -21,13 +21,13 @@ export default function Header() {
       {/* 모바일 헤더 */}
       <header className="md:hidden absolute top-0 left-0 right-0 z-50">
         <div className="flex justify-between items-center p-4">
-          <img src="/img/mark.png" alt="Logo" className="h-8 w-auto" />
+          <img src="/img/mark.png" alt="Logo" className="h-16 w-auto" />
 
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="text-white p-2"
           >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMenuOpen ? <X size={45} /> : <Menu size={45} />}
           </button>
         </div>
 
