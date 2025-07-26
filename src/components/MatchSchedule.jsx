@@ -87,7 +87,7 @@ export default function MatchSchedule() {
         <div className="flex justify-center">
           <div className="relative">
             <div 
-              className="w-[280px] h-[116px] relative overflow-hidden"
+              className="w-[296px] h-[122px] relative overflow-hidden"
               style={{
                 backgroundImage: `url('/img/ticketbg.png')`,
                 backgroundSize: 'cover',
@@ -97,14 +97,14 @@ export default function MatchSchedule() {
             >
               <div className="absolute inset-0 flex">
                 <div className="flex-1 p-4 text-left">
-                  <div className="text-gray-400 text-xs font-medium mb-1">{gameSchedule[0].location}</div>
-                  <div className="text-gray-500 text-sm font-bold mb-1">{gameSchedule[0].date}</div>
-                  <div className="text-gray-500 text-xs mb-2">{gameSchedule[0].time}</div>
-                  <div className="text-orange-600 text-xs font-medium cursor-pointer hover:text-orange-700 transition-colors">
+                  <div className="text-gray-400 text font-medium mb-1">{gameSchedule[0].location}</div>
+                  <div className="text-gray-500 text font-bold mb-1">{gameSchedule[0].date}</div>
+                  <div className="text-gray-500 text mb-2">{gameSchedule[0].time}</div>
+                  <div className="text-orange-600 text font-medium cursor-pointer hover:text-orange-700 transition-colors">
                     {gameSchedule[0].link} →
                   </div>
                 </div>
-                <div className="w-20 flex items-center justify-center p-2">
+                <div className="w-24 flex items-center justify-center p-2">
                   <img 
                     src={`/img/${gameSchedule[0].teamLogo}`} 
                     alt="Team Logo" 

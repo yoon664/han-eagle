@@ -143,8 +143,8 @@ export default function ResponsivePlayersCarousel() {
         </div>
       </section>
 
-      {/* 📱 모바일 버전 */}
-      <section className="flex md:hidden relative min-h-screen items-center justify-center overflow-hidden bg-gray-900">
+      {/* 모바일 */}
+      <section className="flex md:hidden relative min-h-screen items-center justify-center overflow-hidden ">
         <div className="w-full px-4 py-16">
           <div className="relative flex items-center justify-center">
 
@@ -161,7 +161,7 @@ export default function ResponsivePlayersCarousel() {
             <div className={`absolute left-[-80px] top-[-80px] z-0 transition-all duration-700 ease-in-out ${
               isAnimating ? (slideDirection === 'next' ? 'translate-x-[-50px] opacity-0' : 'translate-x-[50px] opacity-0') : 'translate-x-0 opacity-100'
             }`}>
-              <span className="text-[200px] font-bold leading-none text-gray-800">
+              <span className="text-[200px] font-bold leading-none ">
                 {players[currentPlayer].number}
               </span>
             </div>

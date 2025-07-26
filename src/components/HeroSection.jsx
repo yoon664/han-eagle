@@ -59,8 +59,17 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* 모바일용 콘텐츠 */}
+      {/* 모바일용 */}
       <div className="md:hidden absolute bottom-0 left-0 right-0 p-4 text-center text-white z-40">
+
+        {/* 텍스트 - 오른쪽 정렬 */}
+        <div className="flex justify-center mb-4">
+          <p className="text-5xl leading-relaxed text-right">
+            독수리는 추진력을 얻어<br />
+            더욱 더 높이 비상한다
+          </p>
+        </div>
+        
         {/* 팀 사진 */}
         <div className="mb-6">
           <img
@@ -70,13 +79,7 @@ export default function HeroSection() {
           />
         </div>
 
-        {/* 텍스트 - 오른쪽 정렬 */}
-        <div className="flex justify-end mb-4">
-          <p className="text-lg leading-relaxed text-right">
-            독수리는 추진력을 얻어<br />
-            더욱 더 높이 비상한다
-          </p>
-        </div>
+        
 
         {/* 메인 타이틀 */}
         <h1 className="text-5xl font-black mb-6 leading-tight">
