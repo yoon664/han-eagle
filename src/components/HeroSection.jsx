@@ -19,7 +19,7 @@ export default function HeroSection() {
         />
       </div>
 
-      {/* 데스크탑용 콘텐츠 */}
+      {/* 데스크탑 */}
       <div className="hidden md:block relative z-10 text-center text-white max-w-6xl mx-auto px-4 mt-[27%]">
         {/* 상단 텍스트 - 오른쪽 정렬 */}
         <div className="flex justify-end">
@@ -64,25 +64,26 @@ export default function HeroSection() {
 
         {/* 텍스트 - 오른쪽 정렬 */}
         <div className="flex justify-center mb-4">
-          <p className="text-5xl leading-relaxed text-right">
+          <p className="text-5xl leading-relaxed text-center -translate-y-[350%]">
             독수리는 추진력을 얻어<br />
             더욱 더 높이 비상한다
           </p>
         </div>
+
         
         {/* 팀 사진 */}
         <div className="mb-6">
-          <img
+          {/* <img
             src="/img/playersteam1.png"
             alt="Team"
             className="w-64 h-auto mx-auto object-contain"
-          />
+          /> */}
         </div>
 
         
 
         {/* 메인 타이틀 */}
-        <h1 className="text-5xl font-black mb-6 leading-tight">
+        <h1 className="text-9xl font-black mb-6 font-alumni leading-[0.8]">
           RIDE THE STORM
         </h1>
 
