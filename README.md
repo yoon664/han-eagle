@@ -3,7 +3,7 @@
 1. header fixed
 2. 타이틀
 3. 3D
-4. 인스타 멈추게
+4. 인스타 멈추게 (o)
 5. 가로스크롤XX
 https://heroicons.com/
 6. 모바일,,
@@ -11,7 +11,6 @@ https://heroicons.com/
 
 ## md 섹션
 framer motion 받음
-lodash 필요?
 
 npm install lucide-react
 오픈소스 아이콘 라이브러리
