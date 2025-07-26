@@ -83,7 +83,7 @@ export default function MatchSchedule() {
       </section>
 
       {/* 모바일용 1장만 나오게 */}
-      <section className="md:hidden absolute top-[60vh] left-0 right-0 z-40 px-4">
+      <section className="md:hidden absolute top-[74vh] left-0 right-0 z-40 px-4">
         <div className="flex justify-center">
           <div className="relative">
             <div 
