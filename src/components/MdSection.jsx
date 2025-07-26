@@ -135,7 +135,6 @@ export default function MdSection() {
     <motion.section
       ref={bgChangeRef}
       className="relative min-h-screen flex flex-col items-center justify-center py-16 overflow-hidden"
-      style={{ backgroundColor: '#222222' }}
       onMouseMove={(e) => {
         setActive(true);
         if (bgChangeRef.current) {

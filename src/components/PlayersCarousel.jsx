@@ -232,12 +232,11 @@ export default function ResponsivePlayersCarousel() {
             <div className={`relative text-white text-left transition-all duration-700 ease-in-out ${
               isAnimating ? (slideDirection === 'next' ? 'transform translate-x-[-50px] opacity-0' : 'transform translate-x-[50px] opacity-0') : 'transform translate-x-0 opacity-100'
             }`}>
-              <div className="text-sm mb-3 text-gray-300">
+              <div className="text-6xl mb-3 text-white">
                 <span className="font-bold">{players[currentPlayer].position.split(' ')[0]}</span>
-                <span className="font-normal"> • {players[currentPlayer].position.split(' ').slice(1).join(' ')}</span>
+                <span className="font-normal">{'\u00A0'} {players[currentPlayer].position.split(' ').slice(1).join(' ')}</span>
               </div>
-              <hr className="border-white w-[200px] mb-3" />
-              <div className="text-3xl font-bold" style={{color: '#DF6D21'}}>
+              <div className="text-8xl font-bold" style={{color: '#DF6D21'}}>
                 {players[currentPlayer].name}
               </div>
             </div>

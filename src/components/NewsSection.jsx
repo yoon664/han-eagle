@@ -8,7 +8,7 @@ export default function NewsSection() {
   ];
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center py-16" style={{backgroundColor: '#222222'}}>
+    <section className="relative min-h-screen flex flex-col items-center justify-center py-16">
       <div className="w-full px-4">
         
         {/* NEWS */}

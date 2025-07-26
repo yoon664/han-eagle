@@ -11,7 +11,7 @@ export default function Instagram() {
   const duplicatedImages = [...images, ...images];
 
   return (
-    <section className="relative py-16 overflow-hidden" style={{backgroundColor: '#222222'}}>
+    <section className="relative py-16 overflow-hidden">
       <div className="w-full">
         
         {/* 무한 스크롤 컨테이너 - 호버 시 일시정지 */}
