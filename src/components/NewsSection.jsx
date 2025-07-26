@@ -53,16 +53,16 @@ export default function NewsSection() {
               <div className="md:hidden py-6 cursor-pointer group 
               hover:bg-black hover:bg-opacity-20 transition-all duration-300 px-4">
                 
-                {/* 제목이랑 화살표 */}
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex-1 pr-4">
-                    <h3 className="text-white text-sm font-medium group-hover:text-orange-500 transition-colors duration-300 leading-relaxed">
+                {/* 제목 */}
+                <div className="flex items-start justify-between -mb-1">
+                  <div className="flex-1 pr-4 max-w-[calc(100%-60px)]">
+                    <h3 className="text-white text-xl font-medium group-hover:text-orange-500 transition-colors duration-300 leading-relaxed truncate">
                       {item.title}
                     </h3>
                   </div>
                   
-                  {/* 화살표 SVG - 모바일용 작은 크기 */}
-                  <div className="text-gray-400 group-hover:text-orange-500 transition-colors duration-300 mt-1">
+                  {/* 화살표 */}
+                  <div className="text-gray-400 group-hover:text-orange-500 transition-colors duration-300 mt-6">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="12" viewBox="0 0 43 16" fill="none">
                       <path d="M42.7071 8.70711C43.0976 8.31658 43.0976 7.68342 42.7071 7.29289L36.3431 0.928932C35.9526 0.538408 35.3195 0.538408 34.9289 0.928932C34.5384 1.31946 34.5384 1.95262 34.9289 2.34315L40.5858 8L34.9289 13.6569C34.5384 14.0474 34.5384 14.6805 34.9289 15.0711C35.3195 15.4616 35.9526 15.4616 36.3431 15.0711L42.7071 8.70711ZM0 8L0 9H42V8V7H0L0 8Z" fill="currentColor"/>
                     </svg>
@@ -70,7 +70,7 @@ export default function NewsSection() {
                 </div>
                 
                 {/* 아래: 날짜 */}
-                <div className="text-gray-400 text-sm font-medium">
+                <div className="text-gray-400 text-lg font-medium">
                   {item.date}
                 </div>
               </div>
