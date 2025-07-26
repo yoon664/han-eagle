@@ -8,24 +8,22 @@ export default function Instagram() {
     { id: 6, src: 'in6.png' }
   ];
 
-
   const duplicatedImages = [...images, ...images];
 
   return (
     <section className="relative py-16 overflow-hidden" style={{backgroundColor: '#222222'}}>
       <div className="w-full">
         
-        {/* 무한 스크롤 컨테이너 */}
-        <div className="overflow-hidden">
+        {/* 무한 스크롤 컨테이너 - 호버 시 일시정지 */}
+        <div className="overflow-hidden instagram-container">
           <div 
-            className="flex"
+            className="flex instagram-slide"
             style={{
-              animation: 'slide 25s linear infinite',
-              width: 'calc(310px * 12 + 24px * 12)' // 이미지랑 마진 계산
+              width: 'calc(310px * 12 + 24px * 12)'
             }}
           >
             {duplicatedImages.map((image, index) => (
-              <div key={`${image.id}-${index}`} className="flex-shrink-0 mx-3 hover:pause">
+              <div key={`${image.id}-${index}`} className="flex-shrink-0 mx-3">
                 <div 
                   className="relative group cursor-pointer overflow-hidden" 
                   style={{
@@ -61,7 +59,7 @@ export default function Instagram() {
         </div>
       </div>
 
-      {/* CSS 애니메이션 */}
+      {/* 호버하면 일시정지 */}
       <style>{`
         @keyframes slide {
           0% {
@@ -72,7 +70,19 @@ export default function Instagram() {
           }
         }
         
-        .hover:pause:hover {
+        .instagram-slide {
+          animation: slide 30s linear infinite;
+        }
+        
+        /* 모바일에서만 50s로 변경 */
+        @media (max-width: 768px) {
+          .instagram-slide {
+            animation: slide 50s linear infinite; /* 모바일: 50s */
+          }
+        }
+        
+        /* 컨테이너 호버 시 애니메이션 일시정지 */
+        .instagram-container:hover .instagram-slide {
           animation-play-state: paused;
         }
       `}</style>
