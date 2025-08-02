@@ -33,14 +33,14 @@ const BigTitle = ({
         const progress = (scrollY - startShrink) / (endShrink - startShrink);
         // 크기: 1 (초기 크기)에서 finalScale (최종 크기) 사이로 스케일 조절
         setScale(1 - progress * (1 - finalScale));
-        // 위치: 50% (중앙)에서 75% (아래쪽)로 이동
-        setPosition(50 + progress * 25);
+
+        setPosition(50 + progress * 40);
       } else if (scrollY > endShrink) {
-        // 축소 완료 지점을 넘어서면 최종값으로 고정
+
         setScale(finalScale);
-        setPosition(90); // 최종 위치 75% (더 아래쪽)
+        setPosition(90);
       } else {
-        // 스크롤 시작 지점 이전이면 원래 크기와 위치
+
         setScale(1);
         setPosition(50);
       }
@@ -66,7 +66,11 @@ const BigTitle = ({
     >
       <div 
         className="absolute w-full flex items-center justify-center"
-        style={{ top: `${position}%`, transform: 'translateY(-50%)' }}
+        style={{ 
+          top: `${position}%`, 
+          transform: 'translateY(-50%)',
+          transition: 'top 0.1s ease-out'
+        }}
       >
         <h2
           ref={titleRef}
