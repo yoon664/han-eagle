@@ -210,7 +210,7 @@ export default function ResponsivePlayersCarousel() {
               </div>
 
               {/* 메인 선수 이미지 */}
-              <div className={`relative z-10 transition-all duration-700 linear ${
+              <div className={`relative z-10 transition-all duration-700 top-11 linear ${
                 isAnimating ? (slideDirection === 'next' ? 'transform translate-x-[-100px] opacity-0' : 'transform translate-x-[100px] opacity-0') : 'transform translate-x-0 opacity-100'
               }`}>
                 <img 
@@ -222,19 +222,16 @@ export default function ResponsivePlayersCarousel() {
                     e.target.nextSibling.style.display = 'flex';
                   }}
                 />
-                <div className="hidden w-[500px] h-[700px] bg-gray-600 flex items-center justify-center text-white text-sm">
-                  선수 이미지
-                </div>
               </div>
             </div>
 
             {/* 선수 정보 - 이미지 왼쪽 아래 */}
-            <div className={`relative text-white text-left transition-all duration-700 linear ${
+            <div className={`relative z-10 right-20 bottom-16 text-white text-left transition-all duration-700 linear ${
               isAnimating ? (slideDirection === 'next' ? 'transform translate-x-[-50px] opacity-0' : 'transform translate-x-[50px] opacity-0') : 'transform translate-x-0 opacity-100'
             }`}>
-              <div className="text-6xl mb-3 text-white">
+              <div className="text-5xl mb-3 text-white">
                 <span className="font-bold">{players[currentPlayer].position.split(' ')[0]}</span>
-                <span className="font-normal">{'\u00A0'} {players[currentPlayer].position.split(' ').slice(1).join(' ')}</span>
+                <span className="font-light">{'\u00A0'} {players[currentPlayer].position.split(' ').slice(1).join(' ')}</span>
               </div>
               <div className="text-8xl font-bold" style={{color: '#DF6D21'}}>
                 {players[currentPlayer].name}
