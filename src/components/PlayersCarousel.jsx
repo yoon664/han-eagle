@@ -227,7 +227,7 @@ export default function ResponsivePlayersCarousel() {
             </div>
 
             {/* 선수 정보 - 이미지 왼쪽 아래 */}
-            <div className={`relative z-10 right-32 bottom-16 text-white text-left transition-all duration-700 linear ${
+            <div className={`relative z-10 right-32 bottom-24 text-white text-left transition-all duration-700 linear ${
               isAnimating ? (slideDirection === 'next' ? 'transform translate-x-[-50px] opacity-0' : 'transform translate-x-[50px] opacity-0') : 'transform translate-x-0 opacity-100'
             }`}>
               <div className="text-5xl mb-3 text-white">
@@ -242,8 +242,8 @@ export default function ResponsivePlayersCarousel() {
           </div>
 
           {/* 버튼 */}
-          <div className="flex justify-center mt-8">
-            <button className="relative group cursor-pointer transition-all duration-300">
+          <div className="flex justify-center">
+            <button className="bottom-8 relative group cursor-pointer transition-all duration-300">
               <svg xmlns="http://www.w3.org/2000/svg" width="250" height="74" viewBox="0 0 326 96" fill="none">
                 <path d="M1 95V1H325V63.3654L298 95H1Z" 
                       stroke="white" 
