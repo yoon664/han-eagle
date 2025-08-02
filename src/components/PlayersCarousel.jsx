@@ -56,6 +56,7 @@ export default function ResponsivePlayersCarousel() {
 
   return (
     <>
+    <div style={{ fontFamily: 'Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif' }}>
       {/* 데스크탑 */}
       <section className="hidden md:flex relative min-h-screen items-center justify-center overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 py-16 pt-48">
@@ -201,7 +202,7 @@ export default function ResponsivePlayersCarousel() {
             <div className="relative flex items-center justify-center mb-2">
               
               {/* 배경 넘버 */}
-              <div className={`absolute left-[-60px] top-[-100px] z-0 transition-all duration-700 linear ${
+              <div className={`absolute right-[18vw] top-[-100px] z-0 transition-all duration-700 linear ${
                 isAnimating ? (slideDirection === 'next' ? 'transform translate-x-[-50px] opacity-0' : 'transform translate-x-[50px] opacity-0') : 'transform translate-x-0 opacity-100'
               }`}>
                 <span className="text-[400px] font-bold leading-none">
@@ -226,14 +227,14 @@ export default function ResponsivePlayersCarousel() {
             </div>
 
             {/* 선수 정보 - 이미지 왼쪽 아래 */}
-            <div className={`relative z-10 right-20 bottom-16 text-white text-left transition-all duration-700 linear ${
+            <div className={`relative z-10 right-32 bottom-16 text-white text-left transition-all duration-700 linear ${
               isAnimating ? (slideDirection === 'next' ? 'transform translate-x-[-50px] opacity-0' : 'transform translate-x-[50px] opacity-0') : 'transform translate-x-0 opacity-100'
             }`}>
               <div className="text-5xl mb-3 text-white">
                 <span className="font-bold">{players[currentPlayer].position.split(' ')[0]}</span>
-                <span className="font-light">{'\u00A0'} {players[currentPlayer].position.split(' ').slice(1).join(' ')}</span>
+                <span className="font-light"> {players[currentPlayer].position.split(' ').slice(1).join(' ')}</span>
               </div>
-              <div className="text-8xl font-bold" style={{color: '#DF6D21'}}>
+              <div className="text-7xl tracking-tighter font-bold" style={{color: '#DF6D21'}}>
                 {players[currentPlayer].name}
               </div>
             </div>
@@ -259,6 +260,7 @@ export default function ResponsivePlayersCarousel() {
           </div>
         </div>
       </section>
+      </div>
     </>
   );
 }
