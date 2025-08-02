@@ -1,9 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react'; // 모바일 메뉴 버튼
 
 export default function Header() {
   const [hoveredMenu, setHoveredMenu] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // 스크롤이 100px 이상 되면 헤더 스타일 변경
+      if (window.scrollY > 100) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
@@ -19,7 +34,9 @@ export default function Header() {
       </video>
 
       {/* 모바일 헤더 */}
-      <header className="md:hidden absolute top-0 left-0 right-0 z-50">
+      <header className={`md:hidden fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-black bg-opacity-90 backdrop-blur-sm' : 'bg-transparent'
+      }`}>
         <div className="flex justify-between items-center p-4">
           <img src="/img/mark.png" alt="Logo" className="h-16 w-auto" />
 
@@ -48,8 +65,10 @@ export default function Header() {
       </header>
 
       {/* 데스크톱 헤더 */}
-      <header className="hidden md:block absolute top-0 left-0 right-0 z-30 bg-transparent">
-        <div className="relative z-10 p-6 max-w-7xl mx-auto">
+      <header className={`hidden md:block fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-black bg-opacity-90 backdrop-blur-sm py-3' : 'bg-transparent py-6'
+      }`}>
+        <div className="relative z-10 px-6 max-w-7xl mx-auto">
           <div className="flex justify-between items-center">
             {/* 왼쪽 네비 */}
             <nav className="flex space-x-8">
@@ -87,8 +106,12 @@ export default function Header() {
           </div>
 
           {/* 로고 */}
-          <div className="absolute left-1/2 top-6 transform -translate-x-1/2">
-            <img src="/img/mark.png" alt="Hanwha Eagles Logo" className="h-12 w-auto" />
+          <div className={`absolute left-1/2 transform -translate-x-1/2 transition-all duration-300 ${
+            isScrolled ? 'top-3' : 'top-6'
+          }`}>
+            <img src="/img/mark.png" alt="Hanwha Eagles Logo" className={`w-auto transition-all duration-300 ${
+              isScrolled ? 'h-8' : 'h-12'
+            }`} />
           </div>
         </div>
       </header>

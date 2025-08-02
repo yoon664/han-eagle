@@ -57,7 +57,11 @@ export default function MdSection() {
       const z = Math.round(
         scrollRef.current.offsetHeight / 2 / Math.tan(Math.PI / slide.length) 
       );
-      setTranslateZ(z);
+      const adjustedZ = z * 1;
+
+      setTranslateZ(adjustedZ);
+
+      // setTranslateZ(z);
       slide.forEach((el, idx) => {
         if (el) {
           el.style.transform =
@@ -178,7 +182,7 @@ export default function MdSection() {
             ref={scrollRef}
             className="relative w-[280px] h-[280px] flex items-center justify-center"
             style={{ 
-              perspective: translateZ * 1.98 + "px",
+              perspective: translateZ * 0.8 + "px",
               transform: 'rotate(0deg)'
             }}
           >

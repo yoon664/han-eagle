@@ -30,8 +30,8 @@ export default function ResponsivePlayersCarousel() {
       setTimeout(() => {
         setIsAnimating(false);
         setSlideDirection('');
-      }, 100);
-    }, 300);
+      }, 30);
+    }, );
   };
 
   const goToNext = () => {
@@ -50,8 +50,8 @@ export default function ResponsivePlayersCarousel() {
       setTimeout(() => {
         setIsAnimating(false);
         setSlideDirection('');
-      }, 100);
-    }, 300);
+      }, 30);
+    }, );
   };
 
   return (
@@ -76,7 +76,7 @@ export default function ResponsivePlayersCarousel() {
             <div className="relative flex items-center justify-center">
               
               {/* 배경 넘버 */}
-              <div className={`absolute left-[-250px] top-[-130px] z-0 transition-all duration-700 ease-in-out ${
+              <div className={`absolute left-[-250px] top-[-130px] z-0 transition-all duration-700 linear ${
                 isAnimating ? (slideDirection === 'next' ? 'transform translate-x-[-100px] opacity-0' : 'transform translate-x-[100px] opacity-0') : 'transform translate-x-0 opacity-100'
               }`}>
                 <span className="tracking-tighter text-[500px] font-bold leading-none" style={{color: '#070707'}}>
@@ -85,13 +85,13 @@ export default function ResponsivePlayersCarousel() {
               </div>
 
               {/* 메인 선수 이미지 */}
-              <div className={`relative z-10 transition-all duration-700 ease-in-out ${
+              <div className={`relative z-10 transition-all duration-700 linear ${
                 isAnimating ? (slideDirection === 'next' ? 'transform translate-x-[-200px] opacity-0' : 'transform translate-x-[200px] opacity-0') : 'transform translate-x-0 opacity-100'
               }`}>
                 <img 
                   src={`/img/${players[currentPlayer].image}`} 
                   alt={players[currentPlayer].name}
-                  className="w-[500px] h-[700px] object-contain transition-opacity duration-700 ease-in-out"
+                  className="w-[500px] h-[700px] object-contain transition-opacity duration-700 linear"
                   onError={(e) => {
                     e.target.style.display = 'none';
                     e.target.nextSibling.style.display = 'flex';
@@ -103,7 +103,7 @@ export default function ResponsivePlayersCarousel() {
               </div>
 
               {/* 선수 정보 */}
-              <div className={`absolute right-[-150px] top-24 text-white text-right transition-all duration-700 ease-in-out ${
+              <div className={`absolute right-[-150px] top-24 text-white text-right transition-all duration-700 linear ${
                 isAnimating ? (slideDirection === 'next' ? 'transform translate-x-[-100px] opacity-0' : 'transform translate-x-[100px] opacity-0') : 'transform translate-x-0 opacity-100'
               }`}>
                 <div className="text-lg mb-2">
@@ -117,14 +117,14 @@ export default function ResponsivePlayersCarousel() {
               </div>
 
               {/* 다음 선수 미리보기 */}
-              <div className={`absolute right-[-550px] top-20 z-5 transition-all duration-700 ease-in-out ${
+              <div className={`absolute right-[-550px] top-20 z-5 transition-all duration-700 linear ${
                 isAnimating ? (slideDirection === 'next' ? 'transform translate-x-[-100px] opacity-30' : 'transform translate-x-[100px] opacity-30') : 'transform translate-x-0 opacity-70'
               }`}>
                 <div className="w-96 h-[380px] overflow-hidden">
                   <img 
                     src={`/img/${players[nextPlayer].image}`} 
                     alt={players[nextPlayer].name}
-                    className="w-full h-full object-contain transition-opacity duration-700 ease-in-out"
+                    className="w-full h-full object-contain transition-opacity duration-700 linear"
                     onError={(e) => {
                       e.target.style.display = 'none';
                       e.target.nextSibling.style.display = 'flex';
@@ -201,7 +201,7 @@ export default function ResponsivePlayersCarousel() {
             <div className="relative flex items-center justify-center mb-2">
               
               {/* 배경 넘버 */}
-              <div className={`absolute left-[-60px] top-[-100px] z-0 transition-all duration-700 ease-in-out ${
+              <div className={`absolute left-[-60px] top-[-100px] z-0 transition-all duration-700 linear ${
                 isAnimating ? (slideDirection === 'next' ? 'transform translate-x-[-50px] opacity-0' : 'transform translate-x-[50px] opacity-0') : 'transform translate-x-0 opacity-100'
               }`}>
                 <span className="text-[400px] font-bold leading-none">
@@ -210,7 +210,7 @@ export default function ResponsivePlayersCarousel() {
               </div>
 
               {/* 메인 선수 이미지 */}
-              <div className={`relative z-10 transition-all duration-700 ease-in-out ${
+              <div className={`relative z-10 transition-all duration-700 linear ${
                 isAnimating ? (slideDirection === 'next' ? 'transform translate-x-[-100px] opacity-0' : 'transform translate-x-[100px] opacity-0') : 'transform translate-x-0 opacity-100'
               }`}>
                 <img 
@@ -229,7 +229,7 @@ export default function ResponsivePlayersCarousel() {
             </div>
 
             {/* 선수 정보 - 이미지 왼쪽 아래 */}
-            <div className={`relative text-white text-left transition-all duration-700 ease-in-out ${
+            <div className={`relative text-white text-left transition-all duration-700 linear ${
               isAnimating ? (slideDirection === 'next' ? 'transform translate-x-[-50px] opacity-0' : 'transform translate-x-[50px] opacity-0') : 'transform translate-x-0 opacity-100'
             }`}>
               <div className="text-6xl mb-3 text-white">
