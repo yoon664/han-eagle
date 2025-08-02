@@ -8,7 +8,6 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // 스크롤이 100px 이상 되면 헤더 스타일 변경
       if (window.scrollY > 100) {
         setIsScrolled(true);
       } else {
@@ -34,7 +33,7 @@ export default function Header() {
       </video>
 
       {/* 모바일 헤더 */}
-      <header className={`md:hidden fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      <header className={`md:hidden fixed top-0 left-0 right-0 z-[9999] transition-all duration-300 ${
         isScrolled ? 'bg-black bg-opacity-90 backdrop-blur-sm' : 'bg-transparent'
       }`}>
         <div className="flex justify-between items-center p-4">
@@ -48,24 +47,86 @@ export default function Header() {
           </button>
         </div>
 
+        {/* 전체화면 모바일 메뉴 */}
         {isMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-black bg-opacity-95 p-4">
-            <nav className="space-y-4">
-              <a href="#" className="block text-white text-lg font-medium py-2 border-b border-gray-600">EAGLES</a>
-              <a href="#" className="block text-white text-lg font-medium py-2 border-b border-gray-600">PLAYERS</a>
-              <a href="#" className="block text-white text-lg font-medium py-2 border-b border-gray-600">GAME</a>
-              <a href="#" className="block text-white text-lg font-medium py-2 border-b border-gray-600">SHOP</a>
-              <div className="flex space-x-4 pt-4">
-                <button><img src="/img/ticket.png" alt="Ticket" className="h-5" /></button>
-                <button><img src="/img/login.png" alt="Login" className="h-5" /></button>
+          <div className="fixed inset-0 bg-[#222222] z-[100] flex flex-col">
+            {/* 헤더 영역 */}
+            <div className="flex justify-between items-center p-4">
+              <img src="/img/mark.png" alt="Logo" className="h-16 w-auto" />
+              <button
+                onClick={() => setIsMenuOpen(false)}
+                className="text-white p-2"
+              >
+                <X size={45} />
+              </button>
+            </div>
+
+            {/* 메뉴 영역 */}
+            <nav className="flex-1 px-6 py-8">
+              <div className="space-y-8">
+                
+                {/* EAGLES 메뉴 */}
+                <div>
+                  <div 
+                    className="flex items-center justify-between"
+                    onMouseEnter={() => setHoveredMenu('eagles')}
+                    onMouseLeave={() => setHoveredMenu(null)}
+                  >
+                    <span className="text-[#DF6D21] text-6xl font-bold font-alumni">EAGLES</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#DF6D21" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="m9 18 6-6-6-6"/>
+                    </svg>
+                  </div>
+                  
+                  {/* EAGLES 서브메뉴 */}
+                  <div className="mt-4 ml-4 space-y-3">
+                    <a href="#" className="block text-white text-2xl font-medium hover:text-[#DF6D21] transition-colors">ABOUT</a>
+                    <a href="#" className="block text-white text-2xl font-medium hover:text-[#DF6D21] transition-colors">HISTORY</a>
+                    <a href="#" className="block text-white text-2xl font-medium hover:text-[#DF6D21] transition-colors">사회공헌</a>
+                  </div>
+                </div>
+
+                {/* PLAYERS 메뉴 */}
+                <div className="flex items-center justify-between">
+                  <span className="text-white text-6xl font-bold font-alumni">PLAYERS</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="m9 18 6-6-6-6"/>
+                  </svg>
+                </div>
+
+                {/* GAME 메뉴 */}
+                <div className="flex items-center justify-between">
+                  <span className="text-white text-6xl font-bold font-alumni">GAME</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="m9 18 6-6-6-6"/>
+                  </svg>
+                </div>
+
+                {/* SHOP 메뉴 */}
+                <div>
+                  <span className="text-white text-6xl font-bold font-alumni">SHOP</span>
+                </div>
+
               </div>
             </nav>
+
+            {/* 하단 아이콘 영역 */}
+            <div className="p-6">
+              <div className="flex space-x-6">
+                <button className="hover:opacity-80 transition-opacity">
+                  <img src="/img/login.png" alt="Login" className="h-8 w-auto" />
+                </button>
+                <button className="hover:opacity-80 transition-opacity">
+                  <img src="/img/ticket.png" alt="Ticket" className="h-8 w-auto" />
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </header>
 
       {/* 데스크톱 헤더 */}
-      <header className={`hidden md:block fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      <header className={`hidden md:block fixed top-0 left-0 right-0 z-[9999] transition-all duration-300 ${
         isScrolled ? 'bg-black bg-opacity-90 backdrop-blur-sm py-3' : 'bg-transparent py-6'
       }`}>
         <div className="relative z-10 px-6 max-w-7xl mx-auto">
