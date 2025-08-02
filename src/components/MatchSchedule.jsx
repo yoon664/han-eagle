@@ -10,7 +10,7 @@ const gameSchedule = [
   },
   { 
     location: '대전(신)', 
-    date: '2025. 04. 30. WED', 
+    date: '2025. 08. 05. WED', 
     time: '18:30', 
     team: 'T', 
     opponent: 'vs NC 다이노스', 
@@ -19,7 +19,7 @@ const gameSchedule = [
   },
   { 
     location: '대전(신)', 
-    date: '2025. 05. 01. THU', 
+    date: '2025. 08. 15. THU', 
     time: '18:30', 
     team: 'T', 
     opponent: 'vs NC 다이노스', 
@@ -28,7 +28,7 @@ const gameSchedule = [
   },
   { 
     location: '대전(신)', 
-    date: '2025. 05. 05. MON', 
+    date: '2025. 08. 30. MON', 
     time: '14:00', 
     team: 'SL', 
     opponent: 'vs 기아 타이거즈', 
