@@ -107,14 +107,14 @@ export default function MatchSchedule() {
             <div 
               className="w-[296px] h-[122px] relative overflow-hidden"
               style={{
-                backgroundImage: `url('/img/ticketbg.png')`,
+                backgroundImage: `url('/img/ticketbgw1.png')`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat'
               }}
             >
               <div className="absolute inset-0 flex">
-                <div className="flex-1 p-4 text-left">
+                <div className="flex-1 p-2 ml-3 text-left">
                   <div className="text-black text font-medium mb-1">{gameSchedule[0].location}</div>
 
                   {/* 오늘날짜표시 */}
@@ -132,7 +132,7 @@ export default function MatchSchedule() {
                   <img 
                     src={`/img/${gameSchedule[0].teamLogo}`} 
                     alt="Team Logo" 
-                    className="w-10 h-10 object-contain"
+                    className="w-12 h-12 object-contain"
                   />
                 </div>
               </div>
