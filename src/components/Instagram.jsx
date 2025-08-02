@@ -45,7 +45,7 @@ export default function Instagram() {
                   </div>
                   
                   {/* 호버 오버레이 */}
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                  <div className="absolute inset-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
                     <img 
                       src="/img/inslogo.png" 
                       alt="Instagram Logo"

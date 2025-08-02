@@ -64,9 +64,9 @@ export default function Header() {
                 </a>
                 {hoveredMenu === 'eagles' && (
                   <div className="absolute top-full left-0 pt-2">
-                    <a href="#" className="block text-[#DF6D21] font-semibold text-xl font-alumni hover:text-orange-300 transition-colors py-2">ABOUT</a>
-                    <a href="#" className="block text-[#DF6D21] font-semibold text-xl font-alumni hover:text-orange-300 transition-colors py-2">HISTORY</a>
-                    <a href="#" className="block text-[#DF6D21] font-semibold text-sm font-alumni hover:text-orange-300 transition-colors py-2">사회공헌</a>
+                    <a href="#" className="block text-white font-semibold text-xl font-alumni hover:text-[#DF6D21] transition-colors py-2">ABOUT</a>
+                    <a href="#" className="block text-white font-semibold text-xl font-alumni hover:text-[#DF6D21] transition-colors py-2">HISTORY</a>
+                    <a href="#" className="block text-white font-semibold text-sm font-alumni hover:text-[#DF6D21] transition-colors py-2 whitespace-nowrap">사회공헌</a>
                   </div>
                 )}
               </div>
