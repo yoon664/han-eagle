@@ -165,12 +165,8 @@ export default function Header() {
           </div>
 
           {/* 로고 */}
-          <div className={`absolute left-1/2 transform -translate-x-1/2 transition-all duration-300 ${
-            isScrolled ? 'top-0' : 'top-0'
-          }`}>
-            <img src="/img/mark.png" alt="Hanwha Eagles Logo" className={`w-auto transition-all duration-300 ${
-              isScrolled ? 'h-10' : 'h-14'
-            }`} />
+          <div className="absolute left-1/2 top-3 transform -translate-x-1/2 transition-all duration-300">
+            <img src="/img/mark.png" alt="Hanwha Eagles Logo" className="h-8 w-auto transition-all duration-300" />
           </div>
         </div>
       </header>
