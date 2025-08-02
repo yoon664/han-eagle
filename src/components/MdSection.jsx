@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, useSpring, useMotionValue } from "framer-motion";
 import { throttle } from "lodash";
-import ScrollTitle from '../components/Bigtitle';
+import BigTitle from './Bigtitle';
 
 export default function MdSection() {
   const bgChangeRef = useRef();
@@ -155,9 +155,13 @@ export default function MdSection() {
       <div className="w-full">
         
         {/* MD 타이틀 */}
-        <div className="text-center mb-16">
-          <h2 className="text-[300px] font-bold text-white tracking-wider leading-none">MD</h2>
-        </div>
+       <BigTitle 
+        initialSize={1000} 
+        finalSize={300}
+        containerHeight="300vh"
+      >
+        MD
+      </BigTitle>
 
         {/* 3D 슬라이드 컨테이너 */}
         <div 

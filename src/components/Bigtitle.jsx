@@ -4,7 +4,7 @@ const BigTitle = ({
   children, 
   initialSize = 800, 
   finalSize = 300, 
-  containerHeight = '200vh',
+  containerHeight = '100vh',
   className = '',
   style = {}
 }) => {
