@@ -1,20 +1,52 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function Footer() {
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [isSticky, setIsSticky] = useState(false); // footer 위에서 멈춤 여부
+  const footerRef = useRef(null);
 
-  // 스크롤 위치에 따라 버튼 표시/숨김
+  // 스크롤 위치에 따라 버튼 표시/숨김 및 위치 조정
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 300) {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      
+      // 버튼 표시/숨김
+      if (scrollY > 300) {
         setShowScrollTop(true);
       } else {
         setShowScrollTop(false);
       }
+
+      // 모바일에서만 footer 위치 체크
+      if (window.innerWidth < 768 && footerRef.current) {
+        const footerRect = footerRef.current.getBoundingClientRect();
+        const footerTop = footerRect.top;
+        const buttonHeight = 63; // 버튼 높이
+        const margin = 24; // 여백
+        
+        // footer가 버튼이 있을 위치보다 위에 올 때 (버튼이 footer에 닿을 때)
+        if (footerTop <= windowHeight - buttonHeight - margin) {
+          setIsSticky(true);
+        } else {
+          setIsSticky(false);
+        }
+      } else {
+        setIsSticky(false);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+    
+    // 초기 실행
+    handleScroll();
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
   }, []);
 
   const scrollToTop = () => {
@@ -26,7 +58,11 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="bg-black py-12 md:py-16 border-t" style={{ borderTopColor: '#656565' }}>
+      <footer 
+        ref={footerRef}
+        className="bg-black py-12 md:py-16 border-t" 
+        style={{ borderTopColor: '#656565' }}
+      >
         <div className="max-w-7xl mx-auto px-4">
           
           {/* 데스크탑 */}
@@ -89,9 +125,18 @@ export default function Footer() {
       {/* to top 버튼 */}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-6 right-6 md:bottom-10 md:right-10 z-50 transition-all duration-300 ${
+        className={`${isSticky ? 'absolute' : 'fixed'} right-6 md:right-10 z-50 transition-all duration-300 ${
           showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
         }`}
+        style={{
+          bottom: isSticky && window.innerWidth < 768 ? '24px' : '1.5rem',
+          ...(isSticky && window.innerWidth < 768 && footerRef.current && {
+            position: 'absolute',
+            top: footerRef.current.getBoundingClientRect().top + window.scrollY - 63 - 24 + 'px',
+            right: '1.5rem',
+            bottom: 'auto'
+          })
+        }}
         aria-label="맨 위로 스크롤"
       >
         <div className="relative">
