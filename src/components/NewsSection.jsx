@@ -15,7 +15,7 @@ export default function NewsSection() {
       <BigTitle 
         initialSize={1000} 
         finalSize={300}
-        containerHeight="100vh"
+        containerHeight="150vh"
       >
         NEWS
       </BigTitle>

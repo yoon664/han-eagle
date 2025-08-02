@@ -158,7 +158,7 @@ export default function MdSection() {
        <BigTitle 
         initialSize={1000} 
         finalSize={300}
-        containerHeight="300vh"
+        containerHeight="150vh"
       >
         MD
       </BigTitle>

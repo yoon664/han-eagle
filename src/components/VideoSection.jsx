@@ -10,7 +10,7 @@ export default function VideoSection() {
       <BigTitle 
         initialSize={1000} 
         finalSize={300}
-        containerHeight="100vh"
+        containerHeight="150vh"
       >
         CONTENTS
       </BigTitle>
