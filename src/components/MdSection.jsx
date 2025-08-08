@@ -25,11 +25,7 @@ export default function MdSection() {
     { id: 5, name: '수리 캐릭터 후드', image: 'md5.png' },
     { id: 6, name: '한화 이글스 모자', image: 'md1.png' },
     { id: 7, name: '팀 키링', image: 'md2.png' },
-    { id: 8, name: '응원 타올', image: 'md3.png' },
-    { id: 9, name: '마스코트 인형', image: 'md4.png' },
-    { id: 10, name: '스포츠 백팩', image: 'md5.png' },
-    { id: 11, name: '팀 텀블러', image: 'md1.png' },
-    { id: 12, name: '이글스 티셔츠', image: 'md2.png' }
+    { id: 8, name: '응원 타올', image: 'md3.png' }
   ];
 
   const handleMouseMove = throttle((e) => {
@@ -74,7 +70,6 @@ export default function MdSection() {
       });
     }
     
-    // 컴포넌트 마운트 후 실행
     const timer = setTimeout(() => {
       setSlide();
     }, 100);
@@ -186,8 +181,8 @@ export default function MdSection() {
             ref={scrollRef}
             className="relative w-[280px] h-[280px] flex items-center justify-center"
             style={{ 
-              perspective: translateZ * 0.8 + "px",
-              transform: 'rotate(0deg)'
+              perspective: translateZ * 1 + "px",
+              transform: 'scale(1.8)'
             }}
           >
             <motion.ul
@@ -213,7 +208,7 @@ export default function MdSection() {
                     className="relative w-full h-full rounded-lg overflow-hidden shadow-2xl cursor-pointer group"
                     style={{
                       background: '#454444',
-                      transform: 'scaleX(-1)' // 반전 효과
+                      // transform: 'scaleX(-1)'
                     }}
                   >
                     {/* 상품 이미지 */}
@@ -235,7 +230,7 @@ export default function MdSection() {
                     {/* 상품명 */}
                     <div 
                       className="absolute top-3 left-3 text-white font-bold text-xs"
-                      style={{ transform: 'scaleX(-1)' }} // 텍스트만 다시 반전
+                      style={{ transform: 'scaleX(-1)' }} // 텍스트 반전
                     >
                       {product.name}
                     </div>

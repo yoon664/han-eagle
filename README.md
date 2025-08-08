@@ -12,18 +12,6 @@ pointer-events: none;
 9. 모바일 스크롤탑 footer 상단에 있도록 (o)
 
 
-
-## 250726
-
-1. header fixed
-2. 타이틀
-3. 3D
-4. 인스타 멈추게 (o)
-5. 가로스크롤XX
-https://heroicons.com/
-6. 모바일,,
-
-
 ## md 섹션
 framer motion 받음
 
