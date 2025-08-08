@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react'; // 모바일 메뉴 버튼
 
 export default function Header() {
   const [hoveredMenu, setHoveredMenu] = useState(null);
@@ -19,6 +18,22 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // 모바일 메뉴 열림/닫힘에 따른 스크롤 제어
+  useEffect(() => {
+    if (isMenuOpen) {
+      // 메뉴가 열리면 스크롤 막기
+      document.body.style.overflow = 'hidden';
+    } else {
+      // 메뉴가 닫히면 스크롤 복원
+      document.body.style.overflow = 'auto';
+    }
+
+    // 컴포넌트 언마운트 시 스크롤 복원
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isMenuOpen]);
+
   return (
     <>
       {/* 배경 영상 */}
@@ -33,86 +48,82 @@ export default function Header() {
       </video>
 
       {/* 모바일 헤더 */}
-      <header className="md:hidden fixed top-0 left-0 right-0 z-[999] bg-[#222222] backdrop-blur-sm transition-all duration-300">
+      <header className="md:hidden fixed top-0 left-0 right-0 z-[999] backdrop-blur-sm transition-all duration-300">
         <div className="flex justify-between items-center p-4">
-          <img src="/img/mark.png" alt="Logo" className="h-16 w-auto" />
+          <img src="/img/mark.png" alt="Logo" className="h-20 w-auto" />
 
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="text-white p-2"
           >
-            {isMenuOpen ? <X size={45} /> : <Menu size={45} />}
+            {isMenuOpen ? (
+              <svg xmlns="http://www.w3.org/2000/svg" width="51" height="51" viewBox="0 0 51 51" fill="none">
+                <line x1="40.8527" y1="13.2374" x2="12.2369" y2="41.8532" stroke="white" strokeWidth="3.5"/>
+                <line x1="40.7626" y1="41.8532" x2="12.1468" y2="13.2375" stroke="white" strokeWidth="3.5"/>
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="31" height="28" viewBox="0 0 31 28" fill="none">
+                <path d="M0.125 0H30.875V3.41667H0.125V0ZM10.375 11.9583H30.875V15.375H10.375V11.9583ZM0.125 23.9167H30.875V27.3333H0.125V23.9167Z" fill="white"/>
+              </svg>
+            )}
           </button>
         </div>
 
-        {/* <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-  <path d="M31.8489 1C31.8489 0.447718 31.4012 3.11446e-06 30.8489 1.51288e-06L21.8489 9.64968e-07C21.2966 1.97649e-06 20.8489 0.447716 20.8489 1C20.8489 1.55229 21.2966 2 21.8489 2L29.8489 2L29.8489 10C29.8489 10.5523 30.2966 11 30.8489 11C31.4012 11 31.8489 10.5523 31.8489 10L31.8489 1ZM1.15039 30.6985L1.8575 31.4056L31.556 1.70711L30.8489 1L30.1418 0.292895L0.443284 29.9914L1.15039 30.6985Z" fill="#DF6D21"/>
-</svg> */}
-
-{/* <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-  <path d="M30.8489 31.6985C31.4012 31.6985 31.8489 31.2508 31.8489 30.6985L31.8489 21.6985C31.8489 21.1462 31.4012 20.6985 30.8489 20.6985C30.2966 20.6985 29.8489 21.1462 29.8489 21.6985L29.8489 29.6985L21.8489 29.6985C21.2966 29.6985 20.8489 30.1462 20.8489 30.6985C20.8489 31.2508 21.2966 31.6985 21.8489 31.6985L30.8489 31.6985ZM1.15039 1L0.443284 1.70711L30.1418 31.4056L30.8489 30.6985L31.556 29.9914L1.8575 0.292893L1.15039 1Z" fill="white"/>
-</svg> */}
-{/* 
-<svg xmlns="http://www.w3.org/2000/svg" width="31" height="28" viewBox="0 0 31 28" fill="none">
-  <path d="M0.125 0H30.875V3.41667H0.125V0ZM10.375 11.9583H30.875V15.375H10.375V11.9583ZM0.125 23.9167H30.875V27.3333H0.125V23.9167Z" fill="white"/>
-</svg> */}
-
-{/* <svg xmlns="http://www.w3.org/2000/svg" width="51" height="51" viewBox="0 0 51 51" fill="none">
-  <line x1="40.8527" y1="13.2374" x2="12.2369" y2="41.8532" stroke="white" stroke-width="3.5"/>
-  <line x1="40.7626" y1="41.8532" x2="12.1468" y2="13.2375" stroke="white" stroke-width="3.5"/>
-</svg> */}
         {/* 전체화면 모바일 메뉴 */}
         {isMenuOpen && (
           <div className="fixed inset-0 bg-[#222222] z-[10000] flex flex-col w-full h-full min-h-screen overflow-hidden">
             {/* 헤더 영역 */}
             <div className="flex justify-between items-center p-4 bg-[#222222] w-full">
-              <img src="/img/mark.png" alt="Logo" className="h-16 w-auto" />
+              <img src="/img/mark.png" alt="Logo" className="h-20 w-auto" />
               <button
                 onClick={() => setIsMenuOpen(false)}
                 className="text-white p-2"
               >
-                <X size={45} />
+                <svg xmlns="http://www.w3.org/2000/svg" width="51" height="51" viewBox="0 0 51 51" fill="none">
+                  <line x1="40.8527" y1="13.2374" x2="12.2369" y2="41.8532" stroke="white" strokeWidth="3.5"/>
+                  <line x1="40.7626" y1="41.8532" x2="12.1468" y2="13.2375" stroke="white" strokeWidth="3.5"/>
+                </svg>
               </button>
             </div>
 
             {/* 메뉴 영역 */}
-            <nav className="flex-1 px-6 py-8 bg-[#222222] w-full">
+            <nav className="flex-1 px-6 pt-16 bg-[#222222] w-full">
               <div className="space-y-8">
                 
                 {/* EAGLES 메뉴 */}
                 <div>
                   <div 
-                    className="flex items-center justify-between"
+                    className="flex items-center justify-start space-x-4"
                     onMouseEnter={() => setHoveredMenu('eagles')}
                     onMouseLeave={() => setHoveredMenu(null)}
                   >
                     <span className="text-[#DF6D21] text-6xl font-bold font-alumni">EAGLES</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#DF6D21" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="m9 18 6-6-6-6"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                      <path d="M31.8489 1C31.8489 0.447718 31.4012 3.11446e-06 30.8489 1.51288e-06L21.8489 9.64968e-07C21.2966 1.97649e-06 20.8489 0.447716 20.8489 1C20.8489 1.55229 21.2966 2 21.8489 2L29.8489 2L29.8489 10C29.8489 10.5523 30.2966 11 30.8489 11C31.4012 11 31.8489 10.5523 31.8489 10L31.8489 1ZM1.15039 30.6985L1.8575 31.4056L31.556 1.70711L30.8489 1L30.1418 0.292895L0.443284 29.9914L1.15039 30.6985Z" fill="#DF6D21"/>
                     </svg>
                   </div>
                   
                   {/* EAGLES 서브메뉴 */}
-                  <div className="mt-4 ml-4 space-y-3">
-                    <a href="#" className="block text-white text-2xl font-medium hover:text-[#DF6D21] transition-colors">ABOUT</a>
-                    <a href="#" className="block text-white text-2xl font-medium hover:text-[#DF6D21] transition-colors">HISTORY</a>
-                    <a href="#" className="block text-white text-2xl font-medium hover:text-[#DF6D21] transition-colors">사회공헌</a>
+                  <div className="mt-4 space-y-3">
+                    <a href="#" className="block text-white text-4xl font-normal font-alumni hover:text-[#DF6D21] transition-colors">ABOUT</a>
+                    <a href="#" className="block text-white text-4xl font-normal font-alumni hover:text-[#DF6D21] transition-colors">HISTORY</a>
+                    <a href="#" className="block text-white text-2xl font-normal font-alumni hover:text-[#DF6D21] transition-colors">사회공헌</a>
                   </div>
                 </div>
 
                 {/* PLAYERS 메뉴 */}
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-start space-x-4">
                   <span className="text-white text-6xl font-bold font-alumni">PLAYERS</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="m9 18 6-6-6-6"/>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path d="M30.8489 31.6985C31.4012 31.6985 31.8489 31.2508 31.8489 30.6985L31.8489 21.6985C31.8489 21.1462 31.4012 20.6985 30.8489 20.6985C30.2966 20.6985 29.8489 21.1462 29.8489 21.6985L29.8489 29.6985L21.8489 29.6985C21.2966 29.6985 20.8489 30.1462 20.8489 30.6985C20.8489 31.2508 21.2966 31.6985 21.8489 31.6985L30.8489 31.6985ZM1.15039 1L0.443284 1.70711L30.1418 31.4056L30.8489 30.6985L31.556 29.9914L1.8575 0.292893L1.15039 1Z" fill="white"/>
                   </svg>
                 </div>
 
                 {/* GAME 메뉴 */}
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-start space-x-4">
                   <span className="text-white text-6xl font-bold font-alumni">GAME</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="m9 18 6-6-6-6"/>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path d="M30.8489 31.6985C31.4012 31.6985 31.8489 31.2508 31.8489 30.6985L31.8489 21.6985C31.8489 21.1462 31.4012 20.6985 30.8489 20.6985C30.2966 20.6985 29.8489 21.1462 29.8489 21.6985L29.8489 29.6985L21.8489 29.6985C21.2966 29.6985 20.8489 30.1462 20.8489 30.6985C20.8489 31.2508 21.2966 31.6985 21.8489 31.6985L30.8489 31.6985ZM1.15039 1L0.443284 1.70711L30.1418 31.4056L30.8489 30.6985L31.556 29.9914L1.8575 0.292893L1.15039 1Z" fill="white"/>
                   </svg>
                 </div>
 
