@@ -1,6 +1,44 @@
+import { useState, useEffect, useRef } from 'react';
+
 export default function HeroSection() {
+  const [scrollY, setScrollY] = useState(0);
+  const heroRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+      
+      if (heroRef.current) {
+        const heroRect = heroRef.current.getBoundingClientRect();
+        const heroTop = heroRect.top + window.scrollY;
+        const heroHeight = heroRect.height;
+        const currentScroll = window.scrollY;
+        
+        // Hero 섹션이 뷰포트에 들어오기 시작할 때 애니메이션 시작
+        if (currentScroll >= heroTop - window.innerHeight * 0.8 && 
+            currentScroll <= heroTop + heroHeight) {
+          setIsVisible(true);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // 초기 실행
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const text = "RIDE THE STORM";
+  const letters = text.split('').map((char, index) => ({
+    char: char,
+    index: index,
+    isSpace: char === ' '
+  }));
+
   return (
     <section
+      ref={heroRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       style={{marginTop: '100vh' }}
     >
@@ -20,7 +58,7 @@ export default function HeroSection() {
       </div>
 
       {/* 데스크탑 */}
-      <div className="hidden md:block relative z-10 text-center text-white max-w-6xl mx-auto px-4 mt-[27%]">
+      <div className="hidden md:block relative z-10 text-center text-white mx-auto px-4 mt-[27%]">
         {/* 상단 텍스트 - 오른쪽 정렬 */}
         <div className="flex justify-end">
           <p className="text-white text-3xl leading-snug text-right">
@@ -29,9 +67,25 @@ export default function HeroSection() {
           </p>
         </div>
 
-        {/* 메인 타이틀 */}
-        <h1 className="text-[230px] font-black text-white font-alumni leading-[0.8]">
-          RIDE THE STORM
+        {/* 메인 타이틀 - 스크롤 애니메이션 */}
+        <h1 className="text-[230px] font-black text-white font-alumni leading-[0.8] overflow-hidden">
+          {letters.map((letter, index) => (
+            <span
+              key={index}
+              className={`inline-block transition-all duration-700 ease-out ${
+                letter.isSpace ? 'w-[0.3em]' : ''
+              } ${
+                isVisible 
+                  ? 'transform translate-y-0 opacity-100' 
+                  : 'transform translate-y-full opacity-0'
+              }`}
+              style={{
+                transitionDelay: isVisible ? `${index * 100}ms` : '0ms'
+              }}
+            >
+              {letter.isSpace ? '\u00A0' : letter.char}
+            </span>
+          ))}
         </h1>
 
         {/* 버튼 */}
@@ -70,21 +124,25 @@ export default function HeroSection() {
           </p>
         </div>
 
-        
-        {/* 팀 사진 */}
-        <div className="mb-6">
-          {/* <img
-            src="/img/playersteam1.png"
-            alt="Team"
-            className="w-64 h-auto mx-auto object-contain"
-          /> */}
-        </div>
-
-        
-
-        {/* 메인 타이틀 */}
-        <h1 className="text-[180px] font-black mb-6 font-alumni leading-[0.8]">
-          RIDE THE STORM
+        {/* 메인 타이틀 - 모바일 스크롤 애니메이션 */}
+        <h1 className="text-[180px] font-black mb-6 font-alumni leading-[0.8] overflow-hidden">
+          {letters.map((letter, index) => (
+            <span
+              key={index}
+              className={`inline-block transition-all duration-700 ease-out ${
+                letter.isSpace ? 'w-[0.3em]' : ''
+              } ${
+                isVisible 
+                  ? 'transform translate-y-0 opacity-100' 
+                  : 'transform translate-y-full opacity-0'
+              }`}
+              style={{
+                transitionDelay: isVisible ? `${index * 80}ms` : '0ms'
+              }}
+            >
+              {letter.isSpace ? '\u00A0' : letter.char}
+            </span>
+          ))}
         </h1>
 
         {/* 버튼 */}

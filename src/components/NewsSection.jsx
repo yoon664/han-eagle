@@ -13,9 +13,10 @@ export default function NewsSection() {
     <>
       {/* 스크롤 애니메이션 제목 */}
       <BigTitle 
-        initialSize={1000} 
+        initialSize={500} 
         finalSize={300}
         containerHeight="150vh"
+        stopDistance={100}
       >
         NEWS
       </BigTitle>

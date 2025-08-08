@@ -151,7 +151,7 @@ export default function MdSection() {
         
         {/* MD 타이틀 */}
        <BigTitle 
-        initialSize={1000} 
+        initialSize={500} 
         finalSize={300}
         containerHeight="150vh"
       >

@@ -1,92 +1,155 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
-const BigTitle = ({ 
-  children, 
-  initialSize = 800, 
-  finalSize = 300, 
-  containerHeight = '100vh',
+// 개별 글자 컴포넌트
+const AnimatedChar = ({ char, index, scrollYProgress }) => {
+  // 각 글자의 등장 타이밍을 다르게 설정
+  const charProgress = useTransform(
+    scrollYProgress,
+    [
+      Math.max(0, (index * 0.08) - 0.1),
+      (index * 0.08) + 0.15,
+      0.7,
+      1
+    ],
+    [0, 1, 1, 0.9]
+  );
+
+  // Y 위치 (아래에서 위로 올라옴)
+  const yPos = useTransform(
+    charProgress,
+    [0, 1],
+    [80, 0]
+  );
+
+  // 투명도 (서서히 나타남)
+  const opacity = useTransform(
+    charProgress,
+    [0, 0.6, 1],
+    [0, 1, 1]
+  );
+
+  return (
+    <motion.span
+      className="inline-block"
+      style={{
+        opacity: opacity,
+        y: yPos,
+        willChange: 'transform',
+      }}
+    >
+      {char}
+    </motion.span>
+  );
+};
+
+// 메인 타이틀 컴포넌트
+const BigTitle = ({
+  children,
+  initialSize = 150,
+  finalSize = 50,
+  containerHeight = '150vh',
   className = '',
   style = {}
 }) => {
-  const [scale, setScale] = useState(1);
-  const [position, setPosition] = useState(50); // 초기 위치 50% (중앙)
-  const titleRef = useRef(null);
   const containerRef = useRef(null);
+  const [isSticky, setIsSticky] = useState(false);
 
-  const finalScale = finalSize / initialSize;
 
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start 0.8", "end start"]
+  });
+
+  const chars = children.toString().split('');
+
+
+  const scale = useTransform(
+    scrollYProgress,
+    [0, 0.5, 0.7, 1],
+    [1, finalSize / initialSize, finalSize / initialSize, finalSize / initialSize]
+  );
+
+  // 텍스트 전체의 Y 위치를 제어
+  const yPos = useTransform(
+    scrollYProgress,
+    [0, 0.5, 0.7, 1],
+    ["-50%", "-50%", "-80%", "-80%"]
+  );
+
+  // Footer의 to top 버튼과 같은 로직
   useEffect(() => {
     const handleScroll = () => {
-      if (!titleRef.current || !containerRef.current) return;
+      if (containerRef.current) {
+        const containerRect = containerRef.current.getBoundingClientRect();
+        const containerBottom = containerRect.bottom + window.scrollY;
+        const windowHeight = window.innerHeight;
+        const currentScroll = window.scrollY;
+        
 
-      const containerRect = containerRef.current.getBoundingClientRect();
-      const containerTop = containerRect.top + window.scrollY;
-      const scrollY = window.scrollY;
-
-      // 컨테이너가 뷰포트에 들어오기 시작하는 지점
-      const startShrink = containerTop - window.innerHeight;
-      // 텍스트 축소가 완료될 지점
-      const endShrink = containerTop + containerRect.height * 0.7;
-
-      // 텍스트 크기 및 위치 조절
-      if (scrollY >= startShrink && scrollY <= endShrink) {
-        const progress = (scrollY - startShrink) / (endShrink - startShrink);
-        // 크기: 1 (초기 크기)에서 finalScale (최종 크기) 사이로 스케일 조절
-        setScale(1 - progress * (1 - finalScale));
-
-        setPosition(50 + progress * 40);
-      } else if (scrollY > endShrink) {
-
-        setScale(finalScale);
-        setPosition(90);
-      } else {
-
-        setScale(1);
-        setPosition(50);
+        if (containerBottom - currentScroll <= windowHeight + 100) {
+          setIsSticky(true);
+        } else {
+          setIsSticky(false);
+        }
       }
     };
 
     window.addEventListener('scroll', handleScroll);
-    // 초기 실행
-    handleScroll();
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [finalScale]);
+    handleScroll(); // 초기 실행
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <div 
+    <div
       ref={containerRef}
-      className="relative"
-      style={{ 
+      className="relative overflow-hidden flex items-center justify-center"
+      style={{
         height: containerHeight,
-        ...style 
+        ...style
       }}
     >
-      <div 
-        className="absolute w-full flex items-center justify-center"
-        style={{ 
-          top: `${position}%`, 
-          transform: 'translateY(-50%)',
-          transition: 'top 0.1s ease-out'
+      <motion.div
+        className={`anim_line whitespace-nowrap font-bold text-white tracking-wider leading-none ${className}`}
+        style={{
+          display: 'block',
+          textAlign: 'center',
+          position: isSticky ? 'absolute' : 'fixed', // 상황에 따라 전환
+          top: isSticky ? 'auto' : '50%',
+          bottom: isSticky ? '100px' : 'auto', // sticky일 때 하단에서 100px 위에 고정
+          left: '50%',
+          x: '-50%',
+          y: isSticky ? '0%' : yPos,
+          scale: scale,
+          fontSize: `${initialSize}px`,
+          willChange: 'transform, font-size',
+          zIndex: 10,
         }}
       >
-        <h2
-          ref={titleRef}
-          className={`font-bold text-white tracking-wider leading-none text-center ${className}`}
-          style={{
-            fontSize: `${initialSize}px`,
-            transform: `scale(${scale})`,
-            transition: 'transform 0.1s ease-out',
-            transformOrigin: 'center center',
-            zIndex: 10,
-            marginBottom: '0',
-          }}
-        >
-          {children}
-        </h2>
-      </div>
+        {chars.map((char, index) => (
+          <AnimatedChar
+            key={index}
+            char={char}
+            index={index}
+            scrollYProgress={scrollYProgress}
+          />
+        ))}
+      </motion.div>
+
+      {/* 오버플로우 마스크 */}
+      <motion.div
+        className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-[#222222] to-transparent pointer-events-none"
+        style={{
+          opacity: useTransform(scrollYProgress, [0, 0.2], [1, 0])
+        }}
+      />
+      <motion.div
+        className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-[#222222] to-transparent pointer-events-none"
+        style={{
+          opacity: useTransform(scrollYProgress, [0.8, 1], [0, 1])
+        }}
+      />
     </div>
   );
 };
