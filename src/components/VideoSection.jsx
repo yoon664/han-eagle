@@ -8,7 +8,7 @@ export default function VideoSection() {
     <>
       {/* 스크롤 애니메이션 제목 */}
       <BigTitle 
-        initialSize={500} 
+        initialSize={800} 
         finalSize={300}
         containerHeight="150vh"
       >
