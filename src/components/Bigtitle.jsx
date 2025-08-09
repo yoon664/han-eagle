@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
-// 개별 글자 컴포넌트
+
 const AnimatedChar = ({ char, index, scrollYProgress }) => {
-  // 각 글자의 등장 타이밍을 다르게 설정
+
   const charProgress = useTransform(
     scrollYProgress,
     [
@@ -15,14 +15,14 @@ const AnimatedChar = ({ char, index, scrollYProgress }) => {
     [0, 1, 1, 0.9]
   );
 
-  // Y 위치 (아래에서 위로 올라옴)
+  // Y 위치
   const yPos = useTransform(
     charProgress,
     [0, 1],
     [80, 0]
   );
 
-  // 투명도 (서서히 나타남)
+  // 투명도
   const opacity = useTransform(
     charProgress,
     [0, 0.6, 1],
@@ -70,14 +70,13 @@ const BigTitle = ({
     [1, finalSize / initialSize, finalSize / initialSize, finalSize / initialSize]
   );
 
-  // 텍스트 전체의 Y 위치를 제어
+  // 텍스트 전체의 Y 위치
   const yPos = useTransform(
     scrollYProgress,
     [0, 0.5, 0.7, 1],
     ["-50%", "-50%", "-80%", "-80%"]
   );
 
-  // Footer의 to top 버튼과 같은 로직
   useEffect(() => {
     const handleScroll = () => {
       if (containerRef.current) {
@@ -115,9 +114,9 @@ const BigTitle = ({
         style={{
           display: 'block',
           textAlign: 'center',
-          position: isSticky ? 'absolute' : 'fixed', // 상황에 따라 전환
+          position: isSticky ? 'absolute' : 'fixed', 
           top: isSticky ? 'auto' : '50%',
-          bottom: isSticky ? '100px' : 'auto', // sticky일 때 하단에서 100px 위에 고정
+          bottom: isSticky ? '100px' : 'auto',
           left: '50%',
           x: '-50%',
           y: isSticky ? '0%' : yPos,
