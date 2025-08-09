@@ -19,13 +19,13 @@ export default function VideoSection() {
       <section className="relative min-h-screen flex flex-col items-center justify-center">
         <div className="w-full px-4 py-16">
           
-          {/* 비디오 영역  */}
+          {/* 비디오 영역 - 반응형으로 수정 */}
           <div className="flex justify-center mb-6 md:mb-8">
-            <div className="relative">
+            <div className="relative w-full max-w-[580px] md:max-w-[1200px]">
               {!isVideoPlaying ? (
                 // 썸네일 + 플레이 버튼
                 <div 
-                  className="relative w-[580px] h-[326px] md:w-[1200px] md:h-[675px] rounded-lg overflow-hidden cursor-pointer group"
+                  className="relative w-full aspect-video rounded-lg overflow-hidden cursor-pointer group"
                   onClick={() => setIsVideoPlaying(true)}
                 >
                   {/* 썸네일 배경 이미지 */}
@@ -61,7 +61,7 @@ export default function VideoSection() {
                 </div>
               ) : (
                 // 유튜브 비디오
-                <div className="w-[580px] h-[326px] md:w-[1200px] md:h-[675px] rounded-lg overflow-hidden">
+                <div className="w-full aspect-video rounded-lg overflow-hidden">
                   <iframe
                     className="w-full h-full"
                     src="https://www.youtube.com/embed/S7sT7M0rFpM?start=757&autoplay=1&rel=0&modestbranding=1"
