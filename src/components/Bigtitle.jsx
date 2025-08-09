@@ -103,7 +103,7 @@ const BigTitle = ({
   return (
     <div
       ref={containerRef}
-      className="relative overflow-hidden flex items-center justify-center"
+      className="relative overflow-x-clip flex items-center justify-center"
       style={{
         height: containerHeight,
         ...style
@@ -114,12 +114,8 @@ const BigTitle = ({
         style={{
           display: 'block',
           textAlign: 'center',
-          position: isSticky ? 'absolute' : 'fixed', 
-          top: isSticky ? 'auto' : '50%',
-          bottom: isSticky ? '100px' : 'auto',
-          left: '50%',
-          x: '-50%',
-          y: isSticky ? '0%' : yPos,
+          position:'sticky',
+          top:0, 
           scale: scale,
           fontSize: `${initialSize}px`,
           willChange: 'transform, font-size',
