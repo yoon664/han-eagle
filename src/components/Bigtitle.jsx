@@ -99,6 +99,7 @@ const BigTitle = ({
     
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+  
 
   return (
     <div

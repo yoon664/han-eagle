@@ -59,7 +59,7 @@ export default function HeroSection() {
 
       {/* 모바일 - 이미지 위 텍스트 */}
       <div className="md:hidden absolute top-[-1%] left-0 right-0 z-30 text-center text-white px-4">
-        <p className="text-5xl leading-relaxed">
+        <p className="text-3xl lg:text-5xl leading-relaxed">
           독수리는 추진력을 얻어<br />
           더욱 더 높이 비상한다
         </p>
@@ -76,7 +76,7 @@ export default function HeroSection() {
         </div>
 
         {/* 메인 타이틀 - 스크롤 애니메이션 */}
-        <h1 className="text-[230px] font-black text-white font-alumni leading-[0.8] overflow-hidden">
+        <h1 className="hidden lg:block text-[230px] font-black text-white font-alumni leading-[0.8] overflow-hidden">
           {letters.map((letter, index) => (
             <span
               key={index}
@@ -95,6 +95,7 @@ export default function HeroSection() {
             </span>
           ))}
         </h1>
+
 
         {/* 버튼 */}
         <div className="flex justify-center mt-3">
@@ -125,24 +126,8 @@ export default function HeroSection() {
       <div className="md:hidden absolute bottom-16 left-0 right-0 p-4 text-center text-white z-40">
 
         {/* 메인 타이틀 - 모바일 스크롤 애니메이션 */}
-        <h1 className="text-[180px] font-black mb-6 font-alumni leading-[0.8] overflow-hidden">
-          {letters.map((letter, index) => (
-            <span
-              key={index}
-              className={`inline-block transition-all duration-700 ease-out ${
-                letter.isSpace ? 'w-[0.3em]' : ''
-              } ${
-                isVisible 
-                  ? 'transform translate-y-0 opacity-100' 
-                  : 'transform translate-y-full opacity-0'
-              }`}
-              style={{
-                transitionDelay: isVisible ? `${index * 80}ms` : '0ms'
-              }}
-            >
-              {letter.isSpace ? '\u00A0' : letter.char}
-            </span>
-          ))}
+        <h1 className="text-9xl lg:text-[180px] font-black mb-6 font-alumni leading-[0.8] overflow-hidden">
+          RIDE THE STORM
         </h1>
 
         {/* 버튼 */}
