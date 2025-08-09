@@ -39,11 +39,11 @@ export default function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-[120vh] md:min-h-screen flex items-center justify-center overflow-hidden"
       style={{marginTop: '100vh' }}
     >
       {/* 배경 이미지 */}
-      <div className="absolute left-0 right-0 flex items-center justify-center top-[0%]">
+      <div className="absolute left-0 right-0 flex items-center justify-center top-[7%]">
         <img
           src="/img/playersteam1.png"
           alt="Hanwha Eagles Team"
@@ -55,6 +55,14 @@ export default function HeroSection() {
           }}
           onLoad={() => console.log('이미지 로딩 성공')}
         />
+      </div>
+
+      {/* 모바일 - 이미지 위 텍스트 */}
+      <div className="md:hidden absolute top-[-1%] left-0 right-0 z-30 text-center text-white px-4">
+        <p className="text-5xl leading-relaxed">
+          독수리는 추진력을 얻어<br />
+          더욱 더 높이 비상한다
+        </p>
       </div>
 
       {/* 데스크탑 */}
@@ -114,15 +122,7 @@ export default function HeroSection() {
       </div>
 
       {/* 모바일용 */}
-      <div className="md:hidden absolute bottom-0 left-0 right-0 p-4 text-center text-white z-40">
-
-        {/* 텍스트 - 오른쪽 정렬 */}
-        <div className="flex justify-center mb-4">
-          <p className="text-5xl leading-relaxed text-center -translate-y-[350%]">
-            독수리는 추진력을 얻어<br />
-            더욱 더 높이 비상한다
-          </p>
-        </div>
+      <div className="md:hidden absolute bottom-16 left-0 right-0 p-4 text-center text-white z-40">
 
         {/* 메인 타이틀 - 모바일 스크롤 애니메이션 */}
         <h1 className="text-[180px] font-black mb-6 font-alumni leading-[0.8] overflow-hidden">
