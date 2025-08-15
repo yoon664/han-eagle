@@ -42,8 +42,8 @@ export default function HeroSection() {
       className="relative min-h-[130vh] mb-[25vh] md:min-h-screen flex items-center justify-center overflow-hidden"
       style={{marginTop: '110vh' }}
     >
-      {/* 배경 이미지 */}
-      <div className="absolute left-0 right-0 flex items-center justify-center bottom-[25vh] z-40">
+      {/* 데스크탑 배경 이미지 */}
+      <div className="absolute left-0 right-0 flex items-center justify-center bottom-[18vh] z-40">
         <img
           src="/img/playersteam1.png"
           alt="Hanwha Eagles Team"
@@ -54,6 +54,21 @@ export default function HeroSection() {
             e.target.style.display = 'none';
           }}
           onLoad={() => console.log('이미지 로딩 성공')}
+        />
+      </div>
+
+      {/* 모바일 배경 이미지 */}
+      <div className="md:hidden absolute left-0 right-0 flex items-center justify-center bottom-[25vh] z-40">
+        <img
+          src="/img/playersteam1.png"
+          alt="Hanwha Eagles Team"
+          className="object-contain"
+          style={{ width: '743px', height: '759px' }}
+          onError={(e) => {
+            console.log('모바일 이미지 로딩 실패:', e.target.src);
+            e.target.style.display = 'none';
+          }}
+          onLoad={() => console.log('모바일 이미지 로딩 성공')}
         />
       </div>
 
@@ -95,7 +110,6 @@ export default function HeroSection() {
             </span>
           ))}
         </h1>
-
 
         {/* 버튼 */}
         <div className="flex justify-center mt-3">

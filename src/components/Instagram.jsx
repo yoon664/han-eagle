@@ -57,7 +57,7 @@ export default function Instagram() {
   };
 
   return (
-    <section className="relative py-16 mb-32 overflow-hidden">
+    <section className="relative py-60 mb-32 overflow-hidden">
       <div className="w-full">
 
         {/* 데스크탑 */}

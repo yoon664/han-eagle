@@ -7,8 +7,8 @@ const AnimatedChar = ({ char, index, scrollYProgress }) => {
   const charProgress = useTransform(
     scrollYProgress,
     [
-      Math.max(0, (index * 0.08) - 0.1),
-      (index * 0.08) + 0.15,
+      Math.max(0, (index * 0.12) - 0.1),
+      (index * 0.12) + 0.15,
       0.7,
       1
     ],
@@ -46,8 +46,8 @@ const AnimatedChar = ({ char, index, scrollYProgress }) => {
 // 메인 타이틀 컴포넌트
 const BigTitle = ({
   children,
-  initialSize = 150,
-  finalSize = 50,
+  initialSize = 800,
+  finalSize = 300,
   containerHeight = '150vh',
   className = '',
   style = {}

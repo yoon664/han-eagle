@@ -22,7 +22,7 @@ export default function NewsSection() {
       </BigTitle>
 
       {/* 뉴스 콘텐츠 섹션 */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center py-16">
+      <section className="relative flex flex-col items-center justify-center py-16">
         <div className="w-full px-4">
           
           {/* 뉴스 리스트 - 반응형 컨테이너 */}
