@@ -1,12 +1,12 @@
-import Header from '../components/Header';
-import HeroSection from '../components/HeroSection';
+import Aheader from '../components/Aheader';
+import Ayears from '../components/Ayears';
 import Footer from '../components/Footer';
 
 export default function Home() {
   return (
     <>
-      <Header />
-      <HeroSection />
+      <Aheader />
+      <Ayears />
       <Footer />
     </>
   );

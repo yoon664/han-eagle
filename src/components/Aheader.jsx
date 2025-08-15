@@ -36,16 +36,13 @@ export default function Header() {
 
   return (
     <>
-      {/* 배경 영상 */}
-      <video
-        // autoPlay
-        loop
-        muted
-        playsInline
+      {/* 배경 이미지 */}
+      <img
+        src="/img/secondbg.jpg"
+        alt="historyimg"
         className="absolute top-0 left-0 w-full h-[80vh] object-cover z-0 pointer-events-none"
-      >
-        <source src="/img/HanwhaEagles_BrandFilm.webm" type="video/webm" />
-      </video>
+        />
+
 
       {/* 모바일 헤더 */}
       <header className="md:hidden fixed top-0 left-0 right-0 z-[999]  transition-all duration-300">
