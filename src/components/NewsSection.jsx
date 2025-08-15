@@ -15,8 +15,8 @@ export default function NewsSection() {
       <BigTitle 
         initialSize={800} 
         finalSize={300}
+        mobileFinalSize={70}
         containerHeight="150vh"
-        stopDistance={100}
       >
         NEWS
       </BigTitle>

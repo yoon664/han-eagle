@@ -11,12 +11,15 @@ export default function VideoSection() {
         initialSize={800} 
         finalSize={300}
         containerHeight="150vh"
+        mobileInitialSize={300}
+        mobileFinalSize={70}
+        mobileContainerHeight="100vh"
       >
         CONTENTS
       </BigTitle>
 
       {/* 비디오 콘텐츠 섹션 */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center">
+      <section className="relative flex flex-col items-center justify-center">
         <div className="w-full px-4 py-16">
           
           {/* 비디오 영역 - 반응형으로 수정 */}

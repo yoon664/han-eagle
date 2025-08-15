@@ -153,6 +153,7 @@ export default function MdSection() {
        <BigTitle 
         initialSize={800} 
         finalSize={300}
+        mobileFinalSize={100}
         containerHeight="150vh"
       >
         MD
