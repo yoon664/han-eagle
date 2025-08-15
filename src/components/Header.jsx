@@ -50,7 +50,7 @@ export default function Header() {
       {/* 모바일 헤더 */}
       <header className="md:hidden fixed top-0 left-0 right-0 z-[999]  transition-all duration-300">
         <div className="flex justify-between items-center p-4">
-          <img src="/img/mark.png" alt="Logo" className="h-20 w-auto" />
+          <img src="/img/mark.png" alt="Logo" className="h-16 w-auto" />
 
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -74,7 +74,7 @@ export default function Header() {
           <div className="fixed inset-0 bg-[#222222] z-[10000] flex flex-col w-full h-full min-h-screen overflow-hidden">
             {/* 헤더 영역 */}
             <div className="flex justify-between items-center p-4 bg-[#222222] w-full">
-              <img src="/img/mark.png" alt="Logo" className="h-20 w-auto" />
+              <img src="/img/mark.png" alt="Logo" className="h-16 w-auto" />
               <button
                 onClick={() => setIsMenuOpen(false)}
                 className="text-white p-2"

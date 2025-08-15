@@ -39,11 +39,11 @@ export default function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="relative min-h-[130vh] mb-[30vh] md:min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-[130vh] mb-[25vh] md:min-h-screen flex items-center justify-center overflow-hidden"
       style={{marginTop: '110vh' }}
     >
       {/* 배경 이미지 */}
-      <div className="absolute left-0 right-0 flex items-center justify-center bottom-[15vh] z-40">
+      <div className="absolute left-0 right-0 flex items-center justify-center bottom-[25vh] z-40">
         <img
           src="/img/playersteam1.png"
           alt="Hanwha Eagles Team"
@@ -66,7 +66,7 @@ export default function HeroSection() {
       </div>
 
       {/* 데스크탑 */}
-      <div className="hidden md:block relative z-10 text-center text-white mx-auto px-4 mt-[27%]">
+      <div className="hidden md:block relative z-40 text-center text-white mx-auto px-4 mt-[27%]">
         {/* 상단 텍스트 - 오른쪽 정렬 */}
         <div className="flex justify-end">
           <p className="text-white text-3xl leading-snug text-right">
@@ -123,7 +123,7 @@ export default function HeroSection() {
       </div>
 
       {/* 모바일용 */}
-      <div className="md:hidden absolute bottom-[1vh] left-0 right-0 p-4 text-center text-white z-40">
+      <div className="md:hidden absolute bottom-[13vh] left-0 right-0 p-4 text-center text-white z-40">
 
         {/* 메인 타이틀 - 모바일 스크롤 애니메이션 */}
         <h1 className="text-9xl lg:text-[180px] font-black mb-6 font-alumni leading-[0.8] overflow-hidden">
