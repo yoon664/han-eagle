@@ -39,11 +39,11 @@ export default function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="relative min-h-[120vh] md:min-h-screen flex items-center justify-center overflow-hidden"
-      style={{marginTop: '100vh' }}
+      className="relative min-h-[130vh] mb-[30vh] md:min-h-screen flex items-center justify-center overflow-hidden"
+      style={{marginTop: '110vh' }}
     >
       {/* 배경 이미지 */}
-      <div className="absolute left-0 right-0 flex items-center justify-center top-[7%]">
+      <div className="absolute left-0 right-0 flex items-center justify-center bottom-[15vh] z-40">
         <img
           src="/img/playersteam1.png"
           alt="Hanwha Eagles Team"
@@ -58,7 +58,7 @@ export default function HeroSection() {
       </div>
 
       {/* 모바일 - 이미지 위 텍스트 */}
-      <div className="md:hidden absolute top-[-1%] left-0 right-0 z-30 text-center text-white px-4">
+      <div className="md:hidden absolute top-0 left-0 right-0 z-30 text-center text-white px-4">
         <p className="text-3xl lg:text-5xl leading-relaxed">
           독수리는 추진력을 얻어<br />
           더욱 더 높이 비상한다
@@ -123,7 +123,7 @@ export default function HeroSection() {
       </div>
 
       {/* 모바일용 */}
-      <div className="md:hidden absolute bottom-16 left-0 right-0 p-4 text-center text-white z-40">
+      <div className="md:hidden absolute bottom-[1vh] left-0 right-0 p-4 text-center text-white z-40">
 
         {/* 메인 타이틀 - 모바일 스크롤 애니메이션 */}
         <h1 className="text-9xl lg:text-[180px] font-black mb-6 font-alumni leading-[0.8] overflow-hidden">
@@ -134,8 +134,8 @@ export default function HeroSection() {
         <button className="relative group cursor-pointer transition-all duration-300">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="250"
-            height="74"
+            width="200"
+            height="59"
             viewBox="0 0 326 96"
             fill="none"
           >
@@ -147,7 +147,7 @@ export default function HeroSection() {
               className="group-hover:stroke-[#DF6D21] group-hover:fill-[#DF6D21] transition-all duration-300"
             />
           </svg>
-          <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-[20px] font-bold tracking-wider whitespace-nowrap">
+          <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-[14px] font-bold tracking-wider whitespace-nowrap">
             VIEW ALL ABOUT
           </span>
         </button>

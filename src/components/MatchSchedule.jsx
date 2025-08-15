@@ -102,7 +102,7 @@ export default function MatchSchedule() {
                   <img
                     src={`/img/${gameSchedule[0].teamLogo}`}
                     alt="Team Logo"
-                    className="w-16 h-16 sm:w-[105px] sm:h-[105px] object-contain"
+                    className="w-24 h-24 sm:w-[105px] sm:h-[105px] object-contain"
                     onError={(e) => {
                       e.target.style.display = 'none';
                     }}

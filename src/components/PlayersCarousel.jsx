@@ -159,9 +159,9 @@ export default function ResponsivePlayersCarousel() {
               <button 
                 onClick={goToPrevious}
                 disabled={isAnimating}
-                className={`absolute left-4 top-1/2 transform -translate-y-1/2 z-20 text-white hover:text-orange-500 transition-colors text-4xl font-light ${isAnimating ? 'opacity-50 cursor-not-allowed' : ''}`}
+                className={`absolute left-4 top-[50vh] transform -translate-y-1/2 z-20 text-white hover:text-orange-500 transition-colors text-4xl font-light ${isAnimating ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="24" viewBox="0 0 80 24" fill="none">
+                <svg xmlns="http://www.w3.org/2000/svg" width="42" height="24" viewBox="0 0 80 24" fill="none">
                   <path d="M0.939339 10.9393C0.353554 11.5251 0.353554 12.4749 0.939339 13.0607L10.4853 22.6066C11.0711 23.1924 12.0208 23.1924 12.6066 22.6066C13.1924 22.0208 13.1924 21.0711 12.6066 20.4853L4.12132 12L12.6066 3.51472C13.1924 2.92893 13.1924 1.97919 12.6066 1.3934C12.0208 0.807611 11.0711 0.807611 10.4853 1.3934L0.939339 10.9393ZM80 12V10.5L2 10.5V12V13.5L80 13.5V12Z" fill="white"/>
                 </svg>
               </button>
@@ -170,9 +170,9 @@ export default function ResponsivePlayersCarousel() {
               <button 
                 onClick={goToNext}
                 disabled={isAnimating}
-                className={`absolute right-4 top-1/2 transform -translate-y-1/2 z-20 text-white hover:text-orange-500 transition-colors text-4xl font-light ${isAnimating ? 'opacity-50 cursor-not-allowed' : ''}`}
+                className={`absolute right-4 top-[50vh] transform -translate-y-1/2 z-20 text-white hover:text-orange-500 transition-colors text-4xl font-light ${isAnimating ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="24" viewBox="0 0 80 24" fill="none">
+                <svg xmlns="http://www.w3.org/2000/svg" width="42" height="24" viewBox="0 0 80 24" fill="none">
                   <path d="M79.0607 13.0607C79.6464 12.4749 79.6464 11.5251 79.0607 10.9393L69.5147 1.3934C68.9289 0.807611 67.9792 0.807611 67.3934 1.3934C66.8076 1.97919 66.8076 2.92893 67.3934 3.51472L75.8787 12L67.3934 20.4853C66.8076 21.0711 66.8076 22.0208 67.3934 22.6066C67.9792 23.1924 68.9289 23.1924 69.5147 22.6066L79.0607 13.0607ZM-13 12V13.5L78 13.5V12V10.5L-13 10.5V12Z" fill="white"/>
               </svg>
               </button>
@@ -181,22 +181,22 @@ export default function ResponsivePlayersCarousel() {
               <div className="relative flex items-center justify-center mb-2">
                 
                 {/* 배경 넘버 */}
-                <div className={`absolute right-[18vw] top-[-100px] z-0 transition-opacity duration-300 ${
+                <div className={`absolute right-[15vw] top-[-100px] z-0 transition-opacity duration-300 ${
                   isAnimating ? 'opacity-0' : 'opacity-100'
                 }`}>
-                  <span className="text-[400px] font-bold leading-none" style={{color: '#070707'}}>
+                  <span className="text-[300px] font-bold leading-none" style={{color: '#070707'}}>
                     {players[currentPlayer].number}
                   </span>
                 </div>
 
                 {/* 메인 선수 이미지 */}
-                <div className={`relative z-10 top-11 transition-opacity duration-300 ${
+                <div className={`relative z-10 top-1 transition-opacity duration-300 ${
                   isAnimating ? 'opacity-0' : 'opacity-100'
                 }`}>
                   <img 
                     src={`/img/${players[currentPlayer].image}`} 
                     alt={players[currentPlayer].name}
-                    className="w-[550px] h-[700px] object-contain"
+                    className="w-[450px] h-[600px] object-contain"
                     onError={(e) => {
                       e.target.style.display = 'none';
                       e.target.nextSibling.style.display = 'flex';
@@ -206,14 +206,15 @@ export default function ResponsivePlayersCarousel() {
               </div>
 
               {/* 선수 정보 - 이미지 왼쪽 아래 */}
-              <div className={`relative z-10 right-32 bottom-24 text-white text-left transition-opacity duration-300 ${
+              <div className={`relative z-10 right-20 bottom-32 text-white text-left transition-opacity duration-300 ${
                 isAnimating ? 'opacity-0' : 'opacity-100'
               }`}>
-                <div className="text-5xl mb-3 text-white">
+                <div className="text-4xl mb-3 text-white">
                   <span className="font-bold">{players[currentPlayer].position.split(' ')[0]}</span>
                   <span className="font-light"> {players[currentPlayer].position.split(' ').slice(1).join(' ')}</span>
                 </div>
-                <div className="text-7xl tracking-tighter font-bold" style={{color: '#DF6D21'}}>
+                <div className="text-6xl  tracking-tighter font-bold" 
+                style={{ color: '#DF6D21', lineHeight: '0.8' }}>
                   {players[currentPlayer].name}
                 </div>
               </div>
@@ -222,8 +223,8 @@ export default function ResponsivePlayersCarousel() {
 
             {/* 버튼 */}
             <div className="flex justify-center">
-              <button className="bottom-8 relative group cursor-pointer transition-all duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" width="250" height="74" viewBox="0 0 326 96" fill="none">
+              <button className="bottom-16 relative group cursor-pointer transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="200" height="59" viewBox="0 0 326 96" fill="none">
                   <path d="M1 95V1H325V63.3654L298 95H1Z" 
                         stroke="white" 
                         strokeWidth="2" 
@@ -232,7 +233,7 @@ export default function ResponsivePlayersCarousel() {
                 </svg>
                 
                 <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
-                text-white text-[20px] font-bold tracking-wider whitespace-nowrap">
+                text-white text-[14px] font-bold tracking-wider whitespace-nowrap">
                   VIEW ALL PLAYER
                 </span>
               </button>

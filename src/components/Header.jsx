@@ -48,7 +48,7 @@ export default function Header() {
       </video>
 
       {/* 모바일 헤더 */}
-      <header className="md:hidden fixed top-0 left-0 right-0 z-[999] backdrop-blur-sm transition-all duration-300">
+      <header className="md:hidden fixed top-0 left-0 right-0 z-[999]  transition-all duration-300">
         <div className="flex justify-between items-center p-4">
           <img src="/img/mark.png" alt="Logo" className="h-20 w-auto" />
 
