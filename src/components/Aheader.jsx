@@ -43,11 +43,37 @@ export default function Header() {
         className="absolute top-0 left-0 w-full h-[80vh] object-cover z-0 pointer-events-none"
         />
 
+        <div 
+        className="absolute top-0 left-0 w-full h-[80vh] bg-black z-10 pointer-events-none"
+        style={{ opacity: 0.53 }}
+        ></div>
+
+      {/* 가운데 글귀 - 데스크탑 */}
+      <div className="hidden md:flex absolute top-0 left-0 w-full h-[80vh]  items-center justify-center z-30">
+        <div className="text-center text-white">
+          <h1 className="text-7xl font-thin mb-6 tracking-wider">Since 1985</h1>
+          <p className="text-[80px] font-bold leading-relaxed" style={{lineHeight: '1.2' }}>
+            한화이글스의 추억과 영광의<br />
+            순간들을 함께하세요!
+          </p>
+        </div>
+      </div>
+
+      {/* 가운데 글귀 - 모바일 */}
+      <div className="flex md:hidden absolute top-0 left-0 w-full h-[80vh] items-center justify-center z-30 px-4">
+        <div className="text-center text-white">
+          <h1 className="text-4xl font-light mb-4 tracking-wider">Since 1985</h1>
+          <p className="text-2xl font-bold leading-relaxed">
+            한화이글스의 추억과 영광의<br />
+            순간들을 함께하세요!
+          </p>
+        </div>
+      </div>
 
       {/* 모바일 헤더 */}
       <header className="md:hidden fixed top-0 left-0 right-0 z-[999]  transition-all duration-300">
         <div className="flex justify-between items-center p-4">
-          <a href="#">
+          <a href="#home">
             <img src="/img/mark.png" alt="Logo" className="h-16 w-auto" />
           </a>
 
@@ -73,7 +99,7 @@ export default function Header() {
           <div className="fixed inset-0 bg-[#222222] z-[10000] flex flex-col w-full h-full min-h-screen overflow-hidden">
             {/* 헤더 영역 */}
             <div className="flex justify-between items-center p-4 bg-[#222222] w-full">
-              <a href="#">
+              <a href="#home">
                 <img src="/img/mark.png" alt="Logo" className="h-16 w-auto" />
               </a>
               <button
@@ -202,7 +228,7 @@ export default function Header() {
           <div className={`absolute left-1/2 transform -translate-x-1/2 transition-all duration-300 ${
             isScrolled ? 'top-0' : 'top-0'
           }`}>
-            <a href="#">
+            <a href="#home">
               <img src="/img/mark.png" alt="Hanwha Eagles Logo" className={`w-auto transition-all duration-300 ${
                 isScrolled ? 'h-10' : 'h-14'
               }`} />
