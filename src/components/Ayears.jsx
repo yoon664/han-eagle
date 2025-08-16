@@ -355,7 +355,7 @@ export default function Ayears() {
   }, []);
 
   return (
-    <div ref={containerRef} className="bg-[#222222] min-h-screen pt-[80vh]">
+    <div ref={containerRef} className="bg-[#222222] min-h-screen pt-[100vh]">
       <div className="max-w-7xl mx-auto px-4 relative">
         
         {/* 중앙 타임라인 선 */}
@@ -397,7 +397,7 @@ export default function Ayears() {
 
             {/* 로고 */}
             <div className="mb-12 flex justify-center">
-              <div className="w-40 h-40 md:w-64 md:h-64 flex items-center justify-center bg-gray-800 rounded-2xl md:rounded-3xl p-6 md:p-12">
+              <div className="w-40 h-40 md:w-64 md:h-64 flex items-center justify-center p-6 md:p-12">
                 <img 
                   src={period.logo} 
                   alt={`${period.years} 로고`}
@@ -407,9 +407,7 @@ export default function Ayears() {
                     e.target.nextSibling.style.display = 'flex';
                   }}
                 />
-                <div className="hidden w-full h-full bg-gray-600 flex items-center justify-center text-white text-lg rounded">
-                  {period.years} 로고
-                </div>
+
               </div>
             </div>
 
@@ -463,7 +461,7 @@ export default function Ayears() {
                                   {/* 이미지 */}
                                   {item.image && (
                                     <div className="flex justify-end">
-                                      <div className="w-80 h-52 bg-gray-700 rounded-xl overflow-hidden">
+                                      <div className="w-80 h-52 overflow-hidden">
                                         <img 
                                           src={item.image} 
                                           alt={yearContent.year}
@@ -473,9 +471,6 @@ export default function Ayears() {
                                             e.target.nextSibling.style.display = 'flex';
                                           }}
                                         />
-                                        <div className="hidden w-full h-full bg-gray-600 flex items-center justify-center text-white text-sm">
-                                          이미지
-                                        </div>
                                       </div>
                                     </div>
                                   )}
@@ -533,7 +528,7 @@ export default function Ayears() {
                                   {/* 이미지 */}
                                   {item.image && (
                                     <div className="flex justify-start">
-                                      <div className="w-80 h-52 bg-gray-700 rounded-xl overflow-hidden">
+                                      <div className="w-80 h-52 overflow-hidden">
                                         <img 
                                           src={item.image} 
                                           alt={yearContent.year}
@@ -543,9 +538,6 @@ export default function Ayears() {
                                             e.target.nextSibling.style.display = 'flex';
                                           }}
                                         />
-                                        <div className="hidden w-full h-full bg-gray-600 flex items-center justify-center text-white text-sm">
-                                          이미지
-                                        </div>
                                       </div>
                                     </div>
                                   )}
@@ -587,7 +579,7 @@ export default function Ayears() {
                             {/* 이미지 */}
                             {item.image && (
                               <div className="flex justify-center">
-                                <div className="w-80 h-52 bg-gray-700 rounded-xl overflow-hidden">
+                                <div className="w-80 h-52 overflow-hidden">
                                   <img 
                                     src={item.image} 
                                     alt={yearContent.year}
@@ -597,9 +589,6 @@ export default function Ayears() {
                                       e.target.nextSibling.style.display = 'flex';
                                     }}
                                   />
-                                  <div className="hidden w-full h-full bg-gray-600 flex items-center justify-center text-white text-sm">
-                                    이미지
-                                  </div>
                                 </div>
                               </div>
                             )}
@@ -614,8 +603,6 @@ export default function Ayears() {
           </motion.div>
         ))}
         
-        {/* 타임라인 끝점 */}
-        <div className="absolute left-1/2 bottom-0 w-8 h-8 bg-gray-600 rounded-full border-4 border-[#222222] transform -translate-x-1/2" />
       </div>
     </div>
   );
