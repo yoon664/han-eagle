@@ -177,11 +177,11 @@ const timelineData = [
         ]
       },
       {
-        year: "2008",
+        year: "2006",
         items: [
           {
             text: "류현진 2006년 신인왕, 시즌 MVP 동시 석권",
-            image: "/img/2008.png"
+            image: "/img/2006b.png"
           }
         ]
       },
