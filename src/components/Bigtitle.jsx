@@ -112,7 +112,7 @@ const BigTitle = ({
       {/* 데스크탑 버전 - 통합 구조 방식 */}
       <div
         ref={containerRef}
-        className="hidden md:flex relative overflow-x-clip items-center justify-center"
+        className="hidden md:flex relative overflow-x-clip items-center justify-center -mt-[20vh] -mb-[10vh] lg:mt-0 lg:mb-0"
         style={{
           height: containerHeight,
           ...style

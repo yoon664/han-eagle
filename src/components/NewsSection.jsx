@@ -17,12 +17,13 @@ export default function NewsSection() {
         finalSize={300}
         mobileFinalSize={70}
         containerHeight="150vh"
+        mobileContainerHeight="50vh"
       >
         NEWS
       </BigTitle>
 
       {/* 뉴스 콘텐츠 섹션 */}
-      <section className="relative flex flex-col items-center justify-center py-16">
+      <section className="relative flex flex-col items-center justify-center py-16 -mt-[10vh] lg:mt-0">
         <div className="w-full px-4">
           
           {/* 뉴스 리스트 - 반응형 컨테이너 */}

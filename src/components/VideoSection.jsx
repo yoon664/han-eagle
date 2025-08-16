@@ -13,7 +13,7 @@ export default function VideoSection() {
         containerHeight="150vh"
         mobileInitialSize={300}
         mobileFinalSize={70}
-        mobileContainerHeight="100vh"
+        mobileContainerHeight="50vh"
       >
         CONTENTS
       </BigTitle>

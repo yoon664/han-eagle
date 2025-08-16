@@ -39,7 +39,7 @@ export default function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="relative min-h-[130vh] mb-[25vh] md:min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative mb-[25vh] md:min-h-screen flex flex-col lg:flex-row items-center justify-center overflow-hidden"
       style={{marginTop: '110vh' }}
     >
       {/* 데스크탑 배경 이미지 */}
@@ -57,6 +57,14 @@ export default function HeroSection() {
         />
       </div>
 
+       {/* 모바일 - 이미지 위 텍스트 */}
+       <div className="md:hidden w-full z-30 text-center text-white px-4">
+        <p className="text-3xl lg:text-5xl leading-relaxed">
+          독수리는 추진력을 얻어<br />
+          더욱 더 높이 비상한다
+        </p>
+      </div>
+
       {/* 모바일 배경 이미지 */}
       <div className="md:hidden absolute left-0 right-0 flex items-center justify-center bottom-[25vh] z-40">
         <img
@@ -72,13 +80,7 @@ export default function HeroSection() {
         />
       </div>
 
-      {/* 모바일 - 이미지 위 텍스트 */}
-      <div className="md:hidden absolute top-0 left-0 right-0 z-30 text-center text-white px-4">
-        <p className="text-3xl lg:text-5xl leading-relaxed">
-          독수리는 추진력을 얻어<br />
-          더욱 더 높이 비상한다
-        </p>
-      </div>
+     
 
       {/* 데스크탑 */}
       <div className="hidden md:block relative z-40 text-center text-white mx-auto px-4 mt-[27%]">
@@ -137,7 +139,7 @@ export default function HeroSection() {
       </div>
 
       {/* 모바일용 */}
-      <div className="md:hidden absolute bottom-[13vh] left-0 right-0 p-4 text-center text-white z-40">
+      <div className="md:hidden bottom-[13vh] p-4 text-center text-white z-40">
 
         {/* 메인 타이틀 - 모바일 스크롤 애니메이션 */}
         <h1 className="text-9xl lg:text-[180px] font-black mb-6 font-alumni leading-[0.8] overflow-hidden">

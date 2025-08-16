@@ -155,6 +155,7 @@ export default function MdSection() {
         finalSize={300}
         mobileFinalSize={100}
         containerHeight="150vh"
+        mobileContainerHeight="50vh"
       >
         MD
       </BigTitle>
@@ -162,7 +163,7 @@ export default function MdSection() {
         {/* 3D 슬라이드 컨테이너 */}
         <div 
           ref={slideBoxRef}
-          className="relative mb-16 h-[500px] flex items-center justify-center"
+          className="relative mb-16 h-[500px] flex items-center justify-center  -mt-[10vh] lg:mt-0"
           style={{ cursor: isMouseDown ? 'grabbing' : 'grab' }}
           onTouchStart={(e) => {
             setIsMouseDown(true);
