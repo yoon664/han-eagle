@@ -360,7 +360,7 @@ export default function Ayears() {
         
         {/* 중앙 타임라인 선 */}
         <div className="absolute left-1/2 top-0 bottom-0 w-1 transform -translate-x-1/2">
-          {/* 진행률 선 (주황색) */}
+          {/* 진행률 선 */}
           <motion.div
             className="w-full bg-[#DF6D21] origin-top"
             style={{
@@ -370,7 +370,7 @@ export default function Ayears() {
           />
         </div>
 
-        {/* 타임라인 아이템들 */}
+        {/* 타임라인 요소 */}
         {timelineData.map((period, periodIndex) => (
           <motion.div
             key={period.id}
@@ -381,23 +381,23 @@ export default function Ayears() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             
-            {/* 제목과 부제목 - 선 위에 */}
+            {/* 제목 부제목 */}
             <div className="text-center mb-12">
               <h2 
-                className="text-5xl md:text-6xl font-bold mb-4 md:mb-6"
+                className="text-5xl md:text-7xl font-bold mb-4 md:mb-10"
                 style={{ color: period.color }}
               >
                 {period.years}
               </h2>
               <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 md:mb-6">{period.title}</h3>
-              <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-4xl mx-auto px-4 whitespace-pre-line">
+              <p className="text-lg md:text-base text-white leading-relaxed max-w-4xl mx-auto px-4 whitespace-pre-line">
                 {period.subtitle}
               </p>
             </div>
 
             {/* 로고 */}
             <div className="mb-12 flex justify-center">
-              <div className="w-40 h-40 md:w-64 md:h-64 flex items-center justify-center">
+              <div className="w-40 h-40 md:w-96 md:h-64 flex items-center justify-center">
                 <img 
                   src={period.logo} 
                   alt={`${period.years} 로고`}
