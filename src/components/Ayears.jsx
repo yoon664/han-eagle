@@ -407,22 +407,17 @@ export default function Ayears() {
                     e.target.nextSibling.style.display = 'flex';
                   }}
                 />
-
+                <div className="hidden w-full h-full flex items-center justify-center text-white text-lg">
+                  {period.years} 로고
+                </div>
               </div>
             </div>
 
-            {/* 중앙 점 */}
-            <div className="flex justify-center mb-16">
-              <div 
-                className="w-6 h-6 md:w-8 md:h-8 rounded-full border-4 border-[#222222] z-10 relative"
-                style={{ backgroundColor: period.color }}
-              />
-            </div>
 
             {/* 세부 내용들 - 지그재그 레이아웃 */}
             <div className="space-y-16 max-w-7xl mx-auto">
               {period.content.map((yearContent, yearIndex) => {
-                const isLeft = yearIndex % 2 === 0; // 짝수 인덱스는 왼쪽, 홀수는 오른쪽
+                const isLeft = yearIndex % 2 === 1; // 홀수 인덱스는 왼쪽, 짝수는 오른쪽 (오른쪽부터 시작)
                 
                 return (
                   <motion.div
@@ -471,6 +466,9 @@ export default function Ayears() {
                                             e.target.nextSibling.style.display = 'flex';
                                           }}
                                         />
+                                        <div className="hidden w-full h-full bg-gray-600 flex items-center justify-center text-white text-sm">
+                                          이미지
+                                        </div>
                                       </div>
                                     </div>
                                   )}
@@ -538,6 +536,9 @@ export default function Ayears() {
                                             e.target.nextSibling.style.display = 'flex';
                                           }}
                                         />
+                                        <div className="hidden w-full h-full bg-gray-600 flex items-center justify-center text-white text-sm">
+                                          이미지
+                                        </div>
                                       </div>
                                     </div>
                                   )}
@@ -589,6 +590,9 @@ export default function Ayears() {
                                       e.target.nextSibling.style.display = 'flex';
                                     }}
                                   />
+                                  <div className="hidden w-full h-full bg-gray-600 flex items-center justify-center text-white text-sm">
+                                    이미지
+                                  </div>
                                 </div>
                               </div>
                             )}
