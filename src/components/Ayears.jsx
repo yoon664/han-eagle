@@ -321,10 +321,11 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
   const periodRef = useRef(null);
   const [activeYears, setActiveYears] = useState(new Set());
   const [yearProgresses, setYearProgresses] = useState({});
+  const [currentProgress, setCurrentProgress] = useState(0);
   
   const { scrollYProgress } = useScroll({
     target: periodRef,
-    offset: ["start center", "end center"]
+    offset: ["start 0.8", "end 0.2"]
   });
 
   const lineProgress = useSpring(scrollYProgress, {
@@ -336,26 +337,32 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
   // 스크롤 진행률에 따른 year 활성화 상태 및 개별 진행률 업데이트
   useEffect(() => {
     const unsubscribe = scrollYProgress.onChange((progress) => {
+      setCurrentProgress(progress);
       const newActiveYears = new Set();
       const newYearProgresses = {};
       
-      period.content.forEach((_, yearIndex) => {
-        const yearStart = yearIndex / period.content.length;
-        const yearEnd = (yearIndex + 1) / period.content.length;
+      // 각 항목의 실제 위치 기반으로 진행률 계산
+      period.content.forEach((yearContent, yearIndex) => {
+        // 더 선형적인 진행률 계산 - 각 항목을 동일하게 취급
+        const itemStart = yearIndex / period.content.length;
+        const itemEnd = (yearIndex + 1) / period.content.length;
+        
+        // 진행률을 더 빠르게 만들기 위해 지수 함수 적용
+        const adjustedProgress = Math.pow(progress, 0.7); // 0.7승을 적용해서 초반에 더 빠르게
         
         // 개별 year 진행률 계산
         let yearProgress = 0;
-        if (progress > yearStart) {
-          if (progress >= yearEnd) {
+        if (adjustedProgress > itemStart) {
+          if (adjustedProgress >= itemEnd) {
             yearProgress = 1;
           } else {
-            yearProgress = (progress - yearStart) / (yearEnd - yearStart);
+            yearProgress = (adjustedProgress - itemStart) / (itemEnd - itemStart);
           }
         }
         newYearProgresses[yearIndex] = yearProgress;
         
-        // 50% 이상 진행되면 활성화로 간주
-        if (yearProgress >= 0.5) {
+        // 30% 이상 진행되면 활성화로 간주 (더 빠른 반응)
+        if (yearProgress >= 0.3) {
           newActiveYears.add(yearIndex);
         }
       });
@@ -365,12 +372,12 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
     });
 
     return unsubscribe;
-  }, [scrollYProgress, period.content.length]);
+  }, [scrollYProgress, period.content]);
 
   // 중앙점 색상 계산
   const getPointColor = (yearIndex) => {
     const progress = yearProgresses[yearIndex] || 0;
-    return progress >= 0.5 ? '#FF6600' : '#3A3A3A';
+    return progress >= 0.5 ? '#FF6600' : '#FFFFFF1A';
   };
 
   return (
@@ -382,19 +389,19 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
       animate={visibleSections.has(periodIndex) ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, delay: 0.2 }}
     >
-      {/* 중앙선 */}
+      {/* 이 period만의 중앙선 - 개선된 진행률 애니메이션 */}
       <div className="absolute left-1/2 w-1 transform -translate-x-1/2" style={{
         top: '600px',
-        bottom: '0px' // 각 period의 끝까지
+        bottom: '0px'
       }}>
-        {/* 배경선 */}
+        {/* 회색 배경 선 */}
         <div className="w-full h-full bg-[#FFFFFF1A]" />
-        {/* 주황선 */}
+        {/* 주황색 진행률 선 */}
         <motion.div
-          className="absolute top-0 w-full bg-[#FF6600] origin-top"
+          className="absolute top-0 left-0 w-full bg-[#FF6600]"
           style={{
-            scaleY: lineProgress,
-            transformOrigin: "top"
+            height: `${currentProgress * 100}%`,
+            transition: 'height 0.1s ease-out'
           }}
         />
       </div>
@@ -497,7 +504,7 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
                     {/* 중앙 점 */}
                     <div className="flex justify-center items-start w-2/12 pt-2">
                       <div 
-                        className="w-4 h-4 rounded-full border transition-colors duration-300"
+                        className="w-4 h-4 rounded-full border transition-colors duration-300 z-10 relative"
                         style={{ 
                           backgroundColor: getPointColor(yearIndex),
                           borderColor: getPointColor(yearIndex)
@@ -517,7 +524,7 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
                     {/* 중앙 점 */}
                     <div className="flex justify-center items-start w-2/12 pt-2">
                       <div 
-                        className="w-4 h-4 rounded-full border transition-colors duration-300"
+                        className="w-4 h-4 rounded-full border transition-colors duration-300 z-10 relative"
                         style={{ 
                           backgroundColor: getPointColor(yearIndex),
                           borderColor: getPointColor(yearIndex)
@@ -578,7 +585,7 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
                 {/* 년도와 선 연결점 */}
                 <div className="flex items-center justify-center mb-8">
                   <div 
-                    className="w-4 h-4 rounded-full border transition-colors duration-300"
+                    className="w-4 h-4 rounded-full border transition-colors duration-300 z-10 relative"
                     style={{ 
                       backgroundColor: getPointColor(yearIndex),
                       borderColor: getPointColor(yearIndex)
