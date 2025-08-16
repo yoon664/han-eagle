@@ -397,7 +397,7 @@ export default function Ayears() {
 
             {/* 로고 */}
             <div className="mb-12 flex justify-center">
-              <div className="w-40 h-40 md:w-64 md:h-64 flex items-center justify-center p-6 md:p-12">
+              <div className="w-40 h-40 md:w-64 md:h-64 flex items-center justify-center">
                 <img 
                   src={period.logo} 
                   alt={`${period.years} 로고`}
