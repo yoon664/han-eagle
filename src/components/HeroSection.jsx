@@ -57,33 +57,63 @@ export default function HeroSection() {
         />
       </div>
 
-       {/* 모바일 - 이미지 위 텍스트 */}
-       <div className="md:hidden w-full z-30 text-center text-white px-4">
+      {/* 모바일 - 상단 텍스트 */}
+      <div className="md:hidden w-full z-30 text-center text-white px-4">
         <p className="text-3xl lg:text-5xl leading-relaxed">
           독수리는 추진력을 얻어<br />
           더욱 더 높이 비상한다
         </p>
       </div>
 
-      {/* 모바일 배경 이미지 */}
-      <div className="md:hidden absolute left-0 right-0 flex items-center justify-center bottom-[25vh] z-40">
-        <img
-          src="/img/playersteam1.png"
-          alt="Hanwha Eagles Team"
-          className="object-contain"
-          style={{ width: '743px', height: '759px' }}
-          onError={(e) => {
-            console.log('모바일 이미지 로딩 실패:', e.target.src);
-            e.target.style.display = 'none';
-          }}
-          onLoad={() => console.log('모바일 이미지 로딩 성공')}
-        />
+      {/* 모바일 이미지, ride the strom */}
+      <div className="md:hidden relative w-full flex flex-col items-center justify-center z-40">
+        {/* 배경 이미지 */}
+        <div className="relative flex items-center justify-center">
+          <img
+            src="/img/playersteam1.png"
+            alt="Hanwha Eagles Team"
+            className="object-contain"
+            style={{ width: '353', height: '361px' }}
+            onError={(e) => {
+              console.log('모바일 이미지 로딩 실패:', e.target.src);
+              e.target.style.display = 'none';
+            }}
+            onLoad={() => console.log('모바일 이미지 로딩 성공')}
+          />
+        </div>
+
+        {/* ride the strom, 버튼 */}
+        <div className="text-center text-white px-4 -mt-16 z-40">
+          <h1 className="text-9xl font-black mb-6 font-alumni leading-[0.8] overflow-hidden">
+            RIDE THE STORM
+          </h1>
+
+          {/* 버튼 */}
+          <button className="relative group cursor-pointer transition-all duration-300">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="200"
+              height="59"
+              viewBox="0 0 326 96"
+              fill="none"
+            >
+              <path
+                d="M1 95V1H325V63.3654L298 95H1Z"
+                stroke="white"
+                strokeWidth="2"
+                fill="transparent"
+                className="group-hover:stroke-[#DF6D21] group-hover:fill-[#DF6D21] transition-all duration-300"
+              />
+            </svg>
+            <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-[14px] font-bold tracking-wider whitespace-nowrap">
+              VIEW ALL ABOUT
+            </span>
+          </button>
+        </div>
       </div>
 
-     
-
       {/* 데스크탑 */}
-      <div className="hidden md:block relative z-40 text-center text-white mx-auto px-4 mt-[25%]">
+      <div className="hidden md:block relative z-40 text-center text-white mx-auto px-4 mt-[30%]">
         {/* 상단 텍스트 - 오른쪽 정렬 */}
         <div className="flex justify-end">
           <p className="text-white text-3xl leading-snug text-right">
@@ -136,37 +166,6 @@ export default function HeroSection() {
             </span>
           </button>
         </div>
-      </div>
-
-      {/* 모바일용 */}
-      <div className="md:hidden bottom-[13vh] p-4 text-center text-white z-40">
-
-        {/* 메인 타이틀 - 모바일 스크롤 애니메이션 */}
-        <h1 className="text-9xl lg:text-[180px] font-black mb-6 font-alumni leading-[0.8] overflow-hidden">
-          RIDE THE STORM
-        </h1>
-
-        {/* 버튼 */}
-        <button className="relative group cursor-pointer transition-all duration-300">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="200"
-            height="59"
-            viewBox="0 0 326 96"
-            fill="none"
-          >
-            <path
-              d="M1 95V1H325V63.3654L298 95H1Z"
-              stroke="white"
-              strokeWidth="2"
-              fill="transparent"
-              className="group-hover:stroke-[#DF6D21] group-hover:fill-[#DF6D21] transition-all duration-300"
-            />
-          </svg>
-          <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-[14px] font-bold tracking-wider whitespace-nowrap">
-            VIEW ALL ABOUT
-          </span>
-        </button>
       </div>
     </section>
   );
