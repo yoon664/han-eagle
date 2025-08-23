@@ -408,7 +408,7 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
       transition={{ duration: 0.8, delay: 0.2 }}
     >
       {/* 구간별 연도 sticky */}
-      <div className="hidden lg:block absolute top-0 -left-36 w-80 h-full pointer-events-none z-10">
+      <div className="hidden lg:block absolute top-0 -left-44 w-80 h-full pointer-events-none z-10">
         <div className="sticky top-1/3 transform -translate-y-1/2">
           <div className="history-section__sticky-wrap">
             <p className="history-section__sticky-year text-4xl font-bold mb-2" style={{
