@@ -83,7 +83,7 @@ export default function HeroSection() {
      
 
       {/* 데스크탑 */}
-      <div className="hidden md:block relative z-40 text-center text-white mx-auto px-4 mt-[27%]">
+      <div className="hidden md:block relative z-40 text-center text-white mx-auto px-4 mt-[25%]">
         {/* 상단 텍스트 - 오른쪽 정렬 */}
         <div className="flex justify-end">
           <p className="text-white text-3xl leading-snug text-right">

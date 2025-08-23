@@ -1,28 +1,13 @@
-## 250816
 
-1. 슬라이드
-2. MD PRODUCT
+history 페이지
+문장 크기 30px
 
-
-## 250809
-
-1. 타이틀 애니메이션
-2. 모바일 가로스크롤 (o)
-3. 디테일
-4. 서브페이지
-
-
----
-
-## 250802
-
-4. Bigtitle -> framer (overflow)
 pointer-events: none;
 
 whitespace-nowrap
 
 ## md 섹션
-framer motion 받음
+framer motion
 
 npm install lucide-react
 오픈소스 아이콘 라이브러리
