@@ -40,10 +40,10 @@ export default function HeroSection() {
     <section
       ref={heroRef}
       className="relative mb-[25vh] md:min-h-screen flex flex-col lg:flex-row items-center justify-center overflow-hidden"
-      style={{marginTop: '110vh' }}
+      style={{marginTop: '100vh' }}
     >
       {/* 데스크탑 배경 이미지 */}
-      <div className="absolute left-0 right-0 flex items-center justify-center bottom-[18vh] z-40">
+      <div className="hidden md:flex absolute left-0 right-0 items-center justify-center z-40">
         <img
           src="/img/playersteam1.png"
           alt="Hanwha Eagles Team"
