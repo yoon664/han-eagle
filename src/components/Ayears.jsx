@@ -408,7 +408,7 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
       transition={{ duration: 0.8, delay: 0.2 }}
     >
       {/* 구간별 연도 sticky */}
-      <div className="hidden lg:block absolute top-0 -left-44 w-80 h-full pointer-events-none z-10">
+      <div className="hidden lg:block absolute top-0 -left-[6vw] w-80 h-full pointer-events-none z-10">
         <div className="sticky top-1/3 transform -translate-y-1/2">
           <div className="history-section__sticky-wrap">
             <p className="history-section__sticky-year text-4xl font-bold mb-2" style={{
@@ -434,8 +434,25 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
         </div>
       </div>
 
-      {/* 이 period만의 중앙선 - 개선된 진행률 애니메이션 */}
-      <div className="absolute left-1/2 w-1 transform -translate-x-1/2" style={{
+      {/* 데스크탑 중앙선 */}
+      <div className="hidden md:block absolute left-1/2 w-1 transform -translate-x-1/2" style={{
+        top: '600px',
+        bottom: '0px'
+      }}>
+        {/* 회색 배경 선 */}
+        <div className="w-full h-full bg-[#FFFFFF1A]" />
+        {/* 주황색 진행률 선 */}
+        <motion.div
+          className="absolute top-0 left-0 w-full bg-[#FF6600]"
+          style={{
+            height: `${currentProgress * 100}%`,
+            transition: 'height 0.1s ease-out'
+          }}
+        />
+      </div>
+
+      {/* 모바일 왼쪽 타임라인 선 */}
+      <div className="md:hidden absolute left-8 w-1" style={{
         top: '600px',
         bottom: '0px'
       }}>
@@ -454,20 +471,20 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
       {/* 제목 부제목 */}
       <div className="text-center mb-12">
         <h2 
-          className="text-5xl md:text-7xl font-bold mb-4 md:mb-10"
+          className="text-4xl md:text-7xl font-bold mb-4 md:mb-10"
           style={{ color: period.color }}
         >
           {period.years}
         </h2>
-        <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 md:mb-6">{period.title}</h3>
-        <p className="text-lg md:text-base text-white leading-relaxed max-w-4xl mx-auto px-4 whitespace-pre-line">
+        <h3 className="text-2xl md:text-4xl font-bold text-white mb-4 md:mb-6">{period.title}</h3>
+        <p className="text-sm md:text-base text-white leading-relaxed max-w-4xl mx-auto px-4 whitespace-pre-line">
           {period.subtitle}
         </p>
       </div>
 
-      {/* 로고 */}
+      {/* 로고 223,139 */}
       <div className="mb-12 flex justify-center">
-        <div className="w-40 h-40 md:w-96 md:h-64 flex items-center justify-center">
+        <div className=" h-36 md:w-96 md:h-64 flex items-center justify-center">
           <img 
             src={period.logo} 
             alt={`${period.years} 로고`}
@@ -505,7 +522,7 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
                     <div className="w-5/12 text-right pr-8">
                       {/* 년도 - 색상 변화 적용 */}
                       <div 
-                        className="text-2xl font-bold mb-4 transition-colors duration-300"
+                        className="text-2xl font-bold mb-5 transition-colors duration-300"
                         style={{ color: getYearColor(yearIndex) }}
                       >
                         {yearContent.year}
@@ -516,7 +533,7 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
                         {yearContent.items.map((item, itemIndex) => (
                            <div key={itemIndex}>
                             {/* 텍스트 라인들 */}
-                            <div className="text-white text-lg leading-relaxed mb-4">
+                            <div className="text-white text-xl leading-relaxed mb-4">
                               <div>{item.text}</div>
                               {item.continuation && <div>{item.continuation}</div>}
                               {item.continuation2 && <div>{item.continuation2}</div>}
@@ -581,7 +598,7 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
                     <div className="w-5/12 text-left pl-8">
                       {/* 년도 - 색상 변화 적용 */}
                       <div 
-                        className="text-2xl font-bold mb-4 transition-colors duration-300"
+                        className="text-2xl font-bold mb-5 transition-colors duration-300"
                         style={{ color: getYearColor(yearIndex) }}
                       >
                         {yearContent.year}
@@ -592,7 +609,7 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
                         {yearContent.items.map((item, itemIndex) => (
                           <div key={itemIndex}>
                             {/* 텍스트 라인들 */}
-                            <div className="text-white text-lg leading-relaxed mb-4">
+                            <div className="text-white text-xl leading-relaxed mb-4">
                               <div>{item.text}</div>
                               {item.continuation && <div>{item.continuation}</div>}
                               {item.continuation2 && <div>{item.continuation2}</div>}
@@ -625,10 +642,10 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
                 )}
               </div>
 
-              {/* 모바일 중앙 정렬 */}
-              <div className="md:hidden w-full">
-                {/* 년도와 선 연결점 */}
-                <div className="flex items-center justify-center mb-8">
+              {/* 모바일 */}
+              <div className="md:hidden w-full flex">
+                {/* 왼쪽 타임라인 점 */}
+                <div className="flex items-start w-8 flex-shrink-0 pt-2">
                   <div 
                     className="w-4 h-4 rounded-full border transition-colors duration-300 z-10 relative"
                     style={{ 
@@ -636,46 +653,51 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
                       borderColor: getPointColor(yearIndex)
                     }}
                   />
+                </div>
+
+                {/* 오른쪽 콘텐츠 */}
+                <div className="flex-1 pl-4">
+                  {/* 년도 */}
                   <div 
-                    className="ml-4 text-2xl font-bold transition-colors duration-300"
+                    className="text-xl font-bold mb-4 transition-colors duration-300"
                     style={{ color: getYearColor(yearIndex) }}
                   >
                     {yearContent.year}
                   </div>
-                </div>
-
-                {/* 텍스트와 이미지들 */}
-                <div className="space-y-6 px-4">
-                  {yearContent.items.map((item, itemIndex) => (
-                    <div key={itemIndex} className={`text-center`}>
-                      {/* 텍스트 라인들 */}
-                      <div className="text-white text-lg leading-relaxed mb-4">
-                        <div>{item.text}</div>
-                        {item.continuation && <div>{item.continuation}</div>}
-                        {item.continuation2 && <div>{item.continuation2}</div>}
-                      </div>
-                      
-                      {/* 이미지 */}
-                      {item.image && (
-                        <div className="flex justify-center">
-                          <div className="w-80 h-52 overflow-hidden">
-                            <img 
-                              src={item.image} 
-                              alt={yearContent.year}
-                              className="w-full h-full object-cover"
-                              onError={(e) => {
-                                e.target.style.display = 'none';
-                                e.target.nextSibling.style.display = 'flex';
-                              }}
-                            />
-                            <div className="hidden w-full h-full bg-gray-600 flex items-center justify-center text-white text-sm">
-                              이미지
+                  
+                  {/* 텍스트와 이미지들 */}
+                  <div className="space-y-6">
+                    {yearContent.items.map((item, itemIndex) => (
+                      <div key={itemIndex}>
+                        {/* 텍스트 라인들 */}
+                        <div className="text-white text-base leading-relaxed mb-4">
+                          <div>{item.text}</div>
+                          {item.continuation && <div>{item.continuation}</div>}
+                          {item.continuation2 && <div>{item.continuation2}</div>}
+                        </div>
+                        
+                        {/* 이미지 */}
+                        {item.image && (
+                          <div className="flex justify-start">
+                            <div className="w-full max-w-sm h-40 overflow-hidden">
+                              <img 
+                                src={item.image} 
+                                alt={yearContent.year}
+                                className="w-full h-full object-cover"
+                                onError={(e) => {
+                                  e.target.style.display = 'none';
+                                  e.target.nextSibling.style.display = 'flex';
+                                }}
+                              />
+                              <div className="hidden w-full h-full bg-gray-600 flex items-center justify-center text-white text-sm">
+                                이미지
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </motion.div>
