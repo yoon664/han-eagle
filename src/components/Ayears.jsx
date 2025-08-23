@@ -20,7 +20,7 @@ const timelineData = [
             continuation: "제7구단으로 창단 준비 시작"
           },
           {
-            text: "팀 명칭 공모 결과 \"빙그레이글스\"로 결정",
+            text: <>팀 명칭 공모 결과 <strong>"빙그레이글스"</strong>로 결정</>,
             image: "/img/1985.png"
           }
         ]
@@ -66,10 +66,8 @@ const timelineData = [
         items: [
           {
             text: "장종훈 타격 4관왕(홈런, 타점, 장타율, 최다안타)",
-            continuation: "송진우는 1990년 구원왕에 이어 1992년 19승과 17세이브로"
-          },
-          {
-            text: "다승과 구원왕 타이틀 동시 석권 ",
+            continuation: "송진우는 1990년 구원왕에 이어 1992년 19승과 17세이브로",
+            continuation2:"다승과 구원왕 타이틀 동시 석권 ",
             image: "/img/1991.png"
           }
         ]
@@ -96,7 +94,7 @@ const timelineData = [
         year: "1999",
         items: [
           {
-            text: "1999년 한국시리즈 우승 (롯데전 4승 1패)",
+            text: <><strong>1999년 한국시리즈 우승 (롯데전 4승 1패)</strong></>,
             continuation: "한국시리즈 MVP 구대성 (1승 3세이브)",
             image: "/img/1999.png"
           }
@@ -159,8 +157,9 @@ const timelineData = [
             image: "/img/2005.png"
           },
           {
-            text: "2005년 정규리그를 4위로 마친 뒤 준플레이오프 승리로",
-            continuation: "플레이오프 진출 4년만의 포스트시즌 복귀 ",
+            text:<><br/></>,
+            continuation: "2005년 정규리그를 4위로 마친 뒤 준플레이오프 승리로",
+            continuation2: "플레이오프 진출 4년만의 포스트시즌 복귀 ",
           }
         ]
       },
@@ -172,7 +171,7 @@ const timelineData = [
             image: "/img/2006.png"
           },
           {
-            text: "한국시리즈 준우승"
+            text:<><br/><strong>한국시리즈 준우승</strong></>,
           }
         ]
       },
@@ -189,12 +188,14 @@ const timelineData = [
         year: "2009",
         items: [
           {
-            text: "정민철 은퇴경기(히어로즈전), 등번호 23번은 영구결번으로 지정",
-            continuation: "송진우 은퇴경기(LG전), 등번호 21번은 영구결번으로 지정",
+            text: <>정민철 은퇴경기(히어로즈전), <strong>등번호 23번은 영구결번으로 지정</strong></>,
+            continuation:<><br/><br/></>,
+            continuation2: "송진우 은퇴경기(LG전), 등번호 21번은 영구결번으로 지정",
             image: "/img/2009.png"
           },
           {
-            text: "제8대 감독으로 한대화 선임"
+            text:<><br/></>,
+            continuation: "제8대 감독으로 한대화 선임"
           }
         ]
       }
@@ -204,7 +205,7 @@ const timelineData = [
     id: 4,
     years: "2011~",
     startYear: "2011",
-    endYear: "현재",
+    endYear: "",
     title: "새로운 도약을 위한 바닥 다지기",
     subtitle: "바닥이 탄탄해야 더 높이 날아오를 수 있는 법\n팬과 함께 새로운 이글스로 도약하기 위한 시간들",
     logo: "/img/hislogo4.png", 
@@ -224,12 +225,19 @@ const timelineData = [
         items: [
           {
             text: "제9대 감독으로 김응룡 선임",
-            continuation: "박찬호 은퇴 발표",
-            continuation2: "류현진의 메이저리그 LA 다저스 입단 확정",
+          },
+          {
+            text:<><br/></>,
+            continuation:"박찬호 은퇴 발표",
+          },
+          {
+            text:<><br/></>,
+            continuation: "류현진의 메이저리그 LA 다저스 입단 확정",
             image: "/img/2012.png"
           },
           {
-            text:"2군 전용 훈련시설 서산연습장 준공"
+            text:<><br/></>,
+            continuation:"2군 전용 훈련시설 서산연습장 준공"
           }
         ]
       },
@@ -264,7 +272,7 @@ const timelineData = [
         items: [
           {
             text: "홈경기 역대 최다 관중 73만 기록",
-            continuation: "11년 만의 포스트시즌 진출(정규리그 3위 달성)"
+            continuation: <><strong>11년 만의 포스트시즌 진출(정규리그 3위 달성)</strong></>
           }
         ]
       },
@@ -277,7 +285,8 @@ const timelineData = [
             image: "/img/2019.png"
           },
           {
-            text: "제12대 수베로 감독 선임",
+            text:<><br/></>,
+            continuation: "제12대 수베로 감독 선임",
             image: "/img/2019b.png"
           }
         ]
@@ -290,11 +299,13 @@ const timelineData = [
             image: "/img/2023.png"
           },
           {
-            text: "제 13대 최원호 감독 선임",
+            text:<><br/></>,
+            continuation: "제 13대 최원호 감독 선임",
             image: "/img/2023b.png"
           },
           {
-            text: "노시환 홈런, 타점 2관왕 / 문동주 신인왕 수상",
+            text:<><br/></>,
+            continuation: "노시환 홈런, 타점 2관왕 / 문동주 신인왕 수상",
             image: "/img/2023c.png"
           }
         ]
@@ -307,7 +318,8 @@ const timelineData = [
             image: "/img/2024.png"
           },
           {
-            text: "제14대 김경문 감독 선임",
+            text:<><br/></>,
+            continuation: "제14대 김경문 감독 선임",
             image: "/img/2024b.png"
           }
         ]
@@ -377,7 +389,13 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
   // 중앙점 색상 계산
   const getPointColor = (yearIndex) => {
     const progress = yearProgresses[yearIndex] || 0;
-    return progress >= 0.5 ? '#FF6600' : '#FFFFFF1A';
+    return progress >= 0.5 ? '#FF6600' : '#393939';
+  };
+
+  // 년도 색상 계산 (중앙점과 동일한 로직)
+  const getYearColor = (yearIndex) => {
+    const progress = yearProgresses[yearIndex] || 0;
+    return progress >= 0.5 ? '#FF6600' : '#393939';
   };
 
   return (
@@ -389,6 +407,33 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
       animate={visibleSections.has(periodIndex) ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, delay: 0.2 }}
     >
+      {/* 구간별 연도 sticky */}
+      <div className="hidden lg:block absolute top-0 -left-36 w-80 h-full pointer-events-none z-10">
+        <div className="sticky top-1/3 transform -translate-y-1/2">
+          <div className="history-section__sticky-wrap">
+            <p className="history-section__sticky-year text-4xl font-bold mb-2" style={{
+              color: '#FFFFFF',
+              lineHeight: '1.2',
+              letterSpacing: '-0.035em',
+              wordBreak: 'keep-all'
+            }}>
+              {period.startYear} ~<br />
+              {period.endYear}
+            </p>
+            <p className="history-section__sticky-title text-base font-medium" style={{
+              color: '#FFFFFF',
+              lineHeight: '2.3',
+              letterSpacing: '-0.035em',
+              wordBreak: 'keep-all',
+              overflowWrap: 'break-word',
+              maxWidth: '220px'
+            }}>
+              {period.title}
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* 이 period만의 중앙선 - 개선된 진행률 애니메이션 */}
       <div className="absolute left-1/2 w-1 transform -translate-x-1/2" style={{
         top: '600px',
@@ -458,10 +503,10 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
                   <>
                     {/* 왼쪽 콘텐츠 */}
                     <div className="w-5/12 text-right pr-8">
-                      {/* 년도 */}
+                      {/* 년도 - 색상 변화 적용 */}
                       <div 
-                        className="text-2xl font-bold mb-4"
-                        style={{ color: period.color }}
+                        className="text-2xl font-bold mb-4 transition-colors duration-300"
+                        style={{ color: getYearColor(yearIndex) }}
                       >
                         {yearContent.year}
                       </div>
@@ -469,7 +514,7 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
                       {/* 텍스트와 이미지들 */}
                       <div className="space-y-6">
                         {yearContent.items.map((item, itemIndex) => (
-                          <div key={itemIndex}>
+                           <div key={itemIndex}>
                             {/* 텍스트 라인들 */}
                             <div className="text-white text-lg leading-relaxed mb-4">
                               <div>{item.text}</div>
@@ -534,10 +579,10 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
                     
                     {/* 오른쪽 콘텐츠 */}
                     <div className="w-5/12 text-left pl-8">
-                      {/* 년도 */}
+                      {/* 년도 - 색상 변화 적용 */}
                       <div 
-                        className="text-2xl font-bold mb-4"
-                        style={{ color: period.color }}
+                        className="text-2xl font-bold mb-4 transition-colors duration-300"
+                        style={{ color: getYearColor(yearIndex) }}
                       >
                         {yearContent.year}
                       </div>
@@ -592,8 +637,8 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
                     }}
                   />
                   <div 
-                    className="ml-4 text-2xl font-bold"
-                    style={{ color: period.color }}
+                    className="ml-4 text-2xl font-bold transition-colors duration-300"
+                    style={{ color: getYearColor(yearIndex) }}
                   >
                     {yearContent.year}
                   </div>
@@ -602,7 +647,7 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
                 {/* 텍스트와 이미지들 */}
                 <div className="space-y-6 px-4">
                   {yearContent.items.map((item, itemIndex) => (
-                    <div key={itemIndex} className="text-center">
+                    <div key={itemIndex} className={`text-center`}>
                       {/* 텍스트 라인들 */}
                       <div className="text-white text-lg leading-relaxed mb-4">
                         <div>{item.text}</div>
