@@ -33,9 +33,9 @@ const timelineData = [
             continuation: "(베성사 초대감독) 진행"
           },
           {
-            text: "대전구장 12,000석의 만원 관중 앞에서 MBC청룡을",
-            continuation: "상대로 치른",
-            continuation2: "역사적인 첫 경기 시작",
+            text: "대전구장 12,000석의 만원 관중 앞에서",
+            continuation: "MBC청룡을 상대로 치른 역사적인 첫 경기 시작",
+            continuation2: "",
             image: "/img/1986.png"
           }
         ]
@@ -337,13 +337,7 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
   
   const { scrollYProgress } = useScroll({
     target: periodRef,
-    offset: ["start 0.8", "end 0.2"]
-  });
-
-  const lineProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
+    offset: ["start 0.9", "end 0.1"]
   });
 
   // 스크롤 진행률에 따른 year 활성화 상태 및 개별 진행률 업데이트
@@ -355,26 +349,23 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
       
       // 각 항목의 실제 위치 기반으로 진행률 계산
       period.content.forEach((yearContent, yearIndex) => {
-        // 더 선형적인 진행률 계산 - 각 항목을 동일하게 취급
+        // 더 부드러운 진행률 계산
         const itemStart = yearIndex / period.content.length;
         const itemEnd = (yearIndex + 1) / period.content.length;
         
-        // 진행률을 더 빠르게 만들기 위해 지수 함수 적용
-        const adjustedProgress = Math.pow(progress, 0.7); // 0.7승을 적용해서 초반에 더 빠르게
-        
-        // 개별 year 진행률 계산
+        // 개별 year 진행률 계산 (단순화)
         let yearProgress = 0;
-        if (adjustedProgress > itemStart) {
-          if (adjustedProgress >= itemEnd) {
+        if (progress > itemStart) {
+          if (progress >= itemEnd) {
             yearProgress = 1;
           } else {
-            yearProgress = (adjustedProgress - itemStart) / (itemEnd - itemStart);
+            yearProgress = (progress - itemStart) / (itemEnd - itemStart);
           }
         }
         newYearProgresses[yearIndex] = yearProgress;
         
-        // 30% 이상 진행되면 활성화로 간주 (더 빠른 반응)
-        if (yearProgress >= 0.3) {
+        // 20% 이상 진행되면 활성화로 간주
+        if (yearProgress >= 0.2) {
           newActiveYears.add(yearIndex);
         }
       });
@@ -408,7 +399,7 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
       transition={{ duration: 0.8, delay: 0.2 }}
     >
       {/* 구간별 연도 sticky */}
-      <div className="hidden lg:block absolute top-0 -left-[6vw] w-80 h-full pointer-events-none z-10">
+      <div className="hidden lg:block absolute top-0 -left-[12vw] w-80 h-full pointer-events-none z-10">
         <div className="sticky top-1/3 transform -translate-y-1/2">
           <div className="history-section__sticky-wrap">
             <p className="history-section__sticky-year text-4xl font-bold mb-2" style={{
@@ -434,40 +425,6 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
         </div>
       </div>
 
-      {/* 데스크탑 중앙선 */}
-      <div className="hidden md:block absolute left-1/2 w-1 transform -translate-x-1/2" style={{
-        top: '600px',
-        bottom: '0px'
-      }}>
-        {/* 회색 배경 선 */}
-        <div className="w-full h-full bg-[#FFFFFF1A]" />
-        {/* 주황색 진행률 선 */}
-        <motion.div
-          className="absolute top-0 left-0 w-full bg-[#FF6600]"
-          style={{
-            height: `${currentProgress * 100}%`,
-            transition: 'height 0.1s ease-out'
-          }}
-        />
-      </div>
-
-      {/* 모바일 왼쪽 타임라인 선 */}
-      <div className="md:hidden absolute left-8 w-1" style={{
-        top: '600px',
-        bottom: '0px'
-      }}>
-        {/* 회색 배경 선 */}
-        <div className="w-full h-full bg-[#FFFFFF1A]" />
-        {/* 주황색 진행률 선 */}
-        <motion.div
-          className="absolute top-0 left-0 w-full bg-[#FF6600]"
-          style={{
-            height: `${currentProgress * 100}%`,
-            transition: 'height 0.1s ease-out'
-          }}
-        />
-      </div>
-      
       {/* 제목 부제목 */}
       <div className="text-center mb-12">
         <h2 
@@ -482,9 +439,9 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
         </p>
       </div>
 
-      {/* 로고 223,139 */}
-      <div className="mb-12 flex justify-center">
-        <div className=" h-36 md:w-96 md:h-64 flex items-center justify-center">
+      {/* 로고 */}
+      <div className="mb-24 flex justify-center">
+        <div className="h-36 md:w-96 md:h-64 flex items-center justify-center">
           <img 
             src={period.logo} 
             alt={`${period.years} 로고`}
@@ -501,7 +458,34 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
       </div>
 
       {/* 세부 내용들 - 지그재그 레이아웃 */}
-      <div className="space-y-16 max-w-7xl mx-auto">
+      <div className="space-y-16 max-w-7xl mx-auto relative">
+        {/* 데스크탑 중앙선 - 컨텐츠 영역 내부로 이동 */}
+        <div className="hidden md:block absolute left-1/2 w-1 transform -translate-x-1/2 h-full">
+          {/* 회색 배경 선 */}
+          <div className="w-full h-full bg-[#FFFFFF1A]" />
+          {/* 주황색 진행률 선 */}
+          <motion.div
+            className="absolute top-0 left-0 w-full bg-[#FF6600]"
+            style={{
+              height: `${currentProgress * 100}%`,
+              transition: 'height 0.1s ease-out'
+            }}
+          />
+        </div>
+
+        {/* 모바일 왼쪽 타임라인 선 - 컨텐츠 영역 내부로 이동 */}
+        <div className="md:hidden absolute left-4 w-1 h-full">
+          {/* 회색 배경 선 */}
+          <div className="w-full h-full bg-[#FFFFFF1A]" />
+          {/* 주황색 진행률 선 */}
+          <motion.div
+            className="absolute top-0 left-0 w-full bg-[#FF6600]"
+            style={{
+              height: `${currentProgress * 100}%`,
+              transition: 'height 0.1s ease-out'
+            }}
+          />
+        </div>
         {period.content.map((yearContent, yearIndex) => {
           const isLeft = yearIndex % 2 === 1;
           
@@ -542,7 +526,7 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
                             {/* 이미지 */}
                             {item.image && (
                               <div className="flex justify-end">
-                                <div className="w-96 h-52 overflow-hidden">
+                                <div className="w-[535px] h-60 overflow-hidden">
                                   <img 
                                     src={item.image} 
                                     alt={yearContent.year}
@@ -618,7 +602,7 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
                             {/* 이미지 */}
                             {item.image && (
                               <div className="flex justify-start">
-                                <div className="w-96 h-52 overflow-hidden">
+                                <div className="w-[535px] h-60 overflow-hidden">
                                   <img 
                                     src={item.image} 
                                     alt={yearContent.year}
@@ -645,7 +629,7 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
               {/* 모바일 */}
               <div className="md:hidden w-full flex">
                 {/* 왼쪽 타임라인 점 */}
-                <div className="flex items-start w-8 flex-shrink-0 pt-2">
+                <div className="flex items-start w-4 flex-shrink-0 pt-2 justify-center">
                   <div 
                     className="w-4 h-4 rounded-full border transition-colors duration-300 z-10 relative"
                     style={{ 
@@ -656,7 +640,7 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
                 </div>
 
                 {/* 오른쪽 콘텐츠 */}
-                <div className="flex-1 pl-4">
+                <div className="flex-1 pl-8">
                   {/* 년도 */}
                   <div 
                     className="text-xl font-bold mb-4 transition-colors duration-300"
