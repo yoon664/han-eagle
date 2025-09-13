@@ -331,7 +331,7 @@ const timelineData = [
   }
 ];
 
-const TimelinePeriod = ({ period }) => {
+const TimelinePeriod = ({ period, isLast }) => {
   const containerRef = useRef(null);
   const lineRef = useRef(null);
   const lineMobileRef = useRef(null);
@@ -343,19 +343,24 @@ const TimelinePeriod = ({ period }) => {
         ease: 'none',
         scrollTrigger: {
           trigger: containerRef.current,
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 0.5,
+          start: 'top 50%',
+          end: 'bottom 50%',
+          scrub: 1,
         },
       });
 
-      const yearItems = gsap.utils.toArray('.year-item');
+      const yearItems = gsap.utils.toArray(containerRef.current.querySelectorAll('.year-item'));
       yearItems.forEach((item) => {
         ScrollTrigger.create({
           trigger: item,
-          start: 'top center',
-          end: 'bottom center',
-          toggleClass: { targets: item, className: 'is-active' },
+          start: 'center 50%',
+          end: 'center 50%',
+          onEnter: () => {
+            item.classList.add('is-active');
+          },
+          onLeaveBack: () => {
+            item.classList.remove('is-active');
+          }
         });
       });
     }, containerRef);
@@ -366,7 +371,7 @@ const TimelinePeriod = ({ period }) => {
   return (
     <motion.div
       ref={containerRef}
-      className="relative mb-32 md:mb-48"
+      className={`relative ${isLast ? '' : 'mb-32 md:mb-48'}`}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.2 }}
@@ -528,15 +533,18 @@ const TimelinePeriod = ({ period }) => {
   );
 };
 
-
 export default function Ayears() {
   const containerRef = useRef(null);
   
   return (
-    <div ref={containerRef} className="bg-[#222222] min-h-screen pt-[100vh]">
+    <div ref={containerRef} className="bg-[#222222] min-h-screen pt-[100vh] pb-8">
       <div className="max-w-7xl mx-auto px-4 relative">
-        {timelineData.map((period) => (
-          <TimelinePeriod key={period.id} period={period} />
+        {timelineData.map((period, index) => (
+          <TimelinePeriod 
+            key={period.id} 
+            period={period} 
+            isLast={index === timelineData.length - 1}
+          />
         ))}
       </div>
     </div>
