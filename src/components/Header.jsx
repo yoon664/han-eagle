@@ -123,7 +123,13 @@ export default function Header() {
 
                 {/* PLAYERS 메뉴 */}
                 <div className="flex items-center justify-start space-x-4">
-                  <span className="text-white text-6xl font-bold font-alumni">PLAYERS</span>
+                  <a 
+                    href="#history"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-white text-6xl font-bold font-alumni hover:text-[#DF6D21] transition-colors"
+                  >
+                    PLAYERS
+                  </a>
                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
                     <path d="M30.8489 31.6985C31.4012 31.6985 31.8489 31.2508 31.8489 30.6985L31.8489 21.6985C31.8489 21.1462 31.4012 20.6985 30.8489 20.6985C30.2966 20.6985 29.8489 21.1462 29.8489 21.6985L29.8489 29.6985L21.8489 29.6985C21.2966 29.6985 20.8489 30.1462 20.8489 30.6985C20.8489 31.2508 21.2966 31.6985 21.8489 31.6985L30.8489 31.6985ZM1.15039 1L0.443284 1.70711L30.1418 31.4056L30.8489 30.6985L31.556 29.9914L1.8575 0.292893L1.15039 1Z" fill="white"/>
                   </svg>
@@ -131,7 +137,13 @@ export default function Header() {
 
                 {/* GAME 메뉴 */}
                 <div className="flex items-center justify-start space-x-4">
-                  <span className="text-white text-6xl font-bold font-alumni">GAME</span>
+                  <a 
+                    href="#history"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-white text-6xl font-bold font-alumni hover:text-[#DF6D21] transition-colors"
+                  >
+                    GAME
+                  </a>
                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
                     <path d="M30.8489 31.6985C31.4012 31.6985 31.8489 31.2508 31.8489 30.6985L31.8489 21.6985C31.8489 21.1462 31.4012 20.6985 30.8489 20.6985C30.2966 20.6985 29.8489 21.1462 29.8489 21.6985L29.8489 29.6985L21.8489 29.6985C21.2966 29.6985 20.8489 30.1462 20.8489 30.6985C20.8489 31.2508 21.2966 31.6985 21.8489 31.6985L30.8489 31.6985ZM1.15039 1L0.443284 1.70711L30.1418 31.4056L30.8489 30.6985L31.556 29.9914L1.8575 0.292893L1.15039 1Z" fill="white"/>
                   </svg>
@@ -139,7 +151,13 @@ export default function Header() {
 
                 {/* SHOP 메뉴 */}
                 <div>
-                  <span className="text-white text-6xl font-bold font-alumni">SHOP</span>
+                  <a 
+                    href="#history"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-white text-6xl font-bold font-alumni hover:text-[#DF6D21] transition-colors"
+                  >
+                    SHOP
+                  </a>
                 </div>
 
               </div>
@@ -185,9 +203,9 @@ export default function Header() {
                   </div>
                 )}
               </div>
-              <a href="#" className="text-white font-medium text-xl font-alumni hover:text-[#DF6D21] transition-colors duration-300">PLAYERS</a>
-              <a href="#" className="text-white font-medium text-xl font-alumni hover:text-[#DF6D21] transition-colors duration-300">GAME</a>
-              <a href="#" className="text-white font-medium text-xl font-alumni hover:text-[#DF6D21] transition-colors duration-300">SHOP</a>
+              <a href="#history" className="text-white font-medium text-xl font-alumni hover:text-[#DF6D21] transition-colors duration-300">PLAYERS</a>
+              <a href="#history" className="text-white font-medium text-xl font-alumni hover:text-[#DF6D21] transition-colors duration-300">GAME</a>
+              <a href="#history" className="text-white font-medium text-xl font-alumni hover:text-[#DF6D21] transition-colors duration-300">SHOP</a>
             </nav>
 
             {/* 아이콘 */}
