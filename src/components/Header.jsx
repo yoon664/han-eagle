@@ -38,7 +38,7 @@ export default function Header() {
     <>
       {/* 배경 영상 */}
       <video
-        // autoPlay
+        autoPlay
         loop
         muted
         playsInline
