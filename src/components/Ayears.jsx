@@ -1,6 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
-// useScroll을 framer-motion에서 추가로 import 합니다.
-import { motion, useTransform, useScroll } from 'framer-motion';
+import React, 'react';
+import { useRef, useLayoutEffect } from 'react';
+import { motion } from 'framer-motion';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
 
 const timelineData = [
   {
@@ -36,7 +41,6 @@ const timelineData = [
           {
             text: "대전구장 12,000석의 만원 관중 앞에서",
             continuation: "MBC청룡을 상대로 치른 역사적인 첫 경기 시작",
-            continuation2: "",
             image: "/img/1986.png"
           }
         ]
@@ -329,73 +333,47 @@ const timelineData = [
   }
 ];
 
-// 개별 period 컴포넌트
-const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
-  // useScroll의 대상으로 사용될 ref
+
+const TimelinePeriod = ({ period }) => {
   const containerRef = useRef(null);
-  
-  // 1. useScroll 훅을 사용하여 스크롤 진행률을 추적
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"] // 요소가 화면에 보이기 시작할 때부터 완전히 사라질 때까지를 추적
-  });
-  
-  // 2. IntersectionObserver는 현재 활성화된 항목 하이라이트에만 사용
-  const [activeYearIndices, setActiveYearIndices] = useState(new Set());
+  const lineRef = useRef(null);
+  const lineMobileRef = useRef(null);
 
-  // 3. 라인 색상은 scrollYProgress 값에 따라 결정
-  const lineColor = useTransform(scrollYProgress, [0, 0.05], ['#393939', '#FF6B35']);
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.to([lineRef.current, lineMobileRef.current], {
+        scaleY: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 0.5,
+        },
+      });
 
-  const getPointColor = (yearIndex) => {
-    return activeYearIndices.has(yearIndex) ? '#FF6B35' : '#393939';
-  };
-
-  const getYearColor = (yearIndex) => {
-    return activeYearIndices.has(yearIndex) ? '#FF6B35' : '#393939';
-  };
-
-  // 4. IntersectionObserver 설정 (하이라이트 기능 담당)
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const yearIndex = parseInt(entry.target.dataset.yearIndex, 10);
-          if (entry.isIntersecting) {
-            // 화면에 들어오면 active set에 추가
-            setActiveYearIndices((prev) => new Set(prev).add(yearIndex));
-          } else {
-            // 화면에서 나가면 active set에서 제거
-            setActiveYearIndices((prev) => {
-              const next = new Set(prev);
-              next.delete(yearIndex);
-              return next;
-            });
-          }
+      const yearItems = gsap.utils.toArray('.year-item');
+      yearItems.forEach((item) => {
+        ScrollTrigger.create({
+          trigger: item,
+          start: 'top center',
+          end: 'bottom center',
+          toggleClass: { targets: item, className: 'is-active' },
         });
-      },
-      {
-        // 화면의 상하단 45%를 제외한 중앙 10% 영역을 기준으로 감지
-        rootMargin: "-45% 0px -45% 0px",
-        threshold: 0,
-      }
-    );
+      });
+    }, containerRef);
 
-    const yearElements = containerRef.current?.querySelectorAll('[data-year-index]');
-    yearElements?.forEach((el) => observer.observe(el));
-
-    return () => {
-      yearElements?.forEach((el) => observer.unobserve(el));
-    };
-  }, [period.id]);
+    return () => ctx.revert();
+  }, []);
 
   return (
     <motion.div
-      ref={containerRef} // useScroll의 대상 ref를 여기에 연결
-      data-timeline-section
+      ref={containerRef}
       className="relative mb-32 md:mb-48"
-      initial={{ opacity: 0, y: 50 }}
-      animate={visibleSections.has(periodIndex) ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, delay: 0.2 }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.8 }}
     >
       <div className="hidden lg:block absolute top-0 -left-[12vw] w-80 h-full pointer-events-none z-10">
         <div className="sticky top-1/3 transform -translate-y-1/2">
@@ -434,46 +412,31 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
       <div className="space-y-16 max-w-7xl mx-auto relative">
         <div className="hidden md:block absolute left-1/2 w-1 transform -translate-x-1/2 top-2 bottom-0">
           <div className="w-full h-full bg-[#FFFFFF1A]" />
-          <motion.div
-            className="absolute top-0 left-0 w-full"
-            style={{ 
-              // 5. 라인의 scaleY(세로 길이)를 scrollYProgress에 직접 연결
-              scaleY: scrollYProgress, 
-              transformOrigin: 'top',
-              backgroundColor: lineColor
-            }}
+          <div
+            ref={lineRef}
+            className="absolute top-0 left-0 w-full h-full bg-[#FF6B35] origin-top"
+            style={{ transform: 'scaleY(0)' }}
           />
         </div>
 
         <div className="md:hidden absolute left-4 w-1 top-2 bottom-0">
           <div className="w-full h-full bg-[#FFFFFF1A]" />
-          <motion.div
-            className="absolute top-0 left-0 w-full"
-            style={{ 
-              scaleY: scrollYProgress, 
-              transformOrigin: 'top',
-              backgroundColor: lineColor
-            }}
+          <div
+            ref={lineMobileRef}
+            className="absolute top-0 left-0 w-full h-full bg-[#FF6B35] origin-top"
+            style={{ transform: 'scaleY(0)' }}
           />
         </div>
 
         {period.content.map((yearContent, yearIndex) => {
           const isLeft = yearIndex % 2 === 1;
-
           return (
-            <motion.div
-              key={yearIndex}
-              data-year-index={yearIndex}
-              className="relative flex items-center"
-              initial={{ opacity: 0, y: 30 }}
-              animate={visibleSections.has(periodIndex) ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.4 + yearIndex * 0.2 }}
-            >
+            <div key={yearIndex} className="year-item relative flex items-center">
               <div className="hidden md:flex w-full items-start">
                 {isLeft ? (
                   <>
                     <div className="w-5/12 text-right pr-8">
-                      <div className="text-2xl font-bold mb-5 transition-colors duration-300" style={{ color: getYearColor(yearIndex) }}>
+                      <div className="timeline-year text-2xl font-bold mb-5 transition-colors duration-300">
                         {yearContent.year}
                       </div>
                       <div className="space-y-6">
@@ -496,7 +459,7 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
                       </div>
                     </div>
                     <div className="flex justify-center items-start w-2/12 pt-2">
-                      <div className="w-4 h-4 rounded-full border transition-colors duration-300 z-10 relative" style={{ backgroundColor: getPointColor(yearIndex), borderColor: getPointColor(yearIndex) }} />
+                      <div className="timeline-point w-4 h-4 rounded-full border transition-all duration-300 z-10 relative" />
                     </div>
                     <div className="w-5/12"></div>
                   </>
@@ -504,10 +467,10 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
                   <>
                     <div className="w-5/12"></div>
                     <div className="flex justify-center items-start w-2/12 pt-2">
-                      <div className="w-4 h-4 rounded-full border transition-colors duration-300 z-10 relative" style={{ backgroundColor: getPointColor(yearIndex), borderColor: getPointColor(yearIndex) }} />
+                      <div className="timeline-point w-4 h-4 rounded-full border transition-all duration-300 z-10 relative" />
                     </div>
                     <div className="w-5/12 text-left pl-8">
-                      <div className="text-2xl font-bold mb-5 transition-colors duration-300" style={{ color: getYearColor(yearIndex) }}>
+                      <div className="timeline-year text-2xl font-bold mb-5 transition-colors duration-300">
                         {yearContent.year}
                       </div>
                       <div className="space-y-6">
@@ -532,13 +495,12 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
                   </>
                 )}
               </div>
-
               <div className="md:hidden w-full flex">
                 <div className="flex items-start w-4 flex-shrink-0 pt-2 justify-center">
-                  <div className="w-4 h-4 rounded-full border transition-colors duration-300 z-10 relative" style={{ backgroundColor: getPointColor(yearIndex), borderColor: getPointColor(yearIndex) }} />
+                  <div className="timeline-point w-4 h-4 rounded-full border transition-all duration-300 z-10 relative" />
                 </div>
                 <div className="flex-1 pl-8">
-                  <div className="text-xl font-bold mb-4 transition-colors duration-300" style={{ color: getYearColor(yearIndex) }}>
+                  <div className="timeline-year text-xl font-bold mb-4 transition-colors duration-300">
                     {yearContent.year}
                   </div>
                   <div className="space-y-6">
@@ -561,7 +523,7 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           );
         })}
       </div>
@@ -569,41 +531,15 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
   );
 };
 
+
 export default function Ayears() {
   const containerRef = useRef(null);
-  const [visibleSections, setVisibleSections] = useState(new Set());
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = document.querySelectorAll('[data-timeline-section]');
-      const newVisibleSections = new Set();
-      const windowHeight = window.innerHeight;
-
-      sections.forEach((section, index) => {
-        const rect = section.getBoundingClientRect();
-        if (rect.top < windowHeight * 0.8) {
-          newVisibleSections.add(index);
-        }
-      });
-      setVisibleSections(newVisibleSections);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
+  
   return (
     <div ref={containerRef} className="bg-[#222222] min-h-screen pt-[100vh]">
       <div className="max-w-7xl mx-auto px-4 relative">
-        {timelineData.map((period, periodIndex) => (
-          <TimelinePeriod
-            key={period.id}
-            period={period}
-            periodIndex={periodIndex}
-            visibleSections={visibleSections}
-          />
+        {timelineData.map((period) => (
+          <TimelinePeriod key={period.id} period={period} />
         ))}
       </div>
     </div>

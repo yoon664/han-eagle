@@ -16,3 +16,26 @@ body {
   background-color: #222222;
   /* background-color: #d9b8b8; */
 }
+
+/* 중앙선이 위에서부터 채워지도록 기준점 설정 */
+.origin-top {
+  transform-origin: top;
+}
+
+/* 기본 상태의 점과 연도 색상 */
+.year-item .timeline-point,
+.year-item .timeline-year {
+  color: #393939;
+  background-color: #393939;
+  border-color: #393939;
+  /* 부드러운 색상 전환 효과 */
+  transition: color 0.4s ease, background-color 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
+}
+
+/* GSAP에 의해 is-active 클래스가 추가되었을 때의 스타일 */
+.year-item.is-active .timeline-point,
+.year-item.is-active .timeline-year {
+  color: #FF6B35;
+  background-color: #FF6B35;
+  border-color: #FF6B35;
+}
