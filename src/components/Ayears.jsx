@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
+// useScroll을 framer-motion에서 추가로 import 합니다.
+import { motion, useTransform, useScroll } from 'framer-motion';
 
 const timelineData = [
   {
@@ -53,7 +54,7 @@ const timelineData = [
   },
   {
     id: 2,
-    years: "1991~1999", 
+    years: "1991~1999",
     startYear: "1991",
     endYear: "1999",
     title: "돌풍의 신생팀",
@@ -67,7 +68,7 @@ const timelineData = [
           {
             text: "장종훈 타격 4관왕(홈런, 타점, 장타율, 최다안타)",
             continuation: "송진우는 1990년 구원왕에 이어 1992년 19승과 17세이브로",
-            continuation2:"다승과 구원왕 타이틀 동시 석권 ",
+            continuation2: "다승과 구원왕 타이틀 동시 석권 ",
             image: "/img/1991.png"
           }
         ]
@@ -105,7 +106,7 @@ const timelineData = [
   {
     id: 3,
     years: "2001~2009",
-    startYear: "2001", 
+    startYear: "2001",
     endYear: "2009",
     title: "레전드의 세대교체",
     subtitle: "한국 프로야구를 상징하던 레전드들과의 아름다운 이별\n그리고 혜성처럼 등장한 새로운 레전드",
@@ -157,7 +158,7 @@ const timelineData = [
             image: "/img/2005.png"
           },
           {
-            text:<><br/></>,
+            text: <><br /></>,
             continuation: "2005년 정규리그를 4위로 마친 뒤 준플레이오프 승리로",
             continuation2: "플레이오프 진출 4년만의 포스트시즌 복귀 ",
           }
@@ -171,7 +172,7 @@ const timelineData = [
             image: "/img/2006.png"
           },
           {
-            text:<><br/><strong>한국시리즈 준우승</strong></>,
+            text: <><br /><strong>한국시리즈 준우승</strong></>,
           }
         ]
       },
@@ -189,12 +190,12 @@ const timelineData = [
         items: [
           {
             text: <>정민철 은퇴경기(히어로즈전), <strong>등번호 23번은 영구결번으로 지정</strong></>,
-            continuation:<><br/><br/></>,
+            continuation: <><br /><br /></>,
             continuation2: "송진우 은퇴경기(LG전), 등번호 21번은 영구결번으로 지정",
             image: "/img/2009.png"
           },
           {
-            text:<><br/></>,
+            text: <><br /></>,
             continuation: "제8대 감독으로 한대화 선임"
           }
         ]
@@ -208,7 +209,7 @@ const timelineData = [
     endYear: "",
     title: "새로운 도약을 위한 바닥 다지기",
     subtitle: "바닥이 탄탄해야 더 높이 날아오를 수 있는 법\n팬과 함께 새로운 이글스로 도약하기 위한 시간들",
-    logo: "/img/hislogo4.png", 
+    logo: "/img/hislogo4.png",
     color: "#FF6B35",
     content: [
       {
@@ -227,17 +228,17 @@ const timelineData = [
             text: "제9대 감독으로 김응룡 선임",
           },
           {
-            text:<><br/></>,
-            continuation:"박찬호 은퇴 발표",
+            text: <><br /></>,
+            continuation: "박찬호 은퇴 발표",
           },
           {
-            text:<><br/></>,
+            text: <><br /></>,
             continuation: "류현진의 메이저리그 LA 다저스 입단 확정",
             image: "/img/2012.png"
           },
           {
-            text:<><br/></>,
-            continuation:"2군 전용 훈련시설 서산연습장 준공"
+            text: <><br /></>,
+            continuation: "2군 전용 훈련시설 서산연습장 준공"
           }
         ]
       },
@@ -285,7 +286,7 @@ const timelineData = [
             image: "/img/2019.png"
           },
           {
-            text:<><br/></>,
+            text: <><br /></>,
             continuation: "제12대 수베로 감독 선임",
             image: "/img/2019b.png"
           }
@@ -299,12 +300,12 @@ const timelineData = [
             image: "/img/2023.png"
           },
           {
-            text:<><br/></>,
+            text: <><br /></>,
             continuation: "제 13대 최원호 감독 선임",
             image: "/img/2023b.png"
           },
           {
-            text:<><br/></>,
+            text: <><br /></>,
             continuation: "노시환 홈런, 타점 2관왕 / 문동주 신인왕 수상",
             image: "/img/2023c.png"
           }
@@ -318,7 +319,7 @@ const timelineData = [
             image: "/img/2024.png"
           },
           {
-            text:<><br/></>,
+            text: <><br /></>,
             continuation: "제14대 김경문 감독 선임",
             image: "/img/2024b.png"
           }
@@ -330,107 +331,88 @@ const timelineData = [
 
 // 개별 period 컴포넌트
 const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
-  const periodRef = useRef(null);
-  const [activeYears, setActiveYears] = useState(new Set());
-  const [yearProgresses, setYearProgresses] = useState({});
-  const [currentProgress, setCurrentProgress] = useState(0);
+  // useScroll의 대상으로 사용될 ref
+  const containerRef = useRef(null);
   
+  // 1. useScroll 훅을 사용하여 스크롤 진행률을 추적
   const { scrollYProgress } = useScroll({
-    target: periodRef,
-    offset: ["start 0.9", "end 0.1"]
+    target: containerRef,
+    offset: ["start end", "end start"] // 요소가 화면에 보이기 시작할 때부터 완전히 사라질 때까지를 추적
   });
+  
+  // 2. IntersectionObserver는 현재 활성화된 항목 하이라이트에만 사용
+  const [activeYearIndices, setActiveYearIndices] = useState(new Set());
 
-  // 스크롤 진행률에 따른 year 활성화 상태 및 개별 진행률 업데이트
-  useEffect(() => {
-    const unsubscribe = scrollYProgress.onChange((progress) => {
-      setCurrentProgress(progress);
-      const newActiveYears = new Set();
-      const newYearProgresses = {};
-      
-      // 각 항목의 실제 위치 기반으로 진행률 계산
-      period.content.forEach((yearContent, yearIndex) => {
-        // 더 부드러운 진행률 계산
-        const itemStart = yearIndex / period.content.length;
-        const itemEnd = (yearIndex + 1) / period.content.length;
-        
-        // 개별 year 진행률 계산 (단순화)
-        let yearProgress = 0;
-        if (progress > itemStart) {
-          if (progress >= itemEnd) {
-            yearProgress = 1;
-          } else {
-            yearProgress = (progress - itemStart) / (itemEnd - itemStart);
-          }
-        }
-        newYearProgresses[yearIndex] = yearProgress;
-        
-        // 20% 이상 진행되면 활성화로 간주
-        if (yearProgress >= 0.2) {
-          newActiveYears.add(yearIndex);
-        }
-      });
-      
-      setActiveYears(newActiveYears);
-      setYearProgresses(newYearProgresses);
-    });
+  // 3. 라인 색상은 scrollYProgress 값에 따라 결정
+  const lineColor = useTransform(scrollYProgress, [0, 0.05], ['#393939', '#FF6B35']);
 
-    return unsubscribe;
-  }, [scrollYProgress, period.content]);
-
-  // 중앙점 색상 계산
   const getPointColor = (yearIndex) => {
-    const progress = yearProgresses[yearIndex] || 0;
-    return progress >= 0.5 ? '#FF6600' : '#393939';
+    return activeYearIndices.has(yearIndex) ? '#FF6B35' : '#393939';
   };
 
-  // 년도 색상 계산 (중앙점과 동일한 로직)
   const getYearColor = (yearIndex) => {
-    const progress = yearProgresses[yearIndex] || 0;
-    return progress >= 0.5 ? '#FF6600' : '#393939';
+    return activeYearIndices.has(yearIndex) ? '#FF6B35' : '#393939';
   };
+
+  // 4. IntersectionObserver 설정 (하이라이트 기능 담당)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const yearIndex = parseInt(entry.target.dataset.yearIndex, 10);
+          if (entry.isIntersecting) {
+            // 화면에 들어오면 active set에 추가
+            setActiveYearIndices((prev) => new Set(prev).add(yearIndex));
+          } else {
+            // 화면에서 나가면 active set에서 제거
+            setActiveYearIndices((prev) => {
+              const next = new Set(prev);
+              next.delete(yearIndex);
+              return next;
+            });
+          }
+        });
+      },
+      {
+        // 화면의 상하단 45%를 제외한 중앙 10% 영역을 기준으로 감지
+        rootMargin: "-45% 0px -45% 0px",
+        threshold: 0,
+      }
+    );
+
+    const yearElements = containerRef.current?.querySelectorAll('[data-year-index]');
+    yearElements?.forEach((el) => observer.observe(el));
+
+    return () => {
+      yearElements?.forEach((el) => observer.unobserve(el));
+    };
+  }, [period.id]);
 
   return (
     <motion.div
-      ref={periodRef}
+      ref={containerRef} // useScroll의 대상 ref를 여기에 연결
       data-timeline-section
       className="relative mb-32 md:mb-48"
       initial={{ opacity: 0, y: 50 }}
       animate={visibleSections.has(periodIndex) ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, delay: 0.2 }}
     >
-      {/* 구간별 연도 sticky */}
       <div className="hidden lg:block absolute top-0 -left-[12vw] w-80 h-full pointer-events-none z-10">
         <div className="sticky top-1/3 transform -translate-y-1/2">
           <div className="history-section__sticky-wrap">
-            <p className="history-section__sticky-year text-4xl font-bold mb-2" style={{
-              color: '#FFFFFF',
-              lineHeight: '1.2',
-              letterSpacing: '-0.035em',
-              wordBreak: 'keep-all'
-            }}>
+            <p className="history-section__sticky-year text-4xl font-bold mb-2" style={{ color: '#FFFFFF', lineHeight: '1.2' }}>
               {period.startYear} ~<br />
               {period.endYear}
             </p>
-            <p className="history-section__sticky-title text-base font-medium" style={{
-              color: '#FFFFFF',
-              lineHeight: '2.3',
-              letterSpacing: '-0.035em',
-              wordBreak: 'keep-all',
-              overflowWrap: 'break-word',
-              maxWidth: '220px'
-            }}>
+            <p className="history-section__sticky-title text-base font-medium" style={{ color: '#FFFFFF', lineHeight: '2.3' }}>
               {period.title}
             </p>
           </div>
         </div>
       </div>
 
-      {/* 제목 부제목 */}
       <div className="text-center mb-12">
-        <h2 
-          className="text-4xl md:text-7xl font-bold mb-4 md:mb-10"
-          style={{ color: period.color }}
-        >
+        <h2 className="text-4xl md:text-7xl font-bold mb-4 md:mb-10" style={{ color: period.color }}>
           {period.years}
         </h2>
         <h3 className="text-2xl md:text-4xl font-bold text-white mb-4 md:mb-6">{period.title}</h3>
@@ -439,106 +421,73 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
         </p>
       </div>
 
-      {/* 로고 */}
       <div className="mb-24 flex justify-center">
         <div className="h-36 md:w-96 md:h-64 flex items-center justify-center">
-          <img 
-            src={period.logo} 
+          <img
+            src={period.logo}
             alt={`${period.years} 로고`}
             className="max-w-full max-h-full object-contain"
-            onError={(e) => {
-              e.target.style.display = 'none';
-              e.target.nextSibling.style.display = 'flex';
-            }}
           />
-          <div className="hidden w-full h-full flex items-center justify-center text-white text-lg">
-            {period.years} 로고
-          </div>
         </div>
       </div>
 
-      {/* 세부 내용들 - 지그재그 레이아웃 */}
       <div className="space-y-16 max-w-7xl mx-auto relative">
-        {/* 데스크탑 중앙선 - 컨텐츠 영역 내부로 이동 */}
-        <div className="hidden md:block absolute left-1/2 w-1 transform -translate-x-1/2 h-full">
-          {/* 회색 배경 선 */}
+        <div className="hidden md:block absolute left-1/2 w-1 transform -translate-x-1/2 top-2 bottom-0">
           <div className="w-full h-full bg-[#FFFFFF1A]" />
-          {/* 주황색 진행률 선 */}
           <motion.div
-            className="absolute top-0 left-0 w-full bg-[#FF6600]"
-            style={{
-              height: `${currentProgress * 100}%`,
-              transition: 'height 0.1s ease-out'
+            className="absolute top-0 left-0 w-full"
+            style={{ 
+              // 5. 라인의 scaleY(세로 길이)를 scrollYProgress에 직접 연결
+              scaleY: scrollYProgress, 
+              transformOrigin: 'top',
+              backgroundColor: lineColor
             }}
           />
         </div>
 
-        {/* 모바일 왼쪽 타임라인 선 - 컨텐츠 영역 내부로 이동 */}
-        <div className="md:hidden absolute left-4 w-1 h-full">
-          {/* 회색 배경 선 */}
+        <div className="md:hidden absolute left-4 w-1 top-2 bottom-0">
           <div className="w-full h-full bg-[#FFFFFF1A]" />
-          {/* 주황색 진행률 선 */}
           <motion.div
-            className="absolute top-0 left-0 w-full bg-[#FF6600]"
-            style={{
-              height: `${currentProgress * 100}%`,
-              transition: 'height 0.1s ease-out'
+            className="absolute top-0 left-0 w-full"
+            style={{ 
+              scaleY: scrollYProgress, 
+              transformOrigin: 'top',
+              backgroundColor: lineColor
             }}
           />
         </div>
+
         {period.content.map((yearContent, yearIndex) => {
           const isLeft = yearIndex % 2 === 1;
-          
+
           return (
             <motion.div
               key={yearIndex}
+              data-year-index={yearIndex}
               className="relative flex items-center"
               initial={{ opacity: 0, y: 30 }}
               animate={visibleSections.has(periodIndex) ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.4 + yearIndex * 0.2 }}
             >
-              {/* 데스크탑 지그재그 레이아웃 */}
               <div className="hidden md:flex w-full items-start">
                 {isLeft ? (
-                  // 왼쪽 배치
                   <>
-                    {/* 왼쪽 콘텐츠 */}
                     <div className="w-5/12 text-right pr-8">
-                      {/* 년도 - 색상 변화 적용 */}
-                      <div 
-                        className="text-2xl font-bold mb-5 transition-colors duration-300"
-                        style={{ color: getYearColor(yearIndex) }}
-                      >
+                      <div className="text-2xl font-bold mb-5 transition-colors duration-300" style={{ color: getYearColor(yearIndex) }}>
                         {yearContent.year}
                       </div>
-                      
-                      {/* 텍스트와 이미지들 */}
                       <div className="space-y-6">
                         {yearContent.items.map((item, itemIndex) => (
-                           <div key={itemIndex}>
-                            {/* 텍스트 라인들 */}
+                          <div key={itemIndex}>
                             <div className="text-white text-xl leading-relaxed mb-4">
                               <div>{item.text}</div>
                               {item.continuation && <div>{item.continuation}</div>}
                               {item.continuation2 && <div>{item.continuation2}</div>}
                             </div>
-                            
-                            {/* 이미지 */}
                             {item.image && (
                               <div className="flex justify-end">
                                 <div className="w-[535px] h-60 overflow-hidden">
-                                  <img 
-                                    src={item.image} 
-                                    alt={yearContent.year}
-                                    className="w-full h-full object-cover"
-                                    onError={(e) => {
-                                      e.target.style.display = 'none';
-                                      e.target.nextSibling.style.display = 'flex';
-                                    }}
-                                  />
-                                  <div className="hidden w-full h-full bg-gray-600 flex items-center justify-center text-white text-sm">
-                                    이미지
-                                  </div>
+                                  <img src={item.image} alt={yearContent.year} className="w-full h-full object-cover" />
                                 </div>
                               </div>
                             )}
@@ -546,75 +495,33 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
                         ))}
                       </div>
                     </div>
-                    
-                    {/* 중앙 점 */}
                     <div className="flex justify-center items-start w-2/12 pt-2">
-                      <div 
-                        className="w-4 h-4 rounded-full border transition-colors duration-300 z-10 relative"
-                        style={{ 
-                          backgroundColor: getPointColor(yearIndex),
-                          borderColor: getPointColor(yearIndex)
-                        }}
-                      />
+                      <div className="w-4 h-4 rounded-full border transition-colors duration-300 z-10 relative" style={{ backgroundColor: getPointColor(yearIndex), borderColor: getPointColor(yearIndex) }} />
                     </div>
-                    
-                    {/* 오른쪽 빈 공간 */}
                     <div className="w-5/12"></div>
                   </>
                 ) : (
-                  // 오른쪽 배치
                   <>
-                    {/* 왼쪽 빈 공간 */}
                     <div className="w-5/12"></div>
-                    
-                    {/* 중앙 점 */}
                     <div className="flex justify-center items-start w-2/12 pt-2">
-                      <div 
-                        className="w-4 h-4 rounded-full border transition-colors duration-300 z-10 relative"
-                        style={{ 
-                          backgroundColor: getPointColor(yearIndex),
-                          borderColor: getPointColor(yearIndex)
-                        }}
-                      />
+                      <div className="w-4 h-4 rounded-full border transition-colors duration-300 z-10 relative" style={{ backgroundColor: getPointColor(yearIndex), borderColor: getPointColor(yearIndex) }} />
                     </div>
-                    
-                    {/* 오른쪽 콘텐츠 */}
                     <div className="w-5/12 text-left pl-8">
-                      {/* 년도 - 색상 변화 적용 */}
-                      <div 
-                        className="text-2xl font-bold mb-5 transition-colors duration-300"
-                        style={{ color: getYearColor(yearIndex) }}
-                      >
+                      <div className="text-2xl font-bold mb-5 transition-colors duration-300" style={{ color: getYearColor(yearIndex) }}>
                         {yearContent.year}
                       </div>
-                      
-                      {/* 텍스트와 이미지들 */}
                       <div className="space-y-6">
                         {yearContent.items.map((item, itemIndex) => (
                           <div key={itemIndex}>
-                            {/* 텍스트 라인들 */}
                             <div className="text-white text-xl leading-relaxed mb-4">
                               <div>{item.text}</div>
                               {item.continuation && <div>{item.continuation}</div>}
                               {item.continuation2 && <div>{item.continuation2}</div>}
                             </div>
-                            
-                            {/* 이미지 */}
                             {item.image && (
                               <div className="flex justify-start">
                                 <div className="w-[535px] h-60 overflow-hidden">
-                                  <img 
-                                    src={item.image} 
-                                    alt={yearContent.year}
-                                    className="w-full h-full object-cover"
-                                    onError={(e) => {
-                                      e.target.style.display = 'none';
-                                      e.target.nextSibling.style.display = 'flex';
-                                    }}
-                                  />
-                                  <div className="hidden w-full h-full bg-gray-600 flex items-center justify-center text-white text-sm">
-                                    이미지
-                                  </div>
+                                  <img src={item.image} alt={yearContent.year} className="w-full h-full object-cover" />
                                 </div>
                               </div>
                             )}
@@ -626,56 +533,26 @@ const TimelinePeriod = ({ period, periodIndex, visibleSections }) => {
                 )}
               </div>
 
-              {/* 모바일 */}
               <div className="md:hidden w-full flex">
-                {/* 왼쪽 타임라인 점 */}
                 <div className="flex items-start w-4 flex-shrink-0 pt-2 justify-center">
-                  <div 
-                    className="w-4 h-4 rounded-full border transition-colors duration-300 z-10 relative"
-                    style={{ 
-                      backgroundColor: getPointColor(yearIndex),
-                      borderColor: getPointColor(yearIndex)
-                    }}
-                  />
+                  <div className="w-4 h-4 rounded-full border transition-colors duration-300 z-10 relative" style={{ backgroundColor: getPointColor(yearIndex), borderColor: getPointColor(yearIndex) }} />
                 </div>
-
-                {/* 오른쪽 콘텐츠 */}
                 <div className="flex-1 pl-8">
-                  {/* 년도 */}
-                  <div 
-                    className="text-xl font-bold mb-4 transition-colors duration-300"
-                    style={{ color: getYearColor(yearIndex) }}
-                  >
+                  <div className="text-xl font-bold mb-4 transition-colors duration-300" style={{ color: getYearColor(yearIndex) }}>
                     {yearContent.year}
                   </div>
-                  
-                  {/* 텍스트와 이미지들 */}
                   <div className="space-y-6">
                     {yearContent.items.map((item, itemIndex) => (
                       <div key={itemIndex}>
-                        {/* 텍스트 라인들 */}
                         <div className="text-white text-base leading-relaxed mb-4">
                           <div>{item.text}</div>
                           {item.continuation && <div>{item.continuation}</div>}
                           {item.continuation2 && <div>{item.continuation2}</div>}
                         </div>
-                        
-                        {/* 이미지 */}
                         {item.image && (
                           <div className="flex justify-start">
                             <div className="w-full max-w-sm h-40 overflow-hidden">
-                              <img 
-                                src={item.image} 
-                                alt={yearContent.year}
-                                className="w-full h-full object-cover"
-                                onError={(e) => {
-                                  e.target.style.display = 'none';
-                                  e.target.nextSibling.style.display = 'flex';
-                                }}
-                              />
-                              <div className="hidden w-full h-full bg-gray-600 flex items-center justify-center text-white text-sm">
-                                이미지
-                              </div>
+                              <img src={item.image} alt={yearContent.year} className="w-full h-full object-cover" />
                             </div>
                           </div>
                         )}
@@ -700,31 +577,28 @@ export default function Ayears() {
     const handleScroll = () => {
       const sections = document.querySelectorAll('[data-timeline-section]');
       const newVisibleSections = new Set();
+      const windowHeight = window.innerHeight;
 
       sections.forEach((section, index) => {
         const rect = section.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        
         if (rect.top < windowHeight * 0.8) {
           newVisibleSections.add(index);
         }
       });
-
       setVisibleSections(newVisibleSections);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-    
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <div ref={containerRef} className="bg-[#222222] min-h-screen pt-[100vh]">
       <div className="max-w-7xl mx-auto px-4 relative">
-        {/* 각 period를 개별 컴포넌트로 렌더링 */}
         {timelineData.map((period, periodIndex) => (
-          <TimelinePeriod 
+          <TimelinePeriod
             key={period.id}
             period={period}
             periodIndex={periodIndex}
