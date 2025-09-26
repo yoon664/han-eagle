@@ -1,7 +1,6 @@
 import React, { useRef, useLayoutEffect } from 'react';
 import { motion } from 'framer-motion';
 
-// 원본 데이터 구조 완전히 유지
 const timelineData = [
   {
     id: 1,
@@ -358,32 +357,34 @@ const HistorySection = ({ section, index }) => {
 
     const initAnimation = () => {
       const ctx = window.gsap.context(() => {
-        // Progress bar animation - 뷰포트 50% 기준으로 변경
-        window.gsap.fromTo(progressRef.current, 
+        // Progress bar animation
+        window.gsap.fromTo(progressRef.current,
           { scaleY: 0 },
           {
             scaleY: 1,
             ease: "none",
             scrollTrigger: {
               trigger: timelineListRef.current,
-              start: "top 50%",    // 뷰포트 50% 지점
-              end: "bottom 50%",   // 뷰포트 50% 지점
+              start: "top 50%",
+              end: "bottom 50%",
               scrub: 1
             }
           }
         );
 
-        // List items animation
+
         const items = sectionRef.current.querySelectorAll('.history-list__item');
         items.forEach((item) => {
           window.ScrollTrigger.create({
             trigger: item,
-            start: "top 60%",
-            end: "bottom 40%",
-            onEnter: () => item.classList.add('is-active'),
-            onLeave: () => item.classList.remove('is-active'),
-            onEnterBack: () => item.classList.add('is-active'),
-            onLeaveBack: () => item.classList.remove('is-active')
+            start: "top 50%",
+            end: "bottom 50%",
+            // onEnter: is-active 추가 (스크롤 다운)
+            // onLeave: is-active 제거 (스크롤 다운)
+            // onEnterBack: is-active 추가 (스크롤 업)
+            // onLeaveBack: is-active 제거 (스크롤 업)
+            // 토글클래스가 처리할수있도록 함
+            toggleClass: { targets: item, className: "is-active" }
           });
         });
       }, sectionRef);
@@ -395,7 +396,7 @@ const HistorySection = ({ section, index }) => {
   }, []);
 
   return (
-    <motion.div 
+    <motion.div
       ref={sectionRef}
       className={`history-section history-section--${index + 1} mb-32`}
       initial={{ opacity: 0 }}
@@ -444,10 +445,10 @@ const HistorySection = ({ section, index }) => {
 
         {/* Timeline Items */}
         <ol ref={timelineListRef} className="history-list space-y-16 relative">
-          {/* Progress Line - 첫 번째 항목부터 마지막 항목까지만 */}
+          {/* Progress Line */}
           <div className="absolute left-4 md:left-1/2 md:transform md:-translate-x-1/2 top-2 bottom-16 w-1 pointer-events-none">
             <div className="w-full h-full bg-gray-600 opacity-30"></div>
-            <div 
+            <div
               ref={progressRef}
               className="absolute top-0 left-0 w-full h-full bg-[#FF6B35] origin-top transform scale-y-0"
             ></div>
@@ -455,11 +456,11 @@ const HistorySection = ({ section, index }) => {
 
           {section.content.map((yearContent, yearIndex) => {
             const isReverse = yearIndex % 2 === 1;
-            
+
             return (
               <li key={yearIndex} className="history-list__item opacity-60 transition-all duration-500">
                 <div className={`history-list__flex flex items-start ${isReverse ? 'md:flex-row-reverse' : 'md:flex-row'} flex-col md:flex-row`}>
-                  
+
                   {/* Mobile Layout */}
                   <div className="md:hidden w-full flex">
                     <div className="flex items-start w-4 flex-shrink-0 pt-2 justify-center">
@@ -586,9 +587,9 @@ export default function Ayears() {
     <div className="bg-[#222222] min-h-screen pt-[100vh] pb-20">
       <div className="max-w-7xl mx-auto px-4 relative">
         {timelineData.map((section, index) => (
-          <HistorySection 
-            key={section.id} 
-            section={section} 
+          <HistorySection
+            key={section.id}
+            section={section}
             index={index}
           />
         ))}
