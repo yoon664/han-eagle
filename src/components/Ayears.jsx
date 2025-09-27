@@ -1,5 +1,5 @@
-import React, { useRef, useLayoutEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef, useState, useEffect } from 'react';
+import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
 
 const timelineData = [
   {
@@ -327,73 +327,49 @@ const timelineData = [
   }
 ];
 
+const TimelinePoint = ({ isActive }) => {
+  return (
+    <motion.div 
+      className={`timeline-point w-4 h-4 rounded-full border z-10 relative ${
+        isActive ? 'bg-[#FF6B35] border-[#FF6B35]' : 'bg-[#222325] border-white'
+      }`}
+      animate={{
+        backgroundColor: isActive ? '#FF6B35' : '#222325',
+        // borderColor: isActive ? '#FF6B35' : '#FFFFFF'
+      }}
+      transition={{ duration: 0 }}
+    />
+  );
+};
+
+const TimelineYear = ({ year, isActive }) => {
+  return (
+    <motion.div 
+      className={`timeline-year text-xl md:text-2xl font-bold mb-4 md:mb-5 ${
+        isActive ? 'text-[#FF6B35]' : 'text-white'
+      }`}
+      animate={{
+        color: isActive ? '#FF6B35' : '#FFFFFF'
+      }}
+      transition={{ duration: 0 }}
+    >
+      {year}
+    </motion.div>
+  );
+};
+
 const HistorySection = ({ section, index }) => {
   const sectionRef = useRef(null);
-  const progressRef = useRef(null);
   const timelineListRef = useRef(null);
 
-  useLayoutEffect(() => {
-    const loadGSAP = () => {
-      if (window.gsap && window.ScrollTrigger) {
-        initAnimation();
-        return;
-      }
 
-      if (!window.gsap) {
-        const script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
-        script.onload = () => {
-          const scrollScript = document.createElement('script');
-          scrollScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
-          scrollScript.onload = () => {
-            window.gsap.registerPlugin(window.ScrollTrigger);
-            initAnimation();
-          };
-          document.head.appendChild(scrollScript);
-        };
-        document.head.appendChild(script);
-      }
-    };
-
-    const initAnimation = () => {
-      const ctx = window.gsap.context(() => {
-        // Progress bar animation
-        window.gsap.fromTo(progressRef.current,
-          { scaleY: 0 },
-          {
-            scaleY: 1,
-            ease: "none",
-            scrollTrigger: {
-              trigger: timelineListRef.current,
-              start: "top 50%",
-              end: "bottom 50%",
-              scrub: 1
-            }
-          }
-        );
+  const { scrollYProgress } = useScroll({
+    target: timelineListRef,
+    offset: ["start 50%", "end 50%"]
+  });
 
 
-        const items = sectionRef.current.querySelectorAll('.history-list__item');
-        items.forEach((item) => {
-          window.ScrollTrigger.create({
-            trigger: item,
-            start: "top 50%",
-            end: "bottom 50%",
-            // onEnter: is-active 추가 (스크롤 다운)
-            // onLeave: is-active 제거 (스크롤 다운)
-            // onEnterBack: is-active 추가 (스크롤 업)
-            // onLeaveBack: is-active 제거 (스크롤 업)
-            // 토글클래스가 처리할수있도록 함
-            toggleClass: { targets: item, className: "is-active" }
-          });
-        });
-      }, sectionRef);
-
-      return () => ctx.revert();
-    };
-
-    loadGSAP();
-  }, []);
+  const lineScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
     <motion.div
@@ -448,136 +424,177 @@ const HistorySection = ({ section, index }) => {
           {/* Progress Line */}
           <div className="absolute left-4 md:left-1/2 md:transform md:-translate-x-1/2 top-2 bottom-16 w-1 pointer-events-none">
             <div className="w-full h-full bg-gray-600 opacity-30"></div>
-            <div
-              ref={progressRef}
-              className="absolute top-0 left-0 w-full h-full bg-[#FF6B35] origin-top transform scale-y-0"
-            ></div>
+            <motion.div
+              className="absolute top-0 left-0 w-full h-full bg-[#FF6B35] origin-top"
+              style={{ scaleY: lineScale }}
+            />
           </div>
 
           {section.content.map((yearContent, yearIndex) => {
             const isReverse = yearIndex % 2 === 1;
+            
+            const TimelineItem = () => {
+              const itemRef = useRef(null);
+              const [isPointActive, setIsPointActive] = useState(false);
+              
+              const { scrollYProgress: pointProgress } = useScroll({
+                target: itemRef,
+                offset: ["start 50%", "end 50%"]
+              });
 
-            return (
-              <li key={yearIndex} className="history-list__item opacity-60 transition-all duration-500">
-                <div className={`history-list__flex flex items-start ${isReverse ? 'md:flex-row-reverse' : 'md:flex-row'} flex-col md:flex-row`}>
+              useEffect(() => {
+                const unsubscribe = pointProgress.onChange((latest) => {
+                  setIsPointActive(latest >= 0.1);
+                });
+                return unsubscribe;
+              }, [pointProgress]);
 
-                  {/* Mobile Layout */}
-                  <div className="md:hidden w-full flex">
-                    <div className="flex items-start w-4 flex-shrink-0 pt-2 justify-center">
-                      <div className="timeline-point w-4 h-4 rounded-full border border-white bg-[#222222] transition-all duration-300 z-10 relative" />
-                    </div>
-                    <div className="flex-1 pl-8">
-                      <div className="timeline-year text-xl font-bold mb-4 text-white transition-colors duration-300">
-                        {yearContent.year}
+              return (
+                <li ref={itemRef} className="history-list__item opacity-100">
+                  <div className={`history-list__flex flex items-start ${isReverse ? 'md:flex-row-reverse' : 'md:flex-row'} flex-col md:flex-row`}>
+
+                    {/* Mobile Layout */}
+                    <div className="md:hidden w-full flex">
+                      <div className="flex items-start w-4 flex-shrink-0 pt-2 justify-center">
+                        <motion.div 
+                          className="timeline-point w-4 h-4 rounded-full border z-10 relative"
+                          animate={{
+                            backgroundColor: isPointActive ? '#FF6B35' : '#2f3236',
+                            borderColor: isPointActive ? '#FF6B35' : '#2f3236'
+                          }}
+                          transition={{ duration: 0 }}
+                        />
                       </div>
-                      <div className="space-y-6">
-                        {yearContent.items.map((item, itemIndex) => (
-                          <div key={itemIndex}>
-                            <div className="text-white text-base leading-relaxed mb-4">
-                              <div>{item.text}</div>
-                              {item.continuation && <div>{item.continuation}</div>}
-                              {item.continuation2 && <div>{item.continuation2}</div>}
+                      <div className="flex-1 pl-8">
+                        <motion.div 
+                          className="timeline-year text-xl font-bold mb-4"
+                          animate={{
+                            color: isPointActive ? '#FF6B35' : '#FFFFFF'
+                          }}
+                          transition={{ duration: 0 }}
+                        >
+                          {yearContent.year}
+                        </motion.div>
+                        <div className="space-y-6">
+                          {yearContent.items.map((item, itemIndex) => (
+                            <div key={itemIndex}>
+                              <div className="text-white text-base leading-relaxed mb-4">
+                                <div>{item.text}</div>
+                                {item.continuation && <div>{item.continuation}</div>}
+                                {item.continuation2 && <div>{item.continuation2}</div>}
+                              </div>
+                              {item.image && (
+                                <div className="flex justify-start">
+                                  <div className="w-full max-w-sm h-40 overflow-hidden">
+                                    <img src={item.image} alt={yearContent.year} className="w-full h-full object-cover" />
+                                  </div>
+                                </div>
+                              )}
                             </div>
-                            {item.image && (
-                              <div className="flex justify-start">
-                                <div className="w-full max-w-sm h-40 overflow-hidden">
-                                  <img src={item.image} alt={yearContent.year} className="w-full h-full object-cover" />
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        ))}
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Desktop Layout */}
-                  <div className="hidden md:flex w-full items-start">
-                    {isReverse ? (
-                      <>
-                        <div className="w-5/12 text-right pr-8">
-                          <div className="timeline-year text-2xl font-bold mb-5 text-white transition-colors duration-300">
-                            {yearContent.year}
-                          </div>
-                          <div className="space-y-6">
-                            {yearContent.items.map((item, itemIndex) => (
-                              <div key={itemIndex}>
-                                <div className="text-white text-xl leading-relaxed mb-4">
-                                  <div>{item.text}</div>
-                                  {item.continuation && <div>{item.continuation}</div>}
-                                  {item.continuation2 && <div>{item.continuation2}</div>}
-                                </div>
-                                {item.image && (
-                                  <div className="flex justify-end">
-                                    <div className="w-[535px] h-60 overflow-hidden">
-                                      <img src={item.image} alt={yearContent.year} className="w-full h-full object-cover" />
-                                    </div>
+                    {/* Desktop Layout */}
+                    <div className="hidden md:flex w-full items-start">
+                      {isReverse ? (
+                        <>
+                          <div className="w-5/12 text-right pr-8">
+                            <motion.div 
+                              className="timeline-year text-2xl font-bold mb-5"
+                              animate={{
+                                color: isPointActive ? '#FF6B35' : '#FFFFFF'
+                              }}
+                              transition={{ duration: 0 }}
+                            >
+                              {yearContent.year}
+                            </motion.div>
+                            <div className="space-y-6">
+                              {yearContent.items.map((item, itemIndex) => (
+                                <div key={itemIndex}>
+                                  <div className="text-white text-xl leading-relaxed mb-4">
+                                    <div>{item.text}</div>
+                                    {item.continuation && <div>{item.continuation}</div>}
+                                    {item.continuation2 && <div>{item.continuation2}</div>}
                                   </div>
-                                )}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                        <div className="flex justify-center items-start w-2/12 pt-2">
-                          <div className="timeline-point w-4 h-4 rounded-full border border-white bg-[#222222] transition-all duration-300 z-10 relative" />
-                        </div>
-                        <div className="w-5/12"></div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="w-5/12"></div>
-                        <div className="flex justify-center items-start w-2/12 pt-2">
-                          <div className="timeline-point w-4 h-4 rounded-full border border-white bg-[#222222] transition-all duration-300 z-10 relative" />
-                        </div>
-                        <div className="w-5/12 text-left pl-8">
-                          <div className="timeline-year text-2xl font-bold mb-5 text-white transition-colors duration-300">
-                            {yearContent.year}
-                          </div>
-                          <div className="space-y-6">
-                            {yearContent.items.map((item, itemIndex) => (
-                              <div key={itemIndex}>
-                                <div className="text-white text-xl leading-relaxed mb-4">
-                                  <div>{item.text}</div>
-                                  {item.continuation && <div>{item.continuation}</div>}
-                                  {item.continuation2 && <div>{item.continuation2}</div>}
-                                </div>
-                                {item.image && (
-                                  <div className="flex justify-start">
-                                    <div className="w-[535px] h-60 overflow-hidden">
-                                      <img src={item.image} alt={yearContent.year} className="w-full h-full object-cover" />
+                                  {item.image && (
+                                    <div className="flex justify-end">
+                                      <div className="w-[535px] h-60 overflow-hidden">
+                                        <img src={item.image} alt={yearContent.year} className="w-full h-full object-cover" />
+                                      </div>
                                     </div>
-                                  </div>
-                                )}
-                              </div>
-                            ))}
+                                  )}
+                                </div>
+                              ))}
+                            </div>
                           </div>
-                        </div>
-                      </>
-                    )}
+                          <div className="flex justify-center items-start w-2/12 pt-2">
+                            <motion.div 
+                              className="timeline-point w-4 h-4 rounded-full border z-10 relative"
+                              animate={{
+                                backgroundColor: isPointActive ? '#FF6B35' : '#2f3236',
+                                borderColor: isPointActive ? '#FF6B35' : '#2f3236'
+                              }}
+                              transition={{ duration: 0 }}
+                            />
+                          </div>
+                          <div className="w-5/12"></div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="w-5/12"></div>
+                          <div className="flex justify-center items-start w-2/12 pt-2">
+                            <motion.div 
+                              className="timeline-point w-4 h-4 rounded-full border z-10 relative"
+                              animate={{
+                                backgroundColor: isPointActive ? '#FF6B35' : '#2f3236',
+                                borderColor: isPointActive ? '#FF6B35' : '#2f3236'
+                              }}
+                              transition={{ duration: 0 }}
+                            />
+                          </div>
+                          <div className="w-5/12 text-left pl-8">
+                            <motion.div 
+                              className="timeline-year text-2xl font-bold mb-5"
+                              animate={{
+                                color: isPointActive ? '#FF6B35' : '#FFFFFF'
+                              }}
+                              transition={{ duration: 0 }}
+                            >
+                              {yearContent.year}
+                            </motion.div>
+                            <div className="space-y-6">
+                              {yearContent.items.map((item, itemIndex) => (
+                                <div key={itemIndex}>
+                                  <div className="text-white text-xl leading-relaxed mb-4">
+                                    <div>{item.text}</div>
+                                    {item.continuation && <div>{item.continuation}</div>}
+                                    {item.continuation2 && <div>{item.continuation2}</div>}
+                                  </div>
+                                  {item.image && (
+                                    <div className="flex justify-start">
+                                      <div className="w-[535px] h-60 overflow-hidden">
+                                        <img src={item.image} alt={yearContent.year} className="w-full h-full object-cover" />
+                                      </div>
+                                    </div>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </li>
-            );
+                </li>
+              );
+            };
+
+            return <TimelineItem key={yearIndex} />;
           })}
         </ol>
       </div>
-
-      <style dangerouslySetInnerHTML={{
-        __html: `
-          .history-list__item.is-active {
-            opacity: 1;
-          }
-          
-          .history-list__item.is-active .timeline-point {
-            background-color: #FF6B35;
-            border-color: #FF6B35;
-          }
-          
-          .history-list__item.is-active .history-list__year {
-            color: #FF6B35;
-          }
-        `
-      }} />
     </motion.div>
   );
 };
